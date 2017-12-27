@@ -9,8 +9,9 @@ import './experience.css';
 
 class Experience extends Component {
 
-    animateUsers = () => {
-        const $users = [...document.querySelectorAll(`.side-user`)],
+    animateUsers = e => {
+      console.log(e.currentTarget);
+        const $users = [...e.currentTarget.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
@@ -18,8 +19,8 @@ class Experience extends Component {
         }
     };
 
-    endAnimateUsers = () => {
-        const $users = [...document.querySelectorAll(`.side-user`)],
+    endAnimateUsers = e => {
+        const $users = [...e.currentTarget.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {

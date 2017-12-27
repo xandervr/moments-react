@@ -35,7 +35,7 @@ class Experience extends Component {
                         <a href="#">
                             <div className="user-holder" onMouseOver={this.animateUsers}
                                  onMouseOut={this.endAnimateUsers}>
-                                <img className="main-user" src={profile} alt="profile"/>
+                                <img className="main-user" src={experience.user.picture} alt="profile"/>
                                 <div className="side-users">
                                     <img className="side-user more" src={addWhite} alt=""/>
                                     <img className="side-user" src={profile} alt="profile"/>

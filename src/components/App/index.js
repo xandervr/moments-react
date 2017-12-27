@@ -13,7 +13,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8012/experiences', {credentials: 'include'})
+        fetch('http://moments.tntap.be/experiences', {credentials: 'include'})
             .then(r => r.json())
             .then(result => {
                 this.setState({data: result.experiences});

@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700');
+
+/* SECTION */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* NAV */
+
+nav {
+    height: 7.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    width: 100rem;
+}
+
+.nav-content .flex-item {
+    flex: 1;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 3rem;
+    letter-spacing: .2rem;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input-holder {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search img {
+    height: 1.5rem;
+    position: absolute;
+    left: 1rem;
+}
+
+.search input {
+    border: none;
+    border-radius: 1.1rem;
+    box-shadow: 0 .5rem 1rem var(--boxshadow);
+    padding: 1rem;
+    padding-left: 3rem;
+    height: 4rem;
+    width: 25rem;
+    font-size: 1.5rem;
+}
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.profile-actions .action {
+    display: flex;
+    padding: 0 1rem;
+}
+
+.profile-actions .action img {
+    height: 2.7rem;
+    padding: .2rem;
+}
+
+.settings {
+    transition: transform .2s;
+}
+
+.settings:hover {
+    transform: rotate(25deg);
+}
+
+.profile-actions .profile img,
+.moment .profile img {
+    height: 6rem;
+    border-radius: 50%;
+    border: dotted .2rem var(--blue);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+/* END NAV */

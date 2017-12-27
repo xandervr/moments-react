@@ -1,0 +1,194 @@
+/* MOMENT */
+
+.moment {
+    width: 45rem;
+    position: relative;
+}
+
+.head-img {
+    width: 100%;
+    height: 45rem;
+}
+
+.img-container img {
+    object-fit: cover;
+    border-radius: 1.5rem;
+}
+
+.head-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.moment .content {
+    position: relative;
+    top: -10rem;
+    right: 10%;
+    width: 120%;
+    height: auto;
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 .5rem 1rem var(--boxshadow);
+    padding: 2rem 2rem 1rem 2rem;
+    z-index: 2;
+}
+
+.moment .profile {
+    position: absolute;
+    left: -4rem;
+    top: -4rem;
+}
+
+.moment .profile a {
+    display: flex;
+    align-items: center;
+}
+
+.moment .profile .username {
+    margin-top: -3.5rem;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.user-holder {
+    position: relative;
+}
+
+.moment .profile img {
+    height: 8rem;
+    width: 8rem;
+}
+
+.side-users {
+    transform: scale(.8);
+    position: absolute;
+    top: -2.5rem;
+    left: -6.5rem;
+    width: 16rem;
+    height: 15.5rem;
+}
+
+.moment .user-holder .side-user {
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    right: 6rem;
+    bottom: 1rem;
+    transition: transform .3s;
+}
+
+.moment .user-holder .side-user.more {
+    z-index: 5;
+    background-color: var(--blue);
+    border: none;
+}
+
+.user-holder .side-user.zero {
+    transform: scale(.8) translate(-.5rem, .5rem);
+}
+
+.user-holder .side-user.first {
+    transform: translate(-4rem, -1rem) scale(1.2);
+}
+
+.user-holder .side-user.second {
+    transition-delay: .05s;
+    transform: translate(-5.5rem, -5.5rem) scale(1.2);
+}
+
+.user-holder .side-user.third {
+    transition-delay: .1s;
+    transform: translate(-4.5rem, -10.5rem) scale(1.2);
+}
+
+.moment .head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.head .title {
+    font-family: 'Rubik', sans-serif;
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.head .location {
+    margin-top: .2rem;
+    font-size: 1.3rem;
+}
+
+.head .actions {
+    display: flex;
+}
+
+.head .actions .action img {
+    height: 2.7rem;
+    padding: 0 1rem;
+}
+
+.moment .info .desc {
+    width: 70%;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    margin-top: 1.2rem;
+}
+
+.moment .comments {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.comments li {
+    padding: .5rem 0;
+    max-width: 100%;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.comments p {
+    color: var(--grey);
+}
+
+.content.images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    top: -12rem;
+    z-index: 1;
+    height: 5.5rem;
+}
+
+.content.images p {
+    font-size: 1.5rem;
+    color: var(--grey);
+}
+
+.content.open-moments {
+    height: auto;
+}
+
+.img-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.img-list .img-container {
+    width: 50%;
+    height: 23rem;
+    padding: 1rem;
+}
+
+.img-list .img-container img {
+    width: 100%;
+    height: 100%;
+}
+
+/* END MOMENT */

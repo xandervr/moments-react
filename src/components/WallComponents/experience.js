@@ -9,8 +9,8 @@ import './experience.css';
 
 class Experience extends Component {
 
-    animateUsers = () => {
-        const $users = [...document.querySelectorAll(`.side-user`)],
+    animateUsers = e => {
+        const $users = [...e.target.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
@@ -18,8 +18,8 @@ class Experience extends Component {
         }
     };
 
-    endAnimateUsers = () => {
-        const $users = [...document.querySelectorAll(`.side-user`)],
+    endAnimateUsers = e => {
+        const $users = [...e.target.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
@@ -47,7 +47,7 @@ class Experience extends Component {
                         </a>
                     </div>
                     <div className="head-img img-container">
-                        <img src={experience.moments[0].media[0].image} alt=""/>
+                        <img src={experience.image} alt=""/>
                     </div>
                     <div className="content">
                         <div className="head">
@@ -81,7 +81,7 @@ class Experience extends Component {
                                     amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing
                                     elit Lorem ipsum dolor sit amet, consectetur adipiscing elit
                                 </li>
-                                <li><span className="username">CisVercoutre</span>&nbsp;&nbsp;Lorem ipsum dolor sit
+                                <li><span className="username">CisVercoutren</span>&nbsp;&nbsp;Lorem ipsum dolor sit
                                     amet, consectetur adipiscing elit
                                 </li>
                                 <li><span className="username">WizardVr</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,

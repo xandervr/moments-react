@@ -1,20 +1,29 @@
 import React, {Component} from 'react';
-import Add from '../../svg/add.js';
-import Settings from '../../svg/settings';
-import profile from '../../svg/profile.jpg';
+import Add from '../../assets/svg/add.js';
+import Settings from '../../assets/svg/settings';
+import profile from '../../assets/svg/profile.jpg';
+import Search from '../Search/index';
 import "./index.css";
 
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchValue: '',
+        }
+    }
+
+    onChangeSearchValue = e => {
+        this.setState({searchValue: e.target.value});
+    };
+
     render() {
         return (
             <nav>
                 <div className="nav-content">
                     <div className="logo flex-item">Moments</div>
-                    <div className="search flex-item">
-                        <div className="input-holder">
-                            <input type="search" name="search" placeholder="Search"></input>
-                        </div>
-                    </div>
+                    <Search searchValue={this.state.searchValue} onChangeSearchValue={this.onChangeSearchValue}>Search</Search>
                     <div className="profile-actions flex-item">
                         <div className="action add">
                             <Add className="icon">add</Add>

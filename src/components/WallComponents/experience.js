@@ -1,86 +1,118 @@
 import React, {Component} from 'react';
-import profile from '../../svg/profile.jpg';
-import addWhite from '../../svg/add-white.svg';
-import chat from '../../svg/chat.svg';
-import like from '../../svg/like.svg';
-import share from '../../svg/share.svg';
-import france from '../../svg/france.jpg';
+import profile from '../../assets/svg/profile.jpg';
+import addWhite from '../../assets/svg/add-white.svg';
+import chat from '../../assets/svg/chat.svg';
+import like from '../../assets/svg/like.svg';
+import share from '../../assets/svg/share.svg';
+import france from '../../assets/svg/france.jpg';
 import './experience.css';
 
 class Experience extends Component {
+
+    animateUsers = () => {
+        const $users = [...document.querySelectorAll(`.side-user`)],
+            userCSS = [`zero`, `first`, `second`, `third`];
+
+        for (let i = 0; i < $users.length; i++) {
+            $users[i].classList.add(`${userCSS[i]}`);
+        }
+    };
+
+    endAnimateUsers = () => {
+        const $users = [...document.querySelectorAll(`.side-user`)],
+            userCSS = [`zero`, `first`, `second`, `third`];
+
+        for (let i = 0; i < $users.length; i++) {
+            $users[i].classList.remove(`${userCSS[i]}`);
+        }
+    };
+
     render() {
-        return (
-            <article class="moment">
-                    <div class="profile">
+        const {experience} = this.props;
+            return (
+                <article className="moment">
+                    <div className="profile">
                         <a href="#">
-                            <div class="user-holder" onmouseover="animateUsers()" onmouseout="endAnimateUsers()">
-                                <img class="main-user" src={profile} alt="profile"/>
-                                    <div class="side-users">
-                                        <img class="side-user more" src={addWhite} alt=""/>
-                                            <img class="side-user" src={profile} alt="profile"/>
-                                                <img class="side-user" src={profile} alt="profile"/>
-                                                    <img class="side-user" src={profile} alt="profile"/>
-                                    </div>
+                            <div className="user-holder" onMouseOver={this.animateUsers}
+                                 onMouseOut={this.endAnimateUsers}>
+                                <img className="main-user" src={profile} alt="profile"/>
+                                <div className="side-users">
+                                    <img className="side-user more" src={addWhite} alt=""/>
+                                    <img className="side-user" src={profile} alt="profile"/>
+                                    <img className="side-user" src={profile} alt="profile"/>
+                                    <img className="side-user" src={profile} alt="profile"/>
+                                </div>
                             </div>
-                            <p class="username">JariVerswyvel</p>
+                            <p className="username">{experience.user.surname} {experience.user.name}</p>
                         </a>
                     </div>
-                    <div class="head-img img-container">
-                        <img src={france} alt=""/>
+                    <div className="head-img img-container">
+                        <img src={experience.moments[0].media[0].image} alt=""/>
                     </div>
-                    <div class="content">
-                        <div class="head">
+                    <div className="content">
+                        <div className="head">
                             <div>
-                                <h2 class="title">Skivakantie</h2>
-                                <p class="location">Les Orres - France</p>
+                                <h2 className="title">{experience.title}</h2>
+                                <p className="location">Les Orres - France</p>
                             </div>
-                            <div class="actions">
-                                <div class="action pointer">
+                            <div className="actions">
+                                <div className="action pointer">
                                     <img src={chat} alt="comment"/>
                                 </div>
-                                <div class="action pointer">
+                                <div className="action pointer">
                                     <img src={like} alt="like"/>
                                 </div>
-                                <div class="action pointer">
+                                <div className="action pointer">
                                     <img src={share} alt="share"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="info">
-                            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis</p>
+                        <div className="info">
+                            <p className="desc">{experience.description}</p>
                         </div>
-                        <div class="comments">
+                        <div className="comments">
                             <ul>
-                                <li><span class="username">JariVerswyvel</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                                <li><span className="username">JariVerswyvel</span>&nbsp;&nbsp;Lorem ipsum dolor sit
+                                    amet, consectetur adipiscing elit
+                                </li>
                             </ul>
-                            <ul class="hide">
-                                <li><span class="username">JariVerswyvel</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                                <li><span class="username">CisVercoutre</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                                <li><span class="username">WizardVr</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                                <li><span class="username">SpaBlauw</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+                            <ul className="hide">
+                                <li><span className="username">JariVerswyvel</span>&nbsp;&nbsp;Lorem ipsum dolor sit
+                                    amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing
+                                    elit Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                </li>
+                                <li><span className="username">CisVercoutre</span>&nbsp;&nbsp;Lorem ipsum dolor sit
+                                    amet, consectetur adipiscing elit
+                                </li>
+                                <li><span className="username">WizardVr</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                    consectetur adipiscing elit
+                                </li>
+                                <li><span className="username">SpaBlauw</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                    consectetur adipiscing elit
+                                </li>
                             </ul>
-                            <p class="pointer" onclick="openComments(this)">View 4 other comments</p>
+                            <p className="pointer" onClick="openComments(this)">View 4 other comments</p>
                         </div>
                     </div>
-                    <div class="content images">
-                        <div class="img-list hide">
-                            <div class="img-container">
+                    <div className="content images">
+                        <div className="img-list hide">
+                            <div className="img-container">
                                 <img src={france} alt=""/>
                             </div>
-                            <div class="img-container">
+                            <div className="img-container">
                                 <img src={france} alt=""/>
                             </div>
-                            <div class="img-container">
+                            <div className="img-container">
                                 <img src={france} alt=""/>
                             </div>
-                            <div class="img-container">
+                            <div className="img-container">
                                 <img src={france} alt=""/>
                             </div>
                         </div>
-                        <p class="pointer" onclick="openMoments(this)">See more moments</p>
+                        <p className="pointer" onClick="openMoments(this)">See more moments</p>
                     </div>
                 </article>
-        )
+            )
     }
 }
 

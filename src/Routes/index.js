@@ -10,6 +10,13 @@ class Routing extends Component {
         this.state = {};
     }
 
+    componentWillMount() {
+        console.log('checking');
+        this.authentication.checkLoggedIn(() => {
+            this.setState({fetched: true});
+        });
+    }
+
     authentication = {
         isAuthenticated: false,
         checkLoggedIn: cb => {
@@ -29,33 +36,18 @@ class Routing extends Component {
                         cb();
                     })
                     .catch(err => console.log(err));
-            } else this.setState({fetched: true});
+            } else cb();
         }
     };
 
-    componentWillMount() {
-        this.authentication.checkLoggedIn(() => {
-            this.setState({fetched: true});
-        });
-    }
-
     render() {
+        console.log('fetched: ' + this.state.fetched);
         if (this.state.fetched)
             return (
                 <Router>
                     <div>
-                        <LoginRoute
-                            authenticated={this.authentication.isAuthenticated}
-                            exact
-                            path="/login"
-                            component={SigninPage}
-                        />
-                        <AuthenticatedRoute
-                            authenticated={this.authentication.isAuthenticated}
-                            exact
-                            path="/"
-                            component={App}
-                        />
+                        <LoginRoute authentication={this.authentication} exact path="/login" component={SigninPage} />
+                        <AuthenticatedRoute authentication={this.authentication} exact path="/" component={App} />
                     </div>
                 </Router>
             );
@@ -63,12 +55,34 @@ class Routing extends Component {
     }
 }
 
-const LoginRoute = ({component: Component, authenticated: authenticated, ...rest}) => {
-    return <Route {...rest} render={() => (!authenticated ? <Component {...rest} /> : <Redirect to="/" />)} />;
+const LoginRoute = ({component: Component, authentication: authentication, ...rest}) => {
+    return (
+        <Route
+            {...rest}
+            render={() =>
+                !authentication.isAuthenticated ? (
+                    <Component authentication={authentication} {...rest} />
+                ) : (
+                    <Redirect to="/" />
+                )
+            }
+        />
+    );
 };
 
-const AuthenticatedRoute = ({component: Component, authenticated: authenticated, ...rest}) => {
-    return <Route {...rest} render={() => (authenticated ? <Component {...rest} /> : <Redirect to="/login" />)} />;
+const AuthenticatedRoute = ({component: Component, authentication: authentication, ...rest}) => {
+    return (
+        <Route
+            {...rest}
+            render={() =>
+                authentication.isAuthenticated ? (
+                    <Component authentication={authentication} {...rest} />
+                ) : (
+                    <Redirect to="/login" />
+                )
+            }
+        />
+    );
 };
 
 export default Routing;

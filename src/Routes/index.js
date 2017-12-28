@@ -29,36 +29,40 @@ class Routing extends Component {
         })
             .then(r => r.json())
             .then(data => {
-                cb();
                 data.message === 'Success'
                     ? this.setState({authenticated: true})
                     : this.setState({authenticated: false});
+                cb();
             })
             .catch(err => console.log(err));
     };
 
     render() {
-        if (this.state.fetched)
+        if (this.state.fetched) {
+            console.log(this.state);
             return (
                 <Router>
                     <div>
-                        <Route exact path="/" component={SigninPage} />
-                        <AuthenticatedRoute
+                        <LoginRoute
                             authenticated={this.state.authenticated}
                             exact
-                            path="/home"
-                            component={App}
+                            path="/login"
+                            component={SigninPage}
                         />
+                        <AuthenticatedRoute authenticated={this.state.authenticated} exact path="/" component={App} />
                     </div>
                 </Router>
             );
-        else return null;
+        } else return null;
     }
 }
 
+const LoginRoute = ({component: Component, ...rest}) => {
+    return <Route {...rest} render={() => (!rest.authenticated ? <Component {...rest} /> : <Redirect to="/" />)} />;
+};
+
 const AuthenticatedRoute = ({component: Component, ...rest}) => {
-    console.log(rest.authenticated);
-    return <Route {...rest} render={props => (props.authenticated ? <Component {...props} /> : <Redirect to="/" />)} />;
+    return <Route {...rest} render={() => (rest.authenticated ? <Component {...rest} /> : <Redirect to="/login" />)} />;
 };
 
 export default Routing;

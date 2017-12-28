@@ -5,26 +5,17 @@ import Signin from '../Signin';
 import Signup from '../Signup';
 import france from '../../assets/svg/france.jpg';
 import './index.css';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 class SigninPage extends Component {
-    state = {
-        login: {
-            username: '',
-            password: ''
-        },
-        register: {
-            surname: '',
-            name: '',
-            email: '',
-            password: '',
-            password_check: ''
-        },
-        account: {
-            access_token: '',
-            expire_date: '',
-            refresh_token: ''
-        }
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            login: {username: '', password: ''},
+            register: {surname: '', name: '', email: '', password: '', password_check: ''},
+            account: {access_token: '', expire_date: '', refresh_token: ''}
+        };
+    }
 
     showSignup = () => {
         const $active = document.querySelector(`.signin`);
@@ -59,27 +50,32 @@ class SigninPage extends Component {
 
     onChangeRemember = e => {};
 
-    performLogin = e => {
+    performLogin = (e, cb) => {
         const {username, password} = this.state.login;
 
         if (username === ``) {
-          document.querySelector(`.email-error`).classList.add(`show-error`);
+            document.querySelector(`.email-error`).classList.add(`show-error`);
         }
         if (password === ``) {
-          document.querySelector(`.password-error`).classList.add(`show-error`)
+            document.querySelector(`.password-error`).classList.add(`show-error`)
         }
 
         if (username !== `` && password !== ``) {
-          login(username, password, tokens => {
-              this.setState({
-                  account: {
-                      access_token: tokens.access_token,
-                      expire_date: tokens.expire_date,
-                      refresh_token: tokens.refresh_token
+            login(username, password, tokens => {
+                  if (tokens) {
+                  this.setState({
+                                account: {
+                                access_token: tokens.access_token,
+                                expire_date: tokens.expire_date,
+                                refresh_token: tokens.refresh_token
+                                }
+                                });
+                  localStorage.setItem('moments_account', JSON.stringify(this.state.account));
+                  cb(true);
+                  } else {
+                  cb(false);
                   }
-              });
-              localStorage.setItem('moments_account', JSON.stringify(this.state.account));
-          });
+                  });
         }
 
         e.preventDefault();
@@ -110,6 +106,7 @@ class SigninPage extends Component {
                             </h2>
                         </div>
                         <Signin
+                            authentication={this.props.authentication}
                             performLogin={this.performLogin}
                             onChangeRemember={this.onChangeRemember}
                             onChangeUsername={this.onChangeUsername}

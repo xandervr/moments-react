@@ -31,15 +31,17 @@ export const login = (username, password, cb) => {
     })
         .then(r => r.json())
         .then(data => {
-            authenticate(
-                data.token.client_id,
-                data.token.client_secret,
-                window.navigator.userAgent,
-                window.navigator.userAgent,
-                tokens => {
-                    cb(tokens);
-                }
-            );
+            if (data.message === 'Success')
+                authenticate(
+                    data.token.client_id,
+                    data.token.client_secret,
+                    window.navigator.userAgent,
+                    window.navigator.userAgent,
+                    tokens => {
+                        cb(tokens);
+                    }
+                );
+            else cb(false);
         })
         .catch(err => console.log(err));
 };

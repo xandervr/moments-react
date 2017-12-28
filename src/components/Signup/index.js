@@ -29,12 +29,17 @@ const Signup = props => {
                     Password
                 </label>
             </div>
+            <div className="input-holder">
+                <input id="confirm-password-signup" type="password" name="" required />
+                <label className="input-label" htmlFor="confirm-password-signup">
+                    Confirm Password
+                </label>
+            </div>
             <div className="form-actions">
                 <button
                     className="upper pointer signup-btn"
                     type="button"
-                    name="button"
-                >
+                    name="button">
                     create account
                 </button>
             </div>

@@ -5,8 +5,16 @@ import france from "../../assets/svg/france.jpg";
 import "./index.css";
 
 class SigninPage extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state({});
+    }
 
+    onChangeLogin = e => {
+        this.setState({
+            login: {}
+        });
+    };
     showSignup = () => {
         const $active = document.querySelector(`.signin`);
         const $inactive = document.querySelector(`.signup`);

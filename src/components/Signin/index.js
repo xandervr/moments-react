@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Signin = props => {
     return (
@@ -20,13 +21,16 @@ const Signin = props => {
                 <label htmlFor="remember">Remember me</label>
             </div>
             <div className="form-actions">
-                <button
-                    className="upper login-btn pointer"
-                    type="button"
-                    name="button"
-                >
-                    Sign in
-                </button>
+                <Link to="/home">
+                    <button
+                        className="upper login-btn pointer"
+                        type="button"
+                        name="button"
+                    >
+                        Sign in
+                    </button>
+                </Link>
+
                 {/* <button class="upper pointer signup-btn" type="button" name="button" onclick="showSignup()">Sign ip</button> */}
             </div>
         </form>

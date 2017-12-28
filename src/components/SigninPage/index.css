@@ -63,7 +63,7 @@ section {
   display: flex;
   min-width: 100%;
   justify-content: space-between;
-  margin-top: -3rem;
+  margin-top: -5rem;
   font-weight: bold;
 }
 
@@ -104,7 +104,7 @@ section {
 
 .slide-out {
   position: relative;
-  transform: translateX(-60rem);
+  transform: translateX(60rem);
   opacity: 0;
   z-index: -1;
 }
@@ -173,6 +173,21 @@ input:-webkit-autofill {
   font-weight: lighter;
   display: flex;
   align-items: center;
+}
+
+.error {
+  color: #d2112c;
+  position: absolute;
+  transform: translateX(0);
+  z-index: -1;
+  font-size: 1.5rem;
+  transition: transform .2s;
+  min-width: 20rem;
+  text-align: right;
+}
+
+.show-error {
+  transform: translateX(-22rem);
 }
 
 #remember {

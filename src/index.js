@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/App";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Routes from "./Routes";
-import registerServiceWorker from "./registerServiceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Routes from './Routes';
+import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Routes />, document.getElementById("root"));
+ReactDOM.render(<Routes />, document.getElementById('root'));
 
 registerServiceWorker();
 

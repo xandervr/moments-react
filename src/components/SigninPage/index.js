@@ -62,16 +62,25 @@ class SigninPage extends Component {
     performLogin = e => {
         const {username, password} = this.state.login;
 
-        login(username, password, tokens => {
-            this.setState({
-                account: {
-                    access_token: tokens.access_token,
-                    expire_date: tokens.expire_date,
-                    refresh_token: tokens.refresh_token
-                }
-            });
-            localStorage.setItem('moments_account', JSON.stringify(this.state.account));
-        });
+        if (username === ``) {
+          document.querySelector(`.email-error`).classList.add(`show-error`);
+        }
+        if (password === ``) {
+          document.querySelector(`.password-error`).classList.add(`show-error`)
+        }
+
+        if (username !== `` && password !== ``) {
+          login(username, password, tokens => {
+              this.setState({
+                  account: {
+                      access_token: tokens.access_token,
+                      expire_date: tokens.expire_date,
+                      refresh_token: tokens.refresh_token
+                  }
+              });
+              localStorage.setItem('moments_account', JSON.stringify(this.state.account));
+          });
+        }
 
         e.preventDefault();
     };

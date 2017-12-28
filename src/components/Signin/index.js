@@ -27,14 +27,7 @@ const Signin = ({onChangeUsername, onChangePassword, onChangeRemember, performLo
                 <label htmlFor="remember">Remember me</label>
             </div>
             <div className="form-actions">
-<<<<<<< HEAD
-                <button
-                    className="upper login-btn pointer"
-                    type="button"
-                    name="button">
-=======
                 <button className="upper login-btn pointer" type="button" name="button" onClick={performLogin}>
->>>>>>> 2e727123c901acdfcac7807f011f77cc62a36a2c
                     Sign in
                 </button>
                 {/* <button class="upper pointer signup-btn" type="button" name="button" onclick="showSignup()">Sign ip</button> */}

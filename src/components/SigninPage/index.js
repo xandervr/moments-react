@@ -1,11 +1,54 @@
-import React, { Component } from "react";
-import Signin from "../Signin";
-import Signup from "../Signup";
-import france from "../../assets/svg/france.jpg";
-import "./index.css";
+import React, {Component} from 'react';
+import {login} from '../../assets/js/lib/tap-client';
+import {API_URL} from '../../assets/js/consts';
+import Signin from '../Signin';
+import Signup from '../Signup';
+import france from '../../assets/svg/france.jpg';
+import './index.css';
 
 class SigninPage extends Component {
-    state = {};
+    state = {
+        login: {
+            username: '',
+            password: ''
+        },
+        register: {
+            surname: '',
+            name: '',
+            email: '',
+            password: '',
+            password_check: ''
+        },
+        account: {
+            access_token: '',
+            expire_date: '',
+            refresh_token: ''
+        }
+    };
+
+    checkLoggedIn = async () => {
+        let account = JSON.parse(localStorage.getItem('moments_account'));
+        if (account) {
+            this.setState({account});
+        }
+        let result = await fetch(`${API_URL}/validate`, {
+            methode: `GET`,
+            headers: {
+                Authorization: 'Bearer ' + account.access_token
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                return data.message === 'Success' ? true : false;
+            })
+            .catch(err => console.log(err));
+        return result;
+    };
+
+    async componentWillMount() {
+        const loggedIn = await this.checkLoggedIn();
+        console.log(loggedIn);
+    }
 
     showSignup = () => {
         const $active = document.querySelector(`.signin`);
@@ -16,6 +59,45 @@ class SigninPage extends Component {
         $active.classList.toggle(`active-signup`);
         $active.classList.toggle(`inactive`);
         $inactive.classList.toggle(`inactive`);
+    };
+
+    onChangeUsername = e => {
+        const username = e.target.value;
+        this.setState(prevState => ({
+            login: {
+                ...prevState.login,
+                username: username
+            }
+        }));
+    };
+
+    onChangePassword = e => {
+        const password = e.target.value;
+        this.setState(prevState => ({
+            login: {
+                ...prevState.login,
+                password: password
+            }
+        }));
+    };
+
+    onChangeRemember = e => {};
+
+    performLogin = e => {
+        const {username, password} = this.state.login;
+
+        login(username, password, tokens => {
+            this.setState({
+                account: {
+                    access_token: tokens.access_token,
+                    expire_date: tokens.expire_date,
+                    refresh_token: tokens.refresh_token
+                }
+            });
+            localStorage.setItem('moments_account', JSON.stringify(this.state.account));
+        });
+
+        e.preventDefault();
     };
 
     render() {
@@ -35,20 +117,20 @@ class SigninPage extends Component {
                     </div>
                     <div className="form-holder">
                         <div className="sign-titles">
-                            <h2
-                                onClick={this.showSignup}
-                                className="active signin pointer"
-                            >
+                            <h2 onClick={this.showSignup} className="active signin pointer">
                                 <span>Sign in</span>
                             </h2>
-                            <h2
-                                onClick={this.showSignup}
-                                className="inactive signup pointer"
-                            >
+                            <h2 onClick={this.showSignup} className="inactive signup pointer">
                                 <span>Sign up</span>
                             </h2>
                         </div>
-                        <Signin />
+                        <Signin
+                            performLogin={this.performLogin}
+                            onChangeRemember={this.onChangeRemember}
+                            onChangeUsername={this.onChangeUsername}
+                            onChangePassword={this.onChangePassword}
+                            login={this.state.login}
+                        />
                         <Signup />
                     </div>
                     <div className="terms" />

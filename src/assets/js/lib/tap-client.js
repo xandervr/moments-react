@@ -6,7 +6,43 @@
  * @desc [description]
  */
 
-const API = `http://moments.tntap.be`;
+import {API_URL} from '../consts';
+
+/**
+ * @function login Login.
+ * @param username User's username.
+ * @param password User's password.
+ * @param cb Callback function returning access object
+ * @returns {Object}
+ * @public
+ */
+
+export const login = (username, password, cb) => {
+    fetch(`${API_URL}/users/login`, {
+        method: `POST`,
+        headers: {
+            'User-Agent': 'TapAuth Client/1.0',
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    })
+        .then(r => r.json())
+        .then(data => {
+            authenticate(
+                data.token.client_id,
+                data.token.client_secret,
+                window.navigator.userAgent,
+                window.navigator.userAgent,
+                tokens => {
+                    cb(tokens);
+                }
+            );
+        })
+        .catch(err => console.log(err));
+};
 
 /**
  * @function authenticate Fetches an access_token object.
@@ -16,37 +52,37 @@ const API = `http://moments.tntap.be`;
  * @param device_os (optional) Device OS
  * @param cb Callback function returning access object
  * @returns {Object}
- * @public
+ * @private
  */
 
 const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
-    fetch(`${API}/token`, {
-            method: `POST`,
-            headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify({
-                client_id: client_id,
-                client_secret: client_secret
-            })
+    fetch(`${API_URL}/token`, {
+        method: `POST`,
+        headers: {
+            'User-Agent': 'TapAuth Client/1.0',
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            client_id: client_id,
+            client_secret: client_secret
         })
+    })
         .then(r => r.json())
         .then(data => {
-            fetch(`${API}/authenticate`, {
-                    method: `POST`,
-                    headers: {
-                        'User-Agent': 'TapAuth Client/1.0',
-                        'Content-Type': 'application/json; charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        client_id: client_id,
-                        client_secret: client_secret,
-                        code: data.code,
-                        device_name: device_name,
-                        device_os: device_os
-                    })
+            fetch(`${API_URL}/authenticate`, {
+                method: `POST`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify({
+                    client_id: client_id,
+                    client_secret: client_secret,
+                    code: data.code,
+                    device_name: device_name,
+                    device_os: device_os
                 })
+            })
                 .then(r => r.json())
                 .then(data => {
                     cb(data);

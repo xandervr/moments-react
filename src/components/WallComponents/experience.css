@@ -153,6 +153,16 @@
     color: var(--grey);
 }
 
+.comment-form {
+  display: flex;
+  align-items: center;
+}
+
+#comment {
+  margin-left: 1rem;
+  width: 90%;
+}
+
 .content.images {
     display: flex;
     flex-direction: column;

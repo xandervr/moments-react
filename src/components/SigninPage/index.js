@@ -26,30 +26,6 @@ class SigninPage extends Component {
         }
     };
 
-    checkLoggedIn = async () => {
-        let account = JSON.parse(localStorage.getItem('moments_account'));
-        if (account) {
-            this.setState({account});
-        }
-        let result = await fetch(`${API_URL}/validate`, {
-            methode: `GET`,
-            headers: {
-                Authorization: 'Bearer ' + account.access_token
-            }
-        })
-            .then(r => r.json())
-            .then(data => {
-                return data.message === 'Success' ? true : false;
-            })
-            .catch(err => console.log(err));
-        return result;
-    };
-
-    async componentWillMount() {
-        const loggedIn = await this.checkLoggedIn();
-        console.log(loggedIn);
-    }
-
     showSignup = () => {
         const $active = document.querySelector(`.signin`);
         const $inactive = document.querySelector(`.signup`);

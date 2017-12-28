@@ -1,0 +1,247 @@
+section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.image-holder {
+  width: 50%;
+  height: 100%;
+}
+
+.image-holder img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.login-section {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.titles h1 {
+  font-size: 5rem;
+  font-family: 'Rubik';
+  color: var(--grey);
+}
+
+.titles h2 {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  max-width: 30rem;
+  line-height: 2.2rem;
+  font-weight: lighter;
+  letter-spacing: .2rem;
+  color: var(--grey);
+}
+
+.titles span {
+  font-weight: bold;
+  color: var(--blue);
+  letter-spacing: .2rem;
+}
+
+.form-holder {
+  display: flex;
+  position: relative;
+  width: 35rem;
+  height: 26.7rem;
+}
+
+.form-holder h2 {
+  font-size: 2.5rem;
+}
+
+.sign-titles {
+  display: flex;
+  min-width: 21rem;
+  justify-content: space-between;
+  margin-top: -3rem;
+}
+
+.sign-titles .inactive span {
+  opacity: .4!important;
+}
+
+.sign-titles .active {
+  opacity: 1;
+}
+
+.sign-titles .active::after {
+  content: '';
+  display: block;
+  height: .3rem;
+  width: 100%;
+  transform: translateX(0);
+  position: relative;
+  top: 1rem;
+  background-color: var(--blue);
+  transition: transform .2s;
+  opacity: 1!important;
+}
+
+.sign-titles .active-signup::after {
+  transform: translateX(12.8rem);
+  width: 110%;
+  opacity: 1!important;
+}
+
+.signin-form,
+.signup-form {
+  z-index: 1;
+  transition: transform .3s, opacity .3s;
+  position: absolute;
+}
+
+.slide-out {
+  position: relative;
+  transform: translateX(-60rem);
+  opacity: 0;
+  z-index: -1;
+}
+
+.signup-form {
+  transform: translateX(60rem);
+  opacity: 0;
+}
+
+.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.back-btn {
+  position: absolute;
+  top: 45%;
+  left: -10rem;
+}
+
+.input-holder {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-holder label {
+  position: absolute;
+  font-size: 2rem;
+  padding-left: 2rem;
+  transition: transform .2s;
+  transform: translateY(0);
+  color: var(--blue);
+}
+
+input:-webkit-autofill {
+  box-shadow: inset 0 0 0px 9999px white, 0 .5rem 1rem var(--boxshadow)!important;
+}
+
+.input-holder input {
+  padding-top: 3rem;
+  font-size: 2rem;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  width: 35rem;
+  border: none;
+  box-shadow: 0 .5rem 1rem var(--boxshadow);
+  margin: 1rem 0;
+  /*border-radius: 1.5rem;*/
+  color: var(--grey);
+  color: var(--blue);
+}
+
+.input-holder input:focus + .input-label,
+.input-holder input:valid + .input-label  {
+  transform: translateY(-1.5rem);
+  font-weight: lighter;
+  color: var(--grey);
+}
+
+.remember-holder {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: var(--grey);
+  letter-spacing: .1rem;
+  font-weight: lighter;
+}
+
+.remember-holder input {
+  transform: scale(1.2);
+}
+
+.remember-holder label {
+  opacity: .6;
+}
+
+#remember:checked + label {
+  opacity: 1;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.login-btn,
+.signup-btn {
+  border: none;
+  background-color: var(--blue);
+  color: white;
+  padding: 2rem 3rem;
+  font-size: 1.5rem;
+  letter-spacing: .2rem;
+}
+
+.signup-btn {
+  border: solid .1rem var(--blue);
+  background-color: transparent;
+  color: var(--blue);
+  width: 23.5rem;
+  max-width: 23.5rem;
+  transition: font-weight .2s;
+  position: relative;
+}
+
+.signup-btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  max-height: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--blue);
+  z-index: -1;
+  transition: max-height .3s;
+}
+
+.signup-btn:hover {
+  font-weight: bold;
+}
+
+.signup-btn:focus {
+  color: white;
+}
+
+.signup-btn:focus::after {
+  max-height: 7rem;
+}
+
+.double-input-holder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.double-input input  {
+  width: 17rem;
+}

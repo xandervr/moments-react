@@ -1,34 +1,32 @@
 import React, { Component } from "react";
 import "./index.css";
-import Navbar from '../Navbar';
-import Wall from '../Wall';
+import Navbar from "../Navbar";
+import Wall from "../Wall";
 
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
-        }
+            data: null
+        };
     }
 
     componentDidMount() {
-        fetch('http://moments.tntap.be/experiences', {credentials: 'include'})
+        fetch("http://moments.tntap.be/experiences")
             .then(r => r.json())
             .then(result => {
-                this.setState({data: result.experiences});
+                this.setState({ data: result.experiences });
             })
-            .catch( e => e)
-    };
+            .catch(e => e);
+    }
 
     render() {
-    const experiences = this.state.data ? this.state.data : [];
+        const experiences = this.state.data ? this.state.data : [];
         return (
             <div>
-                <Navbar/>
+                <Navbar />
                 <Wall experiences={experiences} />
             </div>
-
         );
     }
 }

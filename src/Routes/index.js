@@ -7,62 +7,68 @@ import SigninPage from '../components/SigninPage';
 class Routing extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            authenticated: false
-        };
+        this.state = {};
     }
 
+    authentication = {
+        isAuthenticated: false,
+        checkLoggedIn: cb => {
+            let account = JSON.parse(localStorage.getItem('moments_account'));
+            if (account) {
+                fetch(`${API_URL}/validate`, {
+                    methode: `GET`,
+                    headers: {
+                        Authorization: 'Bearer ' + account.access_token
+                    }
+                })
+                    .then(r => r.json())
+                    .then(data => {
+                        data.message === 'Success'
+                            ? (this.authentication.isAuthenticated = true)
+                            : (this.authentication.isAuthenticated = false);
+                        cb();
+                    })
+                    .catch(err => console.log(err));
+            } else this.setState({fetched: true});
+        }
+    };
+
     componentWillMount() {
-        this.checkLoggedIn(() => {
+        this.authentication.checkLoggedIn(() => {
             this.setState({fetched: true});
-            console.log('fetch done');
         });
     }
 
-    checkLoggedIn = cb => {
-        let account = JSON.parse(localStorage.getItem('moments_account'));
-        fetch(`${API_URL}/validate`, {
-            methode: `GET`,
-            headers: {
-                Authorization: 'Bearer ' + account.access_token
-            }
-        })
-            .then(r => r.json())
-            .then(data => {
-                data.message === 'Success'
-                    ? this.setState({authenticated: true})
-                    : this.setState({authenticated: false});
-                cb();
-            })
-            .catch(err => console.log(err));
-    };
-
     render() {
-        if (this.state.fetched) {
-            console.log(this.state);
+        if (this.state.fetched)
             return (
                 <Router>
                     <div>
                         <LoginRoute
-                            authenticated={this.state.authenticated}
+                            authenticated={this.authentication.isAuthenticated}
                             exact
                             path="/login"
                             component={SigninPage}
                         />
-                        <AuthenticatedRoute authenticated={this.state.authenticated} exact path="/" component={App} />
+                        <AuthenticatedRoute
+                            authenticated={this.authentication.isAuthenticated}
+                            exact
+                            path="/"
+                            component={App}
+                        />
                     </div>
                 </Router>
             );
-        } else return null;
+        else return null;
     }
 }
 
-const LoginRoute = ({component: Component, ...rest}) => {
-    return <Route {...rest} render={() => (!rest.authenticated ? <Component {...rest} /> : <Redirect to="/" />)} />;
+const LoginRoute = ({component: Component, authenticated: authenticated, ...rest}) => {
+    return <Route {...rest} render={() => (!authenticated ? <Component {...rest} /> : <Redirect to="/" />)} />;
 };
 
-const AuthenticatedRoute = ({component: Component, ...rest}) => {
-    return <Route {...rest} render={() => (rest.authenticated ? <Component {...rest} /> : <Redirect to="/login" />)} />;
+const AuthenticatedRoute = ({component: Component, authenticated: authenticated, ...rest}) => {
+    return <Route {...rest} render={() => (authenticated ? <Component {...rest} /> : <Redirect to="/login" />)} />;
 };
 
 export default Routing;

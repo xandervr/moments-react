@@ -23,8 +23,7 @@ const Signin = props => {
                 <button
                     className="upper login-btn pointer"
                     type="button"
-                    name="button"
-                >
+                    name="button">
                     Sign in
                 </button>
                 {/* <button class="upper pointer signup-btn" type="button" name="button" onclick="showSignup()">Sign ip</button> */}

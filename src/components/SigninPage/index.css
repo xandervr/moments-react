@@ -61,13 +61,15 @@ section {
 
 .sign-titles {
   display: flex;
-  min-width: 21rem;
+  min-width: 100%;
   justify-content: space-between;
   margin-top: -3rem;
+  font-weight: bold;
 }
 
 .sign-titles .inactive span {
   opacity: .4!important;
+  font-weight: normal;
 }
 
 .sign-titles .active {
@@ -88,7 +90,7 @@ section {
 }
 
 .sign-titles .active-signup::after {
-  transform: translateX(12.8rem);
+  transform: translateX(26.7rem);
   width: 110%;
   opacity: 1!important;
 }
@@ -169,6 +171,12 @@ input:-webkit-autofill {
   color: var(--grey);
   letter-spacing: .1rem;
   font-weight: lighter;
+  display: flex;
+  align-items: center;
+}
+
+#remember {
+  margin-top: .11rem;
 }
 
 .remember-holder input {
@@ -197,6 +205,26 @@ input:-webkit-autofill {
   padding: 2rem 3rem;
   font-size: 1.5rem;
   letter-spacing: .2rem;
+  position: relative;
+}
+
+.login-btn::after {
+  content: '';
+  height: 200%;
+  width: 0;
+  transform: translateX(-10rem) rotate(45deg);
+  background-color: white;
+  opacity: .7;
+  left: 0;
+  top: -3rem;
+  position: absolute;
+  z-index: 1;
+  transition: transform .4s;
+}
+
+.login-btn:hover::after {
+  width: 2rem;
+  transform: translateX(18rem) rotate(45deg);
 }
 
 .signup-btn {

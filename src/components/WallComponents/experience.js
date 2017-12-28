@@ -126,7 +126,7 @@ class Experience extends Component {
           <div className="hide comment-form-holder">
             <form action="" className="comment-form">
               <label className="username" htmlFor="comment">UserName</label>
-              <input id="comment"/>
+              <input id="comment" autocomplete="off"/>
             </form>
           </div>
           <p className="pointer" onClick={this.openComments}>View 4 other comments</p>

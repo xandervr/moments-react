@@ -14,6 +14,17 @@ class Navbar extends Component {
         }
     }
 
+    componentDidMount() {
+      window.onscroll = e => {
+        console.log(window.scrollY);
+        if (window.scrollY === 0) {
+          document.querySelector(`nav`).classList.remove(`nav-shadow`);
+        } else {
+          document.querySelector(`nav`).classList.add(`nav-shadow`);
+        }
+      }
+    }
+
     onChangeSearchValue = e => {
         this.setState({searchValue: e.target.value});
     };
@@ -22,16 +33,16 @@ class Navbar extends Component {
         return (
             <nav>
                 <div className="nav-content">
-                    <div className="logo flex-item">Moments</div>
+                    <div className="logo flex-item pointer">Moments</div>
                     <Search searchValue={this.state.searchValue} onChangeSearchValue={this.onChangeSearchValue}>Search</Search>
                     <div className="profile-actions flex-item">
-                        <div className="action add">
+                        <div className="action add pointer">
                             <Add className="icon">add</Add>
                         </div>
-                        <div className="action settings">
+                        <div className="action settings pointer">
                             <Settings className="icon"/>
                         </div>
-                        <div className="action profile">
+                        <div className="action profile pointer">
                             <a>
                                 <img src={profile} alt="profile"/>
                             </a>

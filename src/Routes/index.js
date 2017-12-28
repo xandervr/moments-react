@@ -12,10 +12,33 @@ class Routing extends Component {
 
     componentWillMount() {
         console.log('checking');
-        this.props.authentication.checkLoggedIn(() => {
+        this.authentication.checkLoggedIn(() => {
             this.setState({fetched: true});
         });
     }
+
+    authentication = {
+        isAuthenticated: false,
+        checkLoggedIn: cb => {
+            let account = JSON.parse(localStorage.getItem('moments_account'));
+            if (account) {
+                fetch(`${API_URL}/validate`, {
+                    methode: `GET`,
+                    headers: {
+                        Authorization: 'Bearer ' + account.access_token
+                    }
+                })
+                    .then(r => r.json())
+                    .then(data => {
+                        data.message === 'Success'
+                            ? (this.authentication.isAuthenticated = true)
+                            : (this.authentication.isAuthenticated = false);
+                        cb();
+                    })
+                    .catch(err => console.log(err));
+            } else cb();
+        }
+    };
 
     render() {
         console.log('fetched: ' + this.state.fetched);
@@ -23,13 +46,8 @@ class Routing extends Component {
             return (
                 <Router>
                     <div>
-                        <LoginRoute
-                            authentication={this.props.authentication}
-                            exact
-                            path="/login"
-                            component={SigninPage}
-                        />
-                        <AuthenticatedRoute authentication={this.props.authentication} exact path="/" component={App} />
+                        <LoginRoute authentication={this.authentication} exact path="/login" component={SigninPage} />
+                        <AuthenticatedRoute authentication={this.authentication} exact path="/" component={App} />
                     </div>
                 </Router>
             );

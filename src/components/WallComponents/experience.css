@@ -74,31 +74,41 @@
     width: 3rem;
     right: 6rem;
     bottom: 1rem;
-    transition: transform .3s;
+    transition: transform .3s, opacity .3s;
+    opacity: 0;
 }
 
 .moment .user-holder .side-user.more {
     z-index: 5;
-    background-color: var(--blue);
+    /*background-color: white;*/
     border: none;
+    width: 3.2rem;
+    height: 3.2rem;
+    left: 6.9rem;
+    top:11.5rem;
+    opacity: 1;
 }
 
 .user-holder .side-user.zero {
     transform: scale(.8) translate(-.5rem, .5rem);
+    opacity: 1;
 }
 
 .user-holder .side-user.first {
     transform: translate(-4rem, -1rem) scale(1.2);
+    opacity: 1;
 }
 
 .user-holder .side-user.second {
     transition-delay: .05s;
     transform: translate(-5.5rem, -5.5rem) scale(1.2);
+    opacity: 1;
 }
 
 .user-holder .side-user.third {
     transition-delay: .1s;
     transform: translate(-4.5rem, -10.5rem) scale(1.2);
+    opacity: 1;
 }
 
 .moment .head {
@@ -159,8 +169,12 @@
 }
 
 #comment {
-  margin-left: 1rem;
+  margin-left: .5rem;
   width: 90%;
+  border-radius: 5rem;
+  border: solid rgba(144, 148, 156, .3) .1rem;
+  padding: .2rem 1rem;
+  font-size: 1.2rem;
 }
 
 .content.images {

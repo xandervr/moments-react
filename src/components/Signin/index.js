@@ -17,6 +17,7 @@ const Signin = ({
                 <label className="input-label" htmlFor="email-signin">
                     Your email
                 </label>
+                <p className="error email-error">Your email is incorrect</p>
             </div>
             <div className="input-holder">
                 <input
@@ -30,6 +31,7 @@ const Signin = ({
                 <label className="input-label" htmlFor="password-signin">
                     Password
                 </label>
+                <p className="error password-error">Your password is incorrect</p>
             </div>
             <div className="remember-holder">
                 <input id="remember" type="checkbox" onChange={onChangeRemember} name="" value="" />

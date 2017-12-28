@@ -24,6 +24,10 @@ nav {
     width: 100rem;
 }
 
+.nav-shadow {
+  box-shadow: 0 .5rem 1rem var(--boxshadow);
+}
+
 .nav-content .flex-item {
     flex: 1;
 }
@@ -41,7 +45,7 @@ nav {
     position: relative;
 }
 
-.input-holder {
+.search-input-holder {
     position: relative;
     display: flex;
     align-items: center;

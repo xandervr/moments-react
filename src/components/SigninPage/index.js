@@ -1,51 +1,61 @@
-import React, {Component} from 'react';
-import {Signin} from '../Signin';
-import {Signup} from '../Signup';
+import React, { Component } from "react";
+import Signin from "../Signin";
+import Signup from "../Signup";
+import france from "../../assets/svg/france.jpg";
+import "./index.css";
 
-class App extends Component {
+class SigninPage extends Component {
+    state = {};
 
-  state = {}
+    showSignup = () => {
+        const $active = document.querySelector(`.signin`);
+        const $inactive = document.querySelector(`.signup`);
 
-  showSignup = () => {
-    const $active = document.querySelector(`.signin`);
-    const $inactive = document.querySelector(`.signup`);
+        document.querySelector(`.signin-form`).classList.toggle(`slide-out`);
+        document.querySelector(`.signup-form`).classList.toggle(`slide-in`);
+        $active.classList.toggle(`active-signup`);
+        $active.classList.toggle(`inactive`);
+        $inactive.classList.toggle(`inactive`);
+    };
 
-    document.querySelector(`.signin-form`).classList.toggle(`slide-out`);
-    document.querySelector(`.signup-form`).classList.toggle(`slide-in`);
-    $active.classList.toggle(`active-signup`);
-    $active.classList.toggle(`inactive`);
-    $inactive.classList.toggle(`inactive`);
-  }
+    render() {
+        const {} = this.state;
 
-  render() {
-
-    const {} = this.state;
-
-    return (
-      <section>
-        <div class="image-holder">
-          <img src="/img/france.jpg" alt="" />
-        </div>
-        <div class="login-section">
-          <div class="titles">
-            <h1>Welcome to <span>MOMENTS</span></h1>
-            <h2>Welcome back, please login to your account</h2>
-          </div>
-          <div class="form-holder">
-            <div class="sign-titles">
-              <h2 onclick="showSignup()" class="active signin pointer"><span>Sign in</span></h2>
-              <h2 onclick="showSignup()" class="inactive signup pointer"><span>Sign up</span></h2>
-            </div>
-            <Signin />
-            <SignUp />
-          </div>
-          <div class="terms">
-
-          </div>
-        </div>
-      </section>
-    );
-  }
+        return (
+            <section>
+                <div className="image-holder">
+                    <img src={france} alt="france" />
+                </div>
+                <div className="login-section">
+                    <div className="titles">
+                        <h1>
+                            Welcome to <span>MOMENTS</span>
+                        </h1>
+                        <h2>Welcome back, please login to your account</h2>
+                    </div>
+                    <div className="form-holder">
+                        <div className="sign-titles">
+                            <h2
+                                onClick={this.showSignup}
+                                className="active signin pointer"
+                            >
+                                <span>Sign in</span>
+                            </h2>
+                            <h2
+                                onClick={this.showSignup}
+                                className="inactive signup pointer"
+                            >
+                                <span>Sign up</span>
+                            </h2>
+                        </div>
+                        <Signin />
+                        <Signup />
+                    </div>
+                    <div className="terms" />
+                </div>
+            </section>
+        );
+    }
 }
 
-export default App;
+export default SigninPage;

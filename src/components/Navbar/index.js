@@ -2,13 +2,11 @@ import React, {Component} from 'react';
 import {search} from '../../assets/js/lib/tap-client';
 import Add from '../Buttons/add.js';
 import Settings from '../Buttons/settings';
-import profile from '../../assets/img/profile.jpg';
 import Search from '../Search/index';
 import SearchResults from '../SearchResults/index';
 import logout from '../../assets/svg/logout.svg';
 import {Link} from 'react-router-dom';
 import './index.css';
-import {API_URL} from '../../assets/js/consts';
 
 class Navbar extends Component {
     constructor(props) {

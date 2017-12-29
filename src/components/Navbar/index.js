@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Add from "../Buttons/add.js";
 import Settings from "../Buttons/settings";
-import profile from "../../assets/img/profile.jpg";
 import Search from "../Search/index";
 import logout from "../../assets/svg/logout.svg";
 import {Link} from "react-router-dom";
@@ -75,6 +74,7 @@ class Navbar extends Component {
                             <Link to="/profile">
                                 <img src={user.picture} alt="profile"/>
                             </Link>
+                            <div className="action-detail profile-action-detail">Profile</div>
                         </div>
                         <div className="action logout pointer">
                             <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>

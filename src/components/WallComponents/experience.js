@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
 //Assets
-import profile from "../../assets/img/profile.jpg";
 import addWhite from "../../assets/svg/add-white.svg";
 import chat from "../../assets/svg/chat.svg";
 import like from "../../assets/svg/like.svg";
@@ -116,7 +115,7 @@ class Experience extends Component {
 
         const usersShow = userPictures.map((userPicture, i) => {
             while (i < 3) {
-                return (<img className="side-user" key={i} src={userPicture} alt="profile"/>);
+              return (<img className="side-user" key={i} src={userPicture} alt="profile"/>);
             }
         });
 
@@ -124,7 +123,7 @@ class Experience extends Component {
         return (
             <article className="moment">
                 <div className="profile">
-                    <a href="#">
+                    <a href="">
                         <div
                             className="user-holder"
                             onMouseOver={this.animateUsers}

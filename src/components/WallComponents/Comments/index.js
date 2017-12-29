@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Comment from './Comment';
-import {comment} from '../../../assets/js/lib/tap-client';
+import {comment, deleteComment} from '../../../assets/js/lib/tap-client';
 import Emoji from '../../Emoji';
 import './index.css';
 
@@ -29,6 +29,13 @@ class Comments extends Component {
         e.preventDefault();
     };
 
+    deleteComment = comment => {
+        const {experience} = this.props;
+        deleteComment(experience._id, comment, success => {
+            if (success) this.props.updateWall();
+        });
+    };
+
     openComments = e => {
         const $comments = e.currentTarget.previousElementSibling.previousElementSibling,
             openHtml = `View less comments`,
@@ -47,7 +54,9 @@ class Comments extends Component {
     };
 
     addToComment = emoji => {
-        this.setState({commentText: this.state.commentText + emoji});
+        this.setState({
+            commentText: this.state.commentText + emoji
+        });
     };
 
     toggleEmojiPicker = e => {
@@ -56,7 +65,9 @@ class Comments extends Component {
 
     render() {
         const {comments, openComments, currentUser} = this.props;
-        const commentsList = comments.map(comment => <Comment key={comment._id} comment={comment} />);
+        const commentsList = comments.map(comment => (
+            <Comment key={comment._id} comment={comment} deleteComment={this.deleteComment} currentUser={currentUser} />
+        ));
         const lastCommentId = comments.length > 0 ? comments[0] : '';
 
         const otherComments = commentsList.filter(comment => comment.key !== lastCommentId._id);

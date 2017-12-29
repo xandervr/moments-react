@@ -10,6 +10,34 @@ import {API_URL} from '../consts';
 
 /**
  * @function comment Add a comment.
+ * @param experience_id ID of experience to delete comment from.
+ * @param comment_id Comment to delete.
+ * @param cb Callback function returning boolean
+ * @returns {boolean}
+ * @public
+ */
+
+export const deleteComment = (experience_id, comment_id, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`${API_URL}/experiences/${experience_id}/comments/${comment_id}`, {
+            method: `DELETE`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
+    else console.log('Authorization error');
+};
+
+/**
+ * @function comment Add a comment.
  * @param experience_id ID of experience to comment on.
  * @param text Comment text.
  * @param cb Callback function returning boolean

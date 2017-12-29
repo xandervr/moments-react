@@ -6,6 +6,38 @@
     z-index: 10;
 }
 
+.comment-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 98%;
+}
+
+.comment-container > a.delete-comment,
+.comment-time {
+    opacity: 0.4;
+}
+
+.comment-container > a.delete-comment {
+    cursor: pointer;
+    position: absolute;
+    right: -2rem;
+    top: 0.5rem;
+}
+
+.comment-container > a.delete-comment:hover {
+    opacity: 1;
+}
+
+.comment-text {
+    margin-left: 1rem;
+}
+
+.comment-time {
+    font-size: 1.4rem;
+    align-self: flex-end;
+}
+
 .comment-form {
     display: flex;
     align-items: center;

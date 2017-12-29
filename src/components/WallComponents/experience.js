@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import profile from '../../assets/svg/profile.jpg';
+import profile from '../../assets/img/profile.jpg';
 import addWhite from '../../assets/svg/add-white.svg';
 import chat from '../../assets/svg/chat.svg';
 import like from '../../assets/svg/like.svg';
 import share from '../../assets/svg/share.svg';
-import france from '../../assets/svg/france.jpg';
+import france from '../../assets/img/france.jpg';
 import './experience.css';
 
 class Experience extends Component {

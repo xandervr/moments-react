@@ -11,7 +11,22 @@ const Signin = ({
     authentication
 }) => {
     return (
-        <form className="signin-form" action="index.html" method="post">
+        <form
+            className="signin-form"
+            action="index.html"
+            method="post"
+            onSubmit={e => {
+                console.log(history);
+                performLogin(e, auth => {
+                    console.log(auth);
+                    authentication.checkLoggedIn(() => {
+                        if (auth) history.push('/');
+                        console.log(history);
+                    });
+                });
+                e.preventDefault();
+            }}
+        >
             <div className="input-holder">
                 <input id="email-signin" onChange={onChangeUsername} value={login.username} name="" required />
                 <label className="input-label" htmlFor="email-signin">
@@ -38,21 +53,7 @@ const Signin = ({
                 <label htmlFor="remember">Remember me</label>
             </div>
             <div className="form-actions">
-                <button
-                    className="upper login-btn pointer"
-                    type="button"
-                    name="button"
-                    onClick={() => {
-                        console.log(history);
-                        performLogin(window.event, auth => {
-                            console.log(auth);
-                            authentication.checkLoggedIn(() => {
-                                if (auth) history.push('/');
-                                console.log(history);
-                            });
-                        });
-                    }}
-                >
+                <button className="upper login-btn pointer" type="button" name="button">
                     Sign in
                 </button>
                 {/* <button class="upper pointer signup-btn" type="button" name="button" onclick="showSignup()">Sign ip</button> */}

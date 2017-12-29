@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {login} from '../../assets/js/lib/tap-client';
+import {login, register} from '../../assets/js/lib/tap-client';
 import {API_URL} from '../../assets/js/consts';
 import Signin from '../Signin';
 import Signup from '../Signup';
@@ -27,6 +27,10 @@ class SigninPage extends Component {
         $active.classList.toggle(`inactive`);
         $inactive.classList.toggle(`inactive`);
     };
+
+    /**
+     * Login
+     */
 
     onChangeUsername = e => {
         const username = e.target.value;
@@ -81,6 +85,84 @@ class SigninPage extends Component {
         e.preventDefault();
     };
 
+    /**
+     * Register
+     */
+
+    onChangeSurname = e => {
+        const surname = e.target.value;
+        this.setState(prevState => ({
+            register: {
+                ...prevState.register,
+                surname: surname
+            }
+        }));
+    };
+
+    onChangeName = e => {
+        const name = e.target.value;
+        this.setState(prevState => ({
+            register: {
+                ...prevState.register,
+                name: name
+            }
+        }));
+    };
+
+    onChangeEmail = e => {
+        const email = e.target.value;
+        this.setState(prevState => ({
+            register: {
+                ...prevState.register,
+                email: email
+            }
+        }));
+    };
+
+    onChangePassword = e => {
+        const password = e.target.value;
+        this.setState(prevState => ({
+            register: {
+                ...prevState.register,
+                password: password
+            }
+        }));
+    };
+
+    onChangePasswordCheck = e => {
+        const password_check = e.target.value;
+        this.setState(prevState => ({
+            register: {
+                ...prevState.register,
+                password_check: password_check
+            }
+        }));
+    };
+
+    performRegister = (e, cb) => {
+        const {surname, name, email, password, password_check} = this.state.register;
+
+        if (surname !== `` && name !== `` && email !== `` && password !== `` && password === password_check) {
+            register(surname, name, email, password, tokens => {
+                if (tokens) {
+                    this.setState({
+                        account: {
+                            access_token: tokens.access_token,
+                            expire_date: tokens.expire_date,
+                            refresh_token: tokens.refresh_token
+                        }
+                    });
+                    localStorage.setItem('moments_account', JSON.stringify(this.state.account));
+                    cb(true);
+                } else {
+                    cb(false);
+                }
+            });
+        }
+
+        e.preventDefault();
+    };
+
     render() {
         const {} = this.state;
 
@@ -113,7 +195,16 @@ class SigninPage extends Component {
                             onChangePassword={this.onChangePassword}
                             login={this.state.login}
                         />
-                        <Signup />
+                        <Signup
+                            authentication={this.props.authentication}
+                            performRegister={this.performRegister}
+                            onChangeSurname={this.onChangeSurname}
+                            onChangeName={this.onChangeName}
+                            onChangeEmail={this.onChangeEmail}
+                            onChangePassword={this.onChangePassword}
+                            onChangePasswordCheck={this.onChangePasswordCheck}
+                            register={this.state.register}
+                        />
                     </div>
                     <div className="terms" />
                 </div>

@@ -1,14 +1,12 @@
-import React, {Component} from "react";
-import {search} from "../../assets/js/lib/tap-client";
-import Add from "../Buttons/add.js";
-import Settings from "../Buttons/settings";
-import profile from "../../assets/img/profile.jpg";
-import Search from "../Search/index";
-import SearchResults from "../SearchResults/index";
-import logout from "../../assets/svg/logout.svg";
-import {Link} from "react-router-dom";
-import "./index.css";
-import {API_URL} from "../../assets/js/consts";
+import React, {Component} from 'react';
+import {search} from '../../assets/js/lib/tap-client';
+import Add from '../Buttons/add.js';
+import Settings from '../Buttons/settings';
+import Search from '../Search/index';
+import SearchResults from '../SearchResults/index';
+import logout from '../../assets/svg/logout.svg';
+import {Link} from 'react-router-dom';
+import './index.css';
 
 class Navbar extends Component {
     constructor(props) {
@@ -44,9 +42,9 @@ class Navbar extends Component {
         this.setState({lockSearch: true});
         search(query, data => {
             this.setState({});
-            if (data) 
+            if (data)
                 this.setState({searchResults: data.results, lockSearch: false});
-            else 
+            else
                 this.setState({
                     searchResults: {
                         experiences: [],
@@ -59,9 +57,9 @@ class Navbar extends Component {
     };
 
     onChangeSearchValue = e => {
-        if (e.target.value.length >= 2 && !this.state.lockSearch) 
+        if (e.target.value.length >= 2 && !this.state.lockSearch)
             this.performSearch(e.target.value);
-        else 
+        else
             this.setState({
                 searchResults: {
                     experiences: [],

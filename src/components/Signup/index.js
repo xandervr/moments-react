@@ -21,19 +21,16 @@ const Signup = ({
             ? true
             : false;
     };
-    console.log(isValid());
+    
     return (
         <form
             className="signup-form"
             action="index.html"
             method="post"
             onSubmit={e => {
-                console.log(history);
                 performRegister(e, auth => {
-                    console.log(auth);
                     authentication.checkLoggedIn(() => {
                         if (auth) history.push('/');
-                        console.log(history);
                     });
                 });
                 e.preventDefault();

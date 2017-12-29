@@ -119,7 +119,7 @@ class SigninPage extends Component {
         }));
     };
 
-    onChangePassword = e => {
+    onChangeRegisterPassword = e => {
         const password = e.target.value;
         this.setState(prevState => ({
             register: {
@@ -129,7 +129,7 @@ class SigninPage extends Component {
         }));
     };
 
-    onChangePasswordCheck = e => {
+    onChangeRegisterPasswordCheck = e => {
         const password_check = e.target.value;
         this.setState(prevState => ({
             register: {
@@ -166,8 +166,7 @@ class SigninPage extends Component {
     render() {
         const {} = this.state;
 
-        return (
-            <section>
+        return <section>
                 <div className="image-holder">
                     <img src={france} alt="france" />
                 </div>
@@ -187,29 +186,12 @@ class SigninPage extends Component {
                                 <span>Sign up</span>
                             </h2>
                         </div>
-                        <Signin
-                            authentication={this.props.authentication}
-                            performLogin={this.performLogin}
-                            onChangeRemember={this.onChangeRemember}
-                            onChangeUsername={this.onChangeUsername}
-                            onChangePassword={this.onChangePassword}
-                            login={this.state.login}
-                        />
-                        <Signup
-                            authentication={this.props.authentication}
-                            performRegister={this.performRegister}
-                            onChangeSurname={this.onChangeSurname}
-                            onChangeName={this.onChangeName}
-                            onChangeEmail={this.onChangeEmail}
-                            onChangePassword={this.onChangePassword}
-                            onChangePasswordCheck={this.onChangePasswordCheck}
-                            register={this.state.register}
-                        />
+                        <Signin authentication={this.props.authentication} performLogin={this.performLogin} onChangeRemember={this.onChangeRemember} onChangeUsername={this.onChangeUsername} onChangePassword={this.onChangePassword} login={this.state.login} />
+                        <Signup authentication={this.props.authentication} performRegister={this.performRegister} onChangeSurname={this.onChangeSurname} onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} onChangePassword={this.onChangeRegisterPassword} onChangePasswordCheck={this.onChangeRegisterPasswordCheck} register={this.state.register} />
                     </div>
                     <div className="terms" />
                 </div>
-            </section>
-        );
+            </section>;
     }
 }
 

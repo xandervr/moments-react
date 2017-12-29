@@ -1,7 +1,7 @@
 import React from "react";
 import Comment from "./Comment";
 
-const Moments = ({
+const Comments = ({
     comments,
     ...props
 }) => {
@@ -18,7 +18,7 @@ const Moments = ({
             <div className="hide comment-form-holder">
                 <form action="" className="comment-form">
                     <label className="username" htmlFor="comment">
-                        UserName
+                        Me :
                     </label>
                     <input id="comment" autoComplete="off"/>
                 </form>
@@ -32,4 +32,4 @@ const Moments = ({
     );
 };
 
-export default Moments;
+export default Comments;

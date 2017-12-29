@@ -15,18 +15,18 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-      window.onscroll = e => {
-        console.log(window.scrollY);
-        if (window.scrollY <= 0) {
-          document.querySelector(`nav`).classList.remove(`nav-shadow`);
-        } else {
-          document.querySelector(`nav`).classList.add(`nav-shadow`);
-        }
-      }
+        window.onscroll = e => {
+            console.log(window.scrollY);
+            if (window.scrollY <= 0) {
+                document.querySelector(`nav`).classList.remove(`nav-shadow`);
+            } else {
+                document.querySelector(`nav`).classList.add(`nav-shadow`);
+            }
+        };
     }
 
     onChangeSearchValue = e => {
-        //this.setState({searchValue: e.target.value});
+        this.setState({searchValue: e.target.value});
     };
 
     render() {

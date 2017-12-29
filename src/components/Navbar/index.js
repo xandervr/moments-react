@@ -4,6 +4,7 @@ import Settings from '../Buttons/settings';
 import profile from '../../assets/img/profile.jpg';
 import Search from '../Search/index';
 import './index.css';
+import {API_URL} from '../../assets/js/consts';
 
 class Navbar extends Component {
     constructor(props) {
@@ -18,15 +19,29 @@ class Navbar extends Component {
         window.onscroll = e => {
             console.log(window.scrollY);
             if (window.scrollY <= 0) {
-                document.querySelector(`nav`).classList.remove(`nav-shadow`);
+                document
+                    .querySelector(`nav`)
+                    .classList
+                    .remove(`nav-shadow`);
             } else {
-                document.querySelector(`nav`).classList.add(`nav-shadow`);
+                document
+                    .querySelector(`nav`)
+                    .classList
+                    .add(`nav-shadow`);
             }
         };
     }
 
+    performSearch = () => {
+        fetch(`${API_URL}/search/${this.state.searchValue}`, {
+            method: `GET`,
+            headers: {}
+        });
+    };
+
     onChangeSearchValue = e => {
         this.setState({searchValue: e.target.value});
+        performSearch();
     };
 
     render() {
@@ -34,7 +49,9 @@ class Navbar extends Component {
             <nav>
                 <div className="nav-content">
                     <div className="logo flex-item pointer">Moments</div>
-                    <Search searchValue={this.state.searchValue} onChangeSearchValue={this.onChangeSearchValue}>
+                    <Search
+                        searchValue={this.state.searchValue}
+                        onChangeSearchValue={this.onChangeSearchValue}>
                         Search
                     </Search>
                     <div className="profile-actions flex-item">
@@ -42,11 +59,11 @@ class Navbar extends Component {
                             <Add className="icon">add</Add>
                         </div>
                         <div className="action settings pointer">
-                            <Settings className="icon" />
+                            <Settings className="icon"/>
                         </div>
                         <div className="action profile pointer">
                             <a>
-                                <img src={profile} alt="profile" />
+                                <img src={profile} alt="profile"/>
                             </a>
                         </div>
                     </div>

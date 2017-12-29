@@ -1,0 +1,19 @@
+.search-container {
+    position: relative;
+    display: flex;
+
+}
+
+.search-results {
+    border: none;
+    border-radius: 1.1rem;
+    box-shadow: 0 .5rem 1rem var(--boxshadow);
+    padding: 1rem;
+    padding-left: 3rem;
+    width: 45rem;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 5rem;
+    left: -10rem;
+    z-index: 99;
+}

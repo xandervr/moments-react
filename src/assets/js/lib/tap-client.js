@@ -9,6 +9,33 @@
 import {API_URL} from '../consts';
 
 /**
+ * @function search Search.
+ * @param query Search query.
+ * @param cb Callback function returning array of objects
+ * @returns {[Object]}
+ * @public
+ */
+
+export const search = (query, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`${API_URL}/search/${query}`, {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+    else console.log('Authorization error');
+};
+
+/**
  * @function login Login.
  * @param username User's username.
  * @param password User's password.
@@ -87,6 +114,8 @@ export const register = (surname, name, email, password, cb) => {
         })
         .catch(err => console.log(err));
 };
+
+const fetchAccount = () => JSON.parse(localStorage.getItem('moments_account'));
 
 /**
  * @function authenticate Fetches an access_token object.

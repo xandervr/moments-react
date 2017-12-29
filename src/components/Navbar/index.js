@@ -1,11 +1,12 @@
-import React, {Component} from "react";
-import Add from "../Buttons/add.js";
-import Settings from "../Buttons/settings";
-import profile from "../../assets/img/profile.jpg";
-import Search from "../Search/index";
+import React, {Component} from 'react';
+import Add from '../Buttons/add.js';
+import Settings from '../Buttons/settings';
+import profile from '../../assets/img/profile.jpg';
+import Search from '../Search/index';
 import logout from '../../assets/svg/logout.svg';
 import {Link} from "react-router-dom";
-import "./index.css";
+import './index.css';
+import {API_URL} from '../../assets/js/consts';
 
 class Navbar extends Component {
     constructor(props) {
@@ -31,15 +32,23 @@ class Navbar extends Component {
             }
         };
     }
-
+    
     logout = () => {
-      localStorage.removeItem(`moments_account`);
-      //TODO fix logout
-      window.location = `/login`;
+        localStorage.removeItem(`moments_account`);
+        //TODO fix logout
+        window.location = `/login`;
     }
+
+    performSearch = () => {
+        fetch(`${API_URL}/search/${this.state.searchValue}`, {
+            method: `GET`,
+            headers: {}
+        });
+    };
 
     onChangeSearchValue = e => {
         this.setState({searchValue: e.target.value});
+        performSearch();
     };
 
     render() {

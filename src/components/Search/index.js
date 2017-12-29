@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import search from '../../assets/svg/search.svg';
 import '../Navbar/index.css';
 import experience from '../WallComponents/experience';

@@ -12,13 +12,24 @@ class App extends Component {
     }
 
     render() {
+        const {path} = this.props;
         const {user} = this.props.authentication;
+        let show = null;
+        switch (path) {
+            case `/profile`:
+                show = <Profile user={user}/>
+                break;
+            case `/`:
+                show = <Wall user={user} />
+                break;
+            default:
+        }
         return (
-            <div>
-                <Navbar user={user} />
-                <Wall user={user} />
-            </div>
-        );
+                <div>
+                <Navbar user={user}/>
+                {show}
+                </div>
+                );
     }
 }
 

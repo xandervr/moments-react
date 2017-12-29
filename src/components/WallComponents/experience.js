@@ -72,9 +72,12 @@ class Experience extends Component {
         return (
             <article className="moment">
                 <div className="profile">
-                    <a href="#">
-                        <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
-                            <img className="main-user" src={experience.user.picture} alt="profile" />
+                    <a href="">
+                        <div
+                            className="user-holder"
+                            onMouseOver={this.animateUsers}
+                            onMouseOut={this.endAnimateUsers}>
+                            <img className="main-user" src={experience.user.picture} alt="profile"/>
                             <div className="side-users">
                                 <img className="side-user more" src={addWhite} alt="" /> {usersShow}
                             </div>

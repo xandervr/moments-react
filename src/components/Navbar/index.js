@@ -104,6 +104,7 @@ class Navbar extends Component {
                             <Link to="/profile">
                                 <img src={user.picture} alt="profile"/>
                             </Link>
+                            <div className="action-detail profile-action-detail">Profile</div>
                         </div>
                         <div className="action logout pointer">
                             <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>

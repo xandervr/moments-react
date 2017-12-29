@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {login, register} from '../../assets/js/lib/tap-client';
-import {API_URL} from '../../assets/js/consts';
 import Signin from '../Signin';
 import Signup from '../Signup';
 import france from '../../assets/img/france.jpg';
 import './index.css';
-import {BrowserRouter as Router} from 'react-router-dom';
 
 class SigninPage extends Component {
     constructor(props) {
@@ -164,9 +162,8 @@ class SigninPage extends Component {
     };
 
     render() {
-        const {} = this.state;
 
-        return <section>
+        return <section className="sign-section">
                 <div className="image-holder">
                     <img src={france} alt="france" />
                 </div>

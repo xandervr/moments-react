@@ -1,68 +1,41 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 
 //Assets
-import profile from "../../assets/img/profile.jpg";
-import addWhite from "../../assets/svg/add-white.svg";
-import chat from "../../assets/svg/chat.svg";
-import like from "../../assets/svg/like.svg";
-import share from "../../assets/svg/share.svg";
-import france from "../../assets/img/france.jpg";
+import profile from '../../assets/img/profile.jpg';
+import addWhite from '../../assets/svg/add-white.svg';
+import chat from '../../assets/svg/chat.svg';
+import like from '../../assets/svg/like.svg';
+import share from '../../assets/svg/share.svg';
+import france from '../../assets/img/france.jpg';
 
 //Styling
-import "./experience.css";
+import './experience.css';
 
 //Components
-import Comments from "./Comments";
-import TimeAgo from "react-timeago";
+import Comments from './Comments';
+import TimeAgo from 'react-timeago';
 
 class Experience extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     animateUsers = e => {
-        const $users = [
-                ...e
-                    .currentTarget
-                    .querySelectorAll(`.side-user`)
-            ],
+        const $users = [...e.currentTarget.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
-            $users[i]
-                .classList
-                .add(`${userCSS[i]}`);
+            $users[i].classList.add(`${userCSS[i]}`);
         }
     };
 
     endAnimateUsers = e => {
-        const $users = [
-                ...e
-                    .currentTarget
-                    .querySelectorAll(`.side-user`)
-            ],
+        const $users = [...e.currentTarget.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
-            $users[i]
-                .classList
-                .remove(`${userCSS[i]}`);
+            $users[i].classList.remove(`${userCSS[i]}`);
         }
-    };
-
-    openComments = e => {
-        const $comments = e.currentTarget.previousElementSibling.previousElementSibling,
-            openHtml = `View less comments`,
-            closedHtml = `View ${this.props.experience.comments.length - 1} other comments`;
-
-        $comments
-            .classList
-            .toggle(`open-comments`);
-        $comments
-            .classList
-            .toggle(`hide`);
-
-        $comments
-            .classList
-            .contains(`open-comments`)
-            ? (e.currentTarget.innerHTML = openHtml)
-            : (e.currentTarget.innerHTML = closedHtml);
     };
 
     openMoments = e => {
@@ -70,52 +43,29 @@ class Experience extends Component {
             openHtml = `See less moments`,
             closedHtml = `See more moments`;
 
-        $moments
-            .classList
-            .toggle(`open-moments`);
-        $moments
-            .firstElementChild
-            .classList
-            .toggle(`hide`);
+        $moments.classList.toggle(`open-moments`);
+        $moments.firstElementChild.classList.toggle(`hide`);
 
-        $moments
-            .classList
-            .contains(`open-moments`)
+        $moments.classList.contains(`open-moments`)
             ? (e.currentTarget.innerHTML = openHtml)
             : (e.currentTarget.innerHTML = closedHtml);
     };
 
     showAddComment = e => {
-        const $comment = e
-            .currentTarget
-            .parentNode
-            .parentNode
-            .parentNode
-            .querySelector(`.comment-form-holder`);
+        const $comment = e.currentTarget.parentNode.parentNode.parentNode.querySelector(`.comment-form-holder`);
 
-        $comment
-            .classList
-            .toggle(`hide`);
+        $comment.classList.toggle(`hide`);
     };
 
     render() {
-        const {experience} = this.props;
-        const adminPictures = experience
-            .access
-            .admin
-            .map(user => user.picture);
-        const writePictures = experience
-            .access
-            .write
-            .map(user => user.picture);
-        const userPictures = [
-            ...adminPictures,
-            ...writePictures
-        ];
+        const {experience, updateWall} = this.props;
+        const adminPictures = experience.access.admin.map(user => user.picture);
+        const writePictures = experience.access.write.map(user => user.picture);
+        const userPictures = [...adminPictures, ...writePictures];
 
         const usersShow = userPictures.map((userPicture, i) => {
             while (i < 3) {
-                return (<img className="side-user" key={i} src={userPicture} alt="profile"/>);
+                return <img className="side-user" key={i} src={userPicture} alt="profile" />;
             }
         });
 
@@ -123,13 +73,10 @@ class Experience extends Component {
             <article className="moment">
                 <div className="profile">
                     <a href="#">
-                        <div
-                            className="user-holder"
-                            onMouseOver={this.animateUsers}
-                            onMouseOut={this.endAnimateUsers}>
-                            <img className="main-user" src={experience.user.picture} alt="profile"/>
+                        <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
+                            <img className="main-user" src={experience.user.picture} alt="profile" />
                             <div className="side-users">
-                                <img className="side-user more" src={addWhite} alt=""/>{" "} {usersShow}
+                                <img className="side-user more" src={addWhite} alt="" /> {usersShow}
                             </div>
                         </div>
                         <p className="username">
@@ -137,14 +84,15 @@ class Experience extends Component {
                             {experience.user.name}
                             <TimeAgo
                                 style={{
-                                marginLeft: "20rem"
-                            }}
-                                date={experience.created_on}/>
+                                    marginLeft: '20rem'
+                                }}
+                                date={experience.created_on}
+                            />
                         </p>
                     </a>
                 </div>
                 <div className="head-img img-container">
-                    <img src={experience.image} alt=""/>
+                    <img src={experience.image} alt="" />
                 </div>
                 <div className="content">
                     <div className="head">
@@ -154,34 +102,39 @@ class Experience extends Component {
                         </div>
                         <div className="actions">
                             <div className="action pointer" onClick={this.showAddComment}>
-                                <img src={chat} alt="comment"/>
+                                <img src={chat} alt="comment" />
                             </div>
                             <div className="action pointer">
-                                <img src={like} alt="like"/>
+                                <img src={like} alt="like" />
                             </div>
                             <div className="action pointer">
-                                <img src={share} alt="share"/>
+                                <img src={share} alt="share" />
                             </div>
                         </div>
                     </div>
                     <div className="info">
                         <p className="desc">{experience.description}</p>
                     </div>
-                    <Comments openComments={this.openComments} comments={experience.comments}/>
+                    <Comments
+                        experience={experience}
+                        updateWall={updateWall}
+                        showAddComment={this.showAddComment}
+                        comments={experience.comments}
+                    />
                 </div>
                 <div className="content images">
                     <div className="img-list hide">
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                     </div>
                     <p className="pointer" onClick={this.openMoments}>

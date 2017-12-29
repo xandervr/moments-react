@@ -288,3 +288,12 @@ input:-webkit-autofill {
 .double-input input  {
   width: 17rem;
 }
+
+button:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+button:disabled:hover {
+  font-weight: normal;
+}

@@ -16,12 +16,9 @@ const Signin = ({
             action="index.html"
             method="post"
             onSubmit={e => {
-                console.log(history);
                 performLogin(e, auth => {
-                    console.log(auth);
                     authentication.checkLoggedIn(() => {
                         if (auth) history.push('/');
-                        console.log(history);
                     });
                 });
                 e.preventDefault();
@@ -53,7 +50,7 @@ const Signin = ({
                 <label htmlFor="remember">Remember me</label>
             </div>
             <div className="form-actions">
-                <button className="upper login-btn pointer" type="button" name="button">
+                <button className="upper login-btn pointer" type="submit" name="button">
                     Sign in
                 </button>
                 {/* <button class="upper pointer signup-btn" type="button" name="button" onclick="showSignup()">Sign ip</button> */}

@@ -66,6 +66,11 @@ nav {
     height: 4rem;
     width: 25rem;
     font-size: 1.5rem;
+    appearance: none;
+}
+
+input[type="search"]::-webkit-search-results-button {
+  display: none;
 }
 
 .profile-actions {

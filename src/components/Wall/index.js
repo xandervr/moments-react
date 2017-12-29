@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
-import {Experience} from '../WallComponents';
-import './index.css';
+import React, {Component} from "react";
+import {Experience} from "../WallComponents";
+import "./index.css";
 
 class Wall extends Component {
-    render(){
+    render() {
         const {experiences} = this.props;
         const experiencesList = experiences.map(el => (<Experience key={el._id} experience={el}/>));
-        return (
-            <main>
-                {experiencesList}
-            </main>
-        )
+        return <main>{experiencesList}</main>;
     }
 }
 

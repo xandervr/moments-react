@@ -168,3 +168,7 @@ const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
             console.log(err);
         });
 };
+
+export const fetchWall = () => {
+    return fetch("http://moments.tntap.be/experiences").then(r => r.json());
+};

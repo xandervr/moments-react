@@ -1,8 +1,9 @@
 import React from 'react';
 import search from '../../assets/svg/search.svg';
 import '../Navbar/index.css';
+import experience from '../WallComponents/experience';
 
-const Search = ({searchValue, onChangeSearchValue, children}) => {
+const Search = ({onChangeSearchValue, children}) => {
     return (
         <div className="search flex-item">
             <div className="search-input-holder">
@@ -13,6 +14,8 @@ const Search = ({searchValue, onChangeSearchValue, children}) => {
                     results="5"
                     name={children}
                     placeholder={children}
+                    autoComplete="off"
+                    spellCheck="false"
                 />
             </div>
         </div>

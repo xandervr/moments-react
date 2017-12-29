@@ -19,7 +19,7 @@ import {API_URL} from '../consts';
 export const search = (query, cb) => {
     let account = fetchAccount();
     if (account)
-        fetch(`${API_URL}/search/${query}`, {
+        fetch(`${API_URL}/search/adv/${query}`, {
             method: `GET`,
             headers: {
                 'User-Agent': 'TapAuth Client/1.0',
@@ -29,7 +29,7 @@ export const search = (query, cb) => {
         })
             .then(r => r.json())
             .then(data => {
-                console.log(data);
+                cb(data);
             })
             .catch(err => console.log(err));
     else console.log('Authorization error');
@@ -167,4 +167,8 @@ const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
         .catch(err => {
             console.log(err);
         });
+};
+
+export const fetchWall = () => {
+    return fetch("http://moments.tntap.be/experiences").then(r => r.json());
 };

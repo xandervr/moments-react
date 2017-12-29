@@ -59,18 +59,20 @@ class Navbar extends Component {
             <nav>
                 <div className="nav-content">
                     <div className="logo flex-item pointer">Moments</div>
-                    <Search
-                        searchResultsExperiences={this.state.searchResults.experiences}
-                        searchResultsUsers={this.state.searchResults.users}
-                        searchValue={this.state.searchValue}
-                        onChangeSearchValue={this.onChangeSearchValue}
-                    >
-                        Search
-                    </Search>
-                    <SearchResults
-                        experienceResults={this.state.searchResults.experiences}
-                        userResults={this.state.searchResults.users}
-                    />
+                    <div className="search-container">
+                        <Search
+                            searchResultsExperiences={this.state.searchResults.experiences}
+                            searchResultsUsers={this.state.searchResults.users}
+                            searchValue={this.state.searchValue}
+                            onChangeSearchValue={this.onChangeSearchValue}
+                        >
+                            Search
+                        </Search>
+                        <SearchResults
+                            experienceResults={this.state.searchResults.experiences}
+                            userResults={this.state.searchResults.users}
+                        />
+                    </div>
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
                             <Add className="icon">add</Add>

@@ -3,7 +3,7 @@ import {login} from '../../assets/js/lib/tap-client';
 import {API_URL} from '../../assets/js/consts';
 import Signin from '../Signin';
 import Signup from '../Signup';
-import france from '../../assets/svg/france.jpg';
+import france from '../../assets/img/france.jpg';
 import './index.css';
 import {BrowserRouter as Router} from 'react-router-dom';
 
@@ -57,25 +57,25 @@ class SigninPage extends Component {
             document.querySelector(`.email-error`).classList.add(`show-error`);
         }
         if (password === ``) {
-            document.querySelector(`.password-error`).classList.add(`show-error`)
+            document.querySelector(`.password-error`).classList.add(`show-error`);
         }
 
         if (username !== `` && password !== ``) {
             login(username, password, tokens => {
-                  if (tokens) {
-                  this.setState({
-                                account: {
-                                access_token: tokens.access_token,
-                                expire_date: tokens.expire_date,
-                                refresh_token: tokens.refresh_token
-                                }
-                                });
-                  localStorage.setItem('moments_account', JSON.stringify(this.state.account));
-                  cb(true);
-                  } else {
-                  cb(false);
-                  }
-                  });
+                if (tokens) {
+                    this.setState({
+                        account: {
+                            access_token: tokens.access_token,
+                            expire_date: tokens.expire_date,
+                            refresh_token: tokens.refresh_token
+                        }
+                    });
+                    localStorage.setItem('moments_account', JSON.stringify(this.state.account));
+                    cb(true);
+                } else {
+                    cb(false);
+                }
+            });
         }
 
         e.preventDefault();

@@ -7,13 +7,13 @@ const Moments = ({
 }) => {
     const commentsList = comments.map(comment => (<Comment key={comment._id} comment={comment}/>));
     const lastCommentId = comments.length > 0
-        ? comments[comments.length - 1]
+        ? comments[0]
         : "";
 
     const otherComments = commentsList.filter(comment => comment.key !== lastCommentId._id);
     return (
         <div className="comments">
-            <ul>{commentsList[commentsList.length - 1]}</ul>
+            <ul>{commentsList[0]}</ul>
             <ul className="hide">{otherComments}</ul>
             <div className="hide comment-form-holder">
                 <form action="" className="comment-form">

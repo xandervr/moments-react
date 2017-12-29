@@ -1,13 +1,1 @@
-.comment-container {
-    display: flex;
-    justify-content: space-between;
-}
 
-.comment-text {
-    margin-left: 1rem;
-}
-
-.comment-time {
-    font-size: 1.4rem;
-    align-self: flex-end;
-}

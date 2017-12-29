@@ -25,16 +25,11 @@ class Navbar extends Component {
 
     componentDidMount() {
         window.onscroll = e => {
+            const $nav = document.querySelector(`nav`);
             if (window.scrollY <= 0) {
-                document
-                    .querySelector(`nav`)
-                    .classList
-                    .remove(`nav-shadow`);
+                if ($nav) $nav.classList.remove(`nav-shadow`);
             } else {
-                document
-                    .querySelector(`nav`)
-                    .classList
-                    .add(`nav-shadow`);
+                if ($nav) $nav.classList.add(`nav-shadow`);
             }
         };
     }

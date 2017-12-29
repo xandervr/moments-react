@@ -1,35 +1,23 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
-const Signup = ({
-    authentication,
-    performRegister,
-    onChangeSurname,
-    onChangeName,
-    onChangeEmail,
+const Signin = ({
+    onChangeUsername,
     onChangePassword,
-    onChangePasswordCheck,
+    onChangeRemember,
     history,
-    register
+    performLogin,
+    login,
+    authentication
 }) => {
-    const isValid = () => {
-        return register.surname === `` ||
-            register.name === `` ||
-            register.email === `` ||
-            register.password === `` ||
-            register.password !== register.password_check
-            ? true
-            : false;
-    };
-    console.log(isValid());
     return (
         <form
-            className="signup-form"
+            className="signin-form"
             action="index.html"
             method="post"
             onSubmit={e => {
                 console.log(history);
-                performRegister(e, auth => {
+                performLogin(e, auth => {
                     console.log(auth);
                     authentication.checkLoggedIn(() => {
                         if (auth) history.push('/');
@@ -39,63 +27,39 @@ const Signup = ({
                 e.preventDefault();
             }}
         >
-            <div className="double-input-holder">
-                <div className="input-holder double-input">
-                    <input id="firstname-signup" value={register.surname} onChange={onChangeSurname} name="" required />
-                    <label className="input-label" htmlFor="firstname-signup">
-                        First name
-                    </label>
-                    {/* <p className="error show-error">Please enter a name</p> */}
-                </div>
-                <div className="input-holder double-input">
-                    <input id="lastname-signup" value={register.name} onChange={onChangeName} name="" required />
-                    <label className="input-label" htmlFor="lastname-signup">
-                        Last name
-                    </label>
-                </div>
-            </div>
             <div className="input-holder">
-                <input id="email-signup" value={register.email} onChange={onChangeEmail} name="" required />
-                <label className="input-label" htmlFor="email-signup">
+                <input id="email-signin" onChange={onChangeUsername} value={login.username} name="" required />
+                <label className="input-label" htmlFor="email-signin">
                     Your email
                 </label>
-                {/* <p className="error show-error">Please enter a correct email</p> */}
+                <p className="error email-error">Your email is incorrect</p>
             </div>
             <div className="input-holder">
                 <input
-                    id="password-signup"
-                    value={register.password}
+                    id="password-signin"
                     onChange={onChangePassword}
+                    value={login.password}
                     type="password"
                     name=""
                     required
                 />
-                <label className="input-label" htmlFor="password-signup">
+                <label className="input-label" htmlFor="password-signin">
                     Password
                 </label>
-                {/* <p className="error show-error">Please enter a password</p> */}
+                <p className="error password-error">Your password is incorrect</p>
             </div>
-            <div className="input-holder">
-                <input
-                    id="confirm-password-signup"
-                    value={register.password_check}
-                    onChange={onChangePasswordCheck}
-                    type="password"
-                    name=""
-                    required
-                />
-                <label className="input-label" htmlFor="confirm-password-signup">
-                    Confirm Password
-                </label>
-                {/* <p className="error show-error">Your passwords do not match</p> */}
+            <div className="remember-holder">
+                <input id="remember" type="checkbox" onChange={onChangeRemember} name="" value="" />
+                <label htmlFor="remember">Remember me</label>
             </div>
             <div className="form-actions">
-                <button className="upper pointer signup-btn" disabled={isValid()} type="submit" name="button">
-                    create account
+                <button className="upper login-btn pointer" type="button" name="button">
+                    Sign in
                 </button>
+                {/* <button class="upper pointer signup-btn" type="button" name="button" onclick="showSignup()">Sign ip</button> */}
             </div>
         </form>
     );
 };
 
-export default withRouter(Signup);
+export default withRouter(Signin);

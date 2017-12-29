@@ -55,7 +55,7 @@ class Comments extends Component {
     };
 
     render() {
-        const {comments, openComments} = this.props;
+        const {comments, openComments, currentUser} = this.props;
         const commentsList = comments.map(comment => <Comment key={comment._id} comment={comment} />);
         const lastCommentId = comments.length > 0 ? comments[0] : '';
 
@@ -67,14 +67,15 @@ class Comments extends Component {
                 <div className="hide comment-form-holder">
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
-                            <label className="username" htmlFor="comment">
-                                Me :
+                            <label className="user-picture" htmlFor="comment">
+                                <img src={currentUser.picture} />
                             </label>
                             <input
                                 id="comment"
                                 value={this.state.commentText}
                                 onChange={this.onChangeCommentText}
                                 autoComplete="off"
+                                placeholder="Add a comment..."
                             />
                             <a onClick={this.toggleEmojiPicker}>😀</a>
                         </div>

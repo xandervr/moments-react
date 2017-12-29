@@ -144,63 +144,9 @@
     margin-top: 1.2rem;
 }
 
-.moment .comments {
-    margin-top: 1.5rem;
-    font-size: 1.3rem;
-}
-
-.comments li {
-    padding: 0.5rem 0;
-    max-width: 100%;
-}
-
 .username {
     font-weight: bold;
     font-size: 1.3rem;
-}
-
-.comments p {
-    color: var(--grey);
-}
-
-.comment-form {
-    display: flex;
-    align-items: center;
-}
-
-#comment {
-    margin-left: 0.5rem;
-    width: 85%;
-    border-radius: 5rem;
-    border: solid rgba(144, 148, 156, 0.3) 0.1rem;
-    padding: 0.2rem 1rem;
-    font-size: 1.2rem;
-}
-
-.comment-holder {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.comment-holder > a {
-    border: none;
-    border-radius: 50%;
-    background: white;
-    padding: 1rem 0.75rem 1rem 0.75rem;
-    height: 3rem;
-    width: 3rem;
-    font-size: 1.2rem;
-    appearance: none;
-}
-
-.comment-holder > a:hover {
-    cursor: pointer;
-}
-
-.comment-holder > a:active {
-    box-shadow: 0 0.2rem 1rem var(--boxshadow);
 }
 
 .content.images {

@@ -58,7 +58,7 @@ class Experience extends Component {
     };
 
     render() {
-        const {experience, updateWall} = this.props;
+        const {experience, updateWall, currentUser} = this.props;
         const adminPictures = experience.access.admin.map(user => user.picture);
         const writePictures = experience.access.write.map(user => user.picture);
         const userPictures = [...adminPictures, ...writePictures];
@@ -73,11 +73,8 @@ class Experience extends Component {
             <article className="moment">
                 <div className="profile">
                     <a href="">
-                        <div
-                            className="user-holder"
-                            onMouseOver={this.animateUsers}
-                            onMouseOut={this.endAnimateUsers}>
-                            <img className="main-user" src={experience.user.picture} alt="profile"/>
+                        <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
+                            <img className="main-user" src={experience.user.picture} alt="profile" />
                             <div className="side-users">
                                 <img className="side-user more" src={addWhite} alt="" /> {usersShow}
                             </div>
@@ -119,6 +116,7 @@ class Experience extends Component {
                         <p className="desc">{experience.description}</p>
                     </div>
                     <Comments
+                        currentUser={currentUser}
                         experience={experience}
                         updateWall={updateWall}
                         showAddComment={this.showAddComment}

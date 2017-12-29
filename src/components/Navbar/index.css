@@ -89,19 +89,71 @@ input[type="search"]::-webkit-search-results-button {
     padding: .2rem;
 }
 
-.settings {
+.settings-svg {
     transition: transform .2s;
 }
 
-.settings:hover {
+.settings:hover .settings-svg {
     transform: rotate(25deg);
 }
 
 .profile-actions .profile img,
 .moment .profile img {
     height: 6rem;
+    width: 6rem;
     border-radius: 50%;
     border: dotted .2rem var(--blue);
+}
+
+.logout {
+  position: relative;
+}
+
+.logout-svg {
+  transform: rotate(180deg);
+}
+
+.action-detail {
+  z-index: -1;
+  background-color: var(--blue);
+  padding: .7rem 1rem;
+  border-radius: .4rem;
+  letter-spacing: .1rem;
+  font-size: 1.2rem;
+  color: white;
+  position: absolute;
+  transform: translateY(1.5rem);
+  opacity: 0;
+  transition: opacity .2s 0s, transform .2s 0s;
+}
+
+.action-detail::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -.7rem;
+  width: 0;
+  height: 0;
+  border-left: .5rem solid transparent;
+  border-right: .5rem solid transparent;
+
+  border-bottom: .7rem solid var(--blue);
+}
+
+.action:hover .action-detail {
+  display: flex;
+  transform: translateY(3.3rem);
+  opacity: 1;
+  transition: opacity .2s .5s, transform .2s .5s;
+}
+
+.profile-action-detail {
+  transform: translateY(4rem);
+  margin-left: 1.5rem;
+}
+
+.action:hover .profile-action-detail {
+  transform: translateY(7rem);
 }
 
 .icon {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Add from '../Buttons/add.js';
 import Settings from '../Buttons/settings';
 import profile from '../../assets/img/profile.jpg';
+import logout from '../../assets/svg/logout.svg';
 import Search from '../Search/index';
 import './index.css';
 
@@ -15,14 +16,19 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        window.onscroll = e => {
-            console.log(window.scrollY);
-            if (window.scrollY <= 0) {
-                document.querySelector(`nav`).classList.remove(`nav-shadow`);
-            } else {
-                document.querySelector(`nav`).classList.add(`nav-shadow`);
-            }
-        };
+      window.onscroll = e => {
+        if (window.scrollY <= 0) {
+          document.querySelector(`nav`).classList.remove(`nav-shadow`);
+        } else {
+          document.querySelector(`nav`).classList.add(`nav-shadow`);
+        }
+      }
+    }
+
+    logout = () => {
+      localStorage.removeItem(`moments_account`);
+      //TODO fix logout
+      window.location = `/login`;
     }
 
     onChangeSearchValue = e => {
@@ -40,14 +46,19 @@ class Navbar extends Component {
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
                             <Add className="icon">add</Add>
+                            <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
                             <Settings className="icon" />
+                            <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
-                            <a>
-                                <img src={profile} alt="profile" />
-                            </a>
+                            <img src={profile} alt="profile" />
+                            <div className="action-detail profile-action-detail">Profile</div>
+                        </div>
+                        <div className="action logout pointer">
+                          <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
+                          <div className="action-detail">Logout</div>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "./index.css";
 import Navbar from "../Navbar";
 import Wall from "../Wall";
@@ -15,17 +15,20 @@ class App extends Component {
         fetch("http://moments.tntap.be/experiences")
             .then(r => r.json())
             .then(result => {
-                this.setState({ data: result.experiences });
+                this.setState({data: result.experiences});
             })
             .catch(e => e);
     }
 
     render() {
-        const experiences = this.state.data ? this.state.data : [];
+        const experiences = this.state.data
+            ? this.state.data
+            : [];
+        const {user} = this.props.authentication;
         return (
             <div>
-                <Navbar />
-                <Wall experiences={experiences} />
+                <Navbar user={user}/>
+                <Wall experiences={experiences} user={user}/>
             </div>
         );
     }

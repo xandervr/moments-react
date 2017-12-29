@@ -146,8 +146,8 @@ class Experience extends Component {
                 <div className="content">
                     <div className="head">
                         <div>
-                            <h2 className="title">{experience.title}</h2>
-                            <p className="location">Les Orres - France</p>
+                            <h2 className="title"> {experience.title} </h2>
+                            <p className="location"> Les Orres - France </p>
                         </div>
                         <div className="actions">
                             <div className="action pointer" onClick={this.showAddComment}>
@@ -162,7 +162,7 @@ class Experience extends Component {
                         </div>
                     </div>
                     <div className="info">
-                        <p className="desc">{experience.description}</p>
+                        <p className="desc"> {experience.description} </p>
                     </div>
                     <Comments openComments={this.openComments} comments={experience.comments}/>
                 </div>

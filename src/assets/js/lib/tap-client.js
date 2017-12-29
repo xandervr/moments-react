@@ -47,6 +47,48 @@ export const login = (username, password, cb) => {
 };
 
 /**
+ * @function register Register.
+ * @param surname User's surname.
+ * @param name User's name.
+ * @param email User's email.
+ * @param password User's password.
+ * @param cb Callback function returning access object
+ * @returns {Object}
+ * @public
+ */
+
+export const register = (surname, name, email, password, cb) => {
+    fetch(`${API_URL}/users`, {
+        method: `POST`,
+        headers: {
+            'User-Agent': 'TapAuth Client/1.0',
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            surname: surname,
+            name: name,
+            email: email,
+            password: password
+        })
+    })
+        .then(r => r.json())
+        .then(data => {
+            if (data.message === 'Success')
+                authenticate(
+                    data.client.client_id,
+                    data.client.client_secret,
+                    window.navigator.userAgent,
+                    window.navigator.userAgent,
+                    tokens => {
+                        cb(tokens);
+                    }
+                );
+            else cb(false);
+        })
+        .catch(err => console.log(err));
+};
+
+/**
  * @function authenticate Fetches an access_token object.
  * @param client_id Client ID provided in user object after login.
  * @param client_secret Client Secret provided in user object after login.

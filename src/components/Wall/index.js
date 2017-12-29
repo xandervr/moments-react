@@ -33,8 +33,9 @@ class Wall extends Component {
 
     render() {
         const experiences = this.state.data ? this.state.data : [];
+        const {user} = this.props;
         const experiencesList = experiences.map(el => (
-            <Experience updateWall={this.updateWall} key={el._id} experience={el} />
+            <Experience currentUser={user} updateWall={this.updateWall} key={el._id} experience={el} />
         ));
         return <main>{experiencesList}</main>;
     }

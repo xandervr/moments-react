@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {search} from '../../assets/js/lib/tap-client';
-import Add from '../Buttons/add.js';
-import Settings from '../Buttons/settings';
-import profile from '../../assets/img/profile.jpg';
-import Search from '../Search/index';
-import SearchResults from '../SearchResults/index';
-import logout from '../../assets/svg/logout.svg';
-import {Link} from 'react-router-dom';
-import './index.css';
-import {API_URL} from '../../assets/js/consts';
+import React, {Component} from "react";
+import {search} from "../../assets/js/lib/tap-client";
+import Add from "../Buttons/add.js";
+import Settings from "../Buttons/settings";
+import profile from "../../assets/img/profile.jpg";
+import Search from "../Search/index";
+import SearchResults from "../SearchResults/index";
+import logout from "../../assets/svg/logout.svg";
+import {Link} from "react-router-dom";
+import "./index.css";
+import {API_URL} from "../../assets/js/consts";
 
 class Navbar extends Component {
     constructor(props) {
@@ -44,35 +44,52 @@ class Navbar extends Component {
         this.setState({lockSearch: true});
         search(query, data => {
             this.setState({});
-            if (data) this.setState({searchResults: data.results, lockSearch: false});
-            else this.setState({searchResults: {experiences: [], users: []}, lockSearch: false});
-        });
+            if (data) 
+                this.setState({searchResults: data.results, lockSearch: false});
+            else 
+                this.setState({
+                    searchResults: {
+                        experiences: [],
+                        users: []
+                    },
+                    lockSearch: false
+                });
+            }
+        );
     };
 
     onChangeSearchValue = e => {
-        if (e.target.value.length >= 2 && !this.state.lockSearch) this.performSearch(e.target.value);
-        else this.setState({searchResults: {experiences: [], users: []}});
-    };
+        if (e.target.value.length >= 2 && !this.state.lockSearch) 
+            this.performSearch(e.target.value);
+        else 
+            this.setState({
+                searchResults: {
+                    experiences: [],
+                    users: []
+                }
+            });
+        }
+    ;
 
     render() {
         const {user} = this.props;
         return (
             <nav>
                 <div className="nav-content">
-                    <div className="logo flex-item pointer">Moments</div>
+                    <div className="logo flex-item pointer">
+                        <Link to="/">Moments</Link>
+                    </div>
                     <div className="search-container">
                         <Search
                             searchResultsExperiences={this.state.searchResults.experiences}
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
-                            onChangeSearchValue={this.onChangeSearchValue}
-                        >
+                            onChangeSearchValue={this.onChangeSearchValue}>
                             Search
                         </Search>
                         <SearchResults
                             experienceResults={this.state.searchResults.experiences}
-                            userResults={this.state.searchResults.users}
-                        />
+                            userResults={this.state.searchResults.users}/>
                     </div>
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
@@ -80,17 +97,17 @@ class Navbar extends Component {
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
-                            <Settings className="icon" />
+                            <Settings className="icon"/>
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
                             <Link to="/profile">
-                                <img src={user.picture} alt="profile" />
+                                <img src={user.picture} alt="profile"/>
                             </Link>
                             <div className="action-detail profile-action-detail">Profile</div>
                         </div>
                         <div className="action logout pointer">
-                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout" />
+                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
                             <div className="action-detail">Logout</div>
                         </div>
                     </div>

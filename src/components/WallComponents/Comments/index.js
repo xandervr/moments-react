@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Comment from './Comment';
 import {comment} from '../../../assets/js/lib/tap-client';
+import Emoji from '../../Emoji';
+import './index.css';
 
 class Comments extends Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class Comments extends Component {
         e.persist();
         const removeCommentContainer = () => {
             e.target.parentNode.classList.add(`hide`);
+            e.target.parentNode.querySelector(`.emoji-picker`).classList.add(`hide`);
         };
         comment(experience._id, this.state.commentText, success => {
             if (success) {
@@ -43,6 +46,14 @@ class Comments extends Component {
         this.setState({commentText: e.target.value});
     };
 
+    addToComment = emoji => {
+        this.setState({commentText: this.state.commentText + emoji});
+    };
+
+    toggleEmojiPicker = e => {
+        e.target.parentNode.parentNode.parentNode.querySelector(`.emoji-picker`).classList.toggle(`hide`);
+    };
+
     render() {
         const {comments, openComments} = this.props;
         const commentsList = comments.map(comment => <Comment key={comment._id} comment={comment} />);
@@ -55,16 +66,22 @@ class Comments extends Component {
                 <ul className="hide">{otherComments}</ul>
                 <div className="hide comment-form-holder">
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
-                        <label className="username" htmlFor="comment">
-                            Me :
-                        </label>
-                        <input
-                            id="comment"
-                            value={this.state.commentText}
-                            onChange={this.onChangeCommentText}
-                            autoComplete="off"
-                        />
+                        <div className="comment-holder">
+                            <label className="username" htmlFor="comment">
+                                Me :
+                            </label>
+                            <input
+                                id="comment"
+                                value={this.state.commentText}
+                                onChange={this.onChangeCommentText}
+                                autoComplete="off"
+                            />
+                            <a onClick={this.toggleEmojiPicker}>😀</a>
+                        </div>
                     </form>
+                    <span className="emoji-picker hide">
+                        <Emoji addToComment={this.addToComment} />
+                    </span>
                 </div>
                 <p className="pointer" onClick={this.openComments}>
                     {comments.length - 1 > 0 ? `View ${otherComments.length} other comments` : ''}

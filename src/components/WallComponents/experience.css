@@ -28,7 +28,7 @@
     height: auto;
     background-color: white;
     border-radius: 1.5rem;
-    box-shadow: 0 .5rem 1rem var(--boxshadow);
+    box-shadow: 0 0.5rem 1rem var(--boxshadow);
     padding: 2rem 2rem 1rem 2rem;
     z-index: 2;
 }
@@ -60,7 +60,7 @@
 }
 
 .side-users {
-    transform: scale(.8);
+    transform: scale(0.8);
     position: absolute;
     top: -2.5rem;
     left: -6.5rem;
@@ -74,7 +74,7 @@
     width: 3rem;
     right: 6rem;
     bottom: 1rem;
-    transition: transform .3s, opacity .3s;
+    transition: transform 0.3s, opacity 0.3s;
     opacity: 0;
 }
 
@@ -85,12 +85,12 @@
     width: 3.2rem;
     height: 3.2rem;
     left: 6.9rem;
-    top:11.5rem;
+    top: 11.5rem;
     opacity: 1;
 }
 
 .user-holder .side-user.zero {
-    transform: scale(.8) translate(-.5rem, .5rem);
+    transform: scale(0.8) translate(-0.5rem, 0.5rem);
     opacity: 1;
 }
 
@@ -100,13 +100,13 @@
 }
 
 .user-holder .side-user.second {
-    transition-delay: .05s;
+    transition-delay: 0.05s;
     transform: translate(-5.5rem, -5.5rem) scale(1.2);
     opacity: 1;
 }
 
 .user-holder .side-user.third {
-    transition-delay: .1s;
+    transition-delay: 0.1s;
     transform: translate(-4.5rem, -10.5rem) scale(1.2);
     opacity: 1;
 }
@@ -124,7 +124,7 @@
 }
 
 .head .location {
-    margin-top: .2rem;
+    margin-top: 0.2rem;
     font-size: 1.3rem;
 }
 
@@ -150,7 +150,7 @@
 }
 
 .comments li {
-    padding: .5rem 0;
+    padding: 0.5rem 0;
     max-width: 100%;
 }
 
@@ -164,17 +164,43 @@
 }
 
 .comment-form {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 #comment {
-  margin-left: .5rem;
-  width: 90%;
-  border-radius: 5rem;
-  border: solid rgba(144, 148, 156, .3) .1rem;
-  padding: .2rem 1rem;
-  font-size: 1.2rem;
+    margin-left: 0.5rem;
+    width: 85%;
+    border-radius: 5rem;
+    border: solid rgba(144, 148, 156, 0.3) 0.1rem;
+    padding: 0.2rem 1rem;
+    font-size: 1.2rem;
+}
+
+.comment-holder {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comment-holder > a {
+    border: none;
+    border-radius: 50%;
+    background: white;
+    padding: 1rem 0.75rem 1rem 0.75rem;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.2rem;
+    appearance: none;
+}
+
+.comment-holder > a:hover {
+    cursor: pointer;
+}
+
+.comment-holder > a:active {
+    box-shadow: 0 0.2rem 1rem var(--boxshadow);
 }
 
 .content.images {

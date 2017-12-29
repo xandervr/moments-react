@@ -1,28 +1,35 @@
-import React, {Component} from 'react';
-import Add from '../Buttons/add.js';
-import Settings from '../Buttons/settings';
-import profile from '../../assets/img/profile.jpg';
+import React, {Component} from "react";
+import Add from "../Buttons/add.js";
+import Settings from "../Buttons/settings";
+import profile from "../../assets/img/profile.jpg";
+import Search from "../Search/index";
 import logout from '../../assets/svg/logout.svg';
-import Search from '../Search/index';
-import './index.css';
+import {Link} from "react-router-dom";
+import "./index.css";
 
 class Navbar extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchValue: ''
+            searchValue: ""
         };
     }
 
     componentDidMount() {
-      window.onscroll = e => {
-        if (window.scrollY <= 0) {
-          document.querySelector(`nav`).classList.remove(`nav-shadow`);
-        } else {
-          document.querySelector(`nav`).classList.add(`nav-shadow`);
-        }
-      }
+        window.onscroll = e => {
+            if (window.scrollY <= 0) {
+                document
+                    .querySelector(`nav`)
+                    .classList
+                    .remove(`nav-shadow`);
+            } else {
+                document
+                    .querySelector(`nav`)
+                    .classList
+                    .add(`nav-shadow`);
+            }
+        };
     }
 
     logout = () => {
@@ -36,11 +43,14 @@ class Navbar extends Component {
     };
 
     render() {
+        const {user} = this.props;
         return (
             <nav>
                 <div className="nav-content">
                     <div className="logo flex-item pointer">Moments</div>
-                    <Search searchValue={this.state.searchValue} onChangeSearchValue={this.onChangeSearchValue}>
+                    <Search
+                        searchValue={this.state.searchValue}
+                        onChangeSearchValue={this.onChangeSearchValue}>
                         Search
                     </Search>
                     <div className="profile-actions flex-item">
@@ -53,8 +63,9 @@ class Navbar extends Component {
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
-                            <img src={profile} alt="profile" />
-                            <div className="action-detail profile-action-detail">Profile</div>
+                            <Link to="/profile">
+                                <img src={user.picture} alt="profile"/>
+                            </Link>
                         </div>
                         <div className="action logout pointer">
                           <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>

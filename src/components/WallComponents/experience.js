@@ -86,8 +86,8 @@ class Experience extends Component {
                 <div className="content">
                     <div className="head">
                         <div>
-                            <h2 className="title">{experience.title}</h2>
-                            <p className="location">Les Orres - France</p>
+                            <h2 className="title"> {experience.title} </h2>
+                            <p className="location"> Les Orres - France </p>
                         </div>
                         <div className="actions">
                             <div className="action pointer" onClick={this.showAddComment}>
@@ -102,31 +102,31 @@ class Experience extends Component {
                         </div>
                     </div>
                     <div className="info">
-                        <p className="desc">{experience.description}</p>
+                        <p className="desc"> {experience.description} </p>
                     </div>
                     <div className="comments">
                         <ul>
                             <li>
-                                <span className="username">JariVerswyvel</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                <span className="username"> JariVerswyvel </span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit
                             </li>
                         </ul>
                         <ul className="hide">
                             <li>
-                                <span className="username">JariVerswyvel</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                <span className="username"> JariVerswyvel </span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
                             </li>
                             <li>
-                                <span className="username">CisVercoutren</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                <span className="username"> CisVercoutren </span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit
                             </li>
                             <li>
-                                <span className="username">WizardVr</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                <span className="username"> WizardVr </span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit
                             </li>
                             <li>
-                                <span className="username">SpaBlauw</span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
+                                <span className="username"> SpaBlauw </span>&nbsp;&nbsp;Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit
                             </li>
                         </ul>

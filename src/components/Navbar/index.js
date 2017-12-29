@@ -32,7 +32,7 @@ class Navbar extends Component {
     }
 
     onChangeSearchValue = e => {
-        //this.setState({searchValue: e.target.value});
+        this.setState({searchValue: e.target.value});
     };
 
     render() {

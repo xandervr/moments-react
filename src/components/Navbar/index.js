@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import Add from '../Buttons/add.js';
-import Settings from '../Buttons/settings';
-import profile from '../../assets/img/profile.jpg';
-import Search from '../Search/index';
-import logout from '../../assets/svg/logout.svg';
+import React, {Component} from "react";
+import Add from "../Buttons/add.js";
+import Settings from "../Buttons/settings";
+import profile from "../../assets/img/profile.jpg";
+import Search from "../Search/index";
+import logout from "../../assets/svg/logout.svg";
 import {Link} from "react-router-dom";
-import './index.css';
-import {API_URL} from '../../assets/js/consts';
+import "./index.css";
+import {API_URL} from "../../assets/js/consts";
 
 class Navbar extends Component {
     constructor(props) {
@@ -32,12 +32,12 @@ class Navbar extends Component {
             }
         };
     }
-    
+
     logout = () => {
         localStorage.removeItem(`moments_account`);
         //TODO fix logout
         window.location = `/login`;
-    }
+    };
 
     performSearch = () => {
         fetch(`${API_URL}/search/${this.state.searchValue}`, {
@@ -48,7 +48,7 @@ class Navbar extends Component {
 
     onChangeSearchValue = e => {
         this.setState({searchValue: e.target.value});
-        performSearch();
+        this.performSearch();
     };
 
     render() {
@@ -68,7 +68,7 @@ class Navbar extends Component {
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
-                            <Settings className="icon" />
+                            <Settings className="icon"/>
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
@@ -77,8 +77,8 @@ class Navbar extends Component {
                             </Link>
                         </div>
                         <div className="action logout pointer">
-                          <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
-                          <div className="action-detail">Logout</div>
+                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
+                            <div className="action-detail">Logout</div>
                         </div>
                     </div>
                 </div>

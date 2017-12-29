@@ -1,34 +1,34 @@
-import React, {Component} from "react";
-import Add from "../Buttons/add.js";
-import Settings from "../Buttons/settings";
-import profile from "../../assets/img/profile.jpg";
-import Search from "../Search/index";
-import logout from "../../assets/svg/logout.svg";
-import {Link} from "react-router-dom";
-import "./index.css";
-import {API_URL} from "../../assets/js/consts";
+import React, {Component} from 'react';
+import {search} from '../../assets/js/lib/tap-client';
+import Add from '../Buttons/add.js';
+import Settings from '../Buttons/settings';
+import profile from '../../assets/img/profile.jpg';
+import Search from '../Search/index';
+import SearchResults from '../SearchResults/index';
+import logout from '../../assets/svg/logout.svg';
+import {Link} from 'react-router-dom';
+import './index.css';
+import {API_URL} from '../../assets/js/consts';
 
 class Navbar extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchValue: ""
+            lockSearch: false,
+            searchResults: {
+                experiences: [],
+                users: []
+            }
         };
     }
 
     componentDidMount() {
         window.onscroll = e => {
             if (window.scrollY <= 0) {
-                document
-                    .querySelector(`nav`)
-                    .classList
-                    .remove(`nav-shadow`);
+                document.querySelector(`nav`).classList.remove(`nav-shadow`);
             } else {
-                document
-                    .querySelector(`nav`)
-                    .classList
-                    .add(`nav-shadow`);
+                document.querySelector(`nav`).classList.add(`nav-shadow`);
             }
         };
     }
@@ -39,16 +39,18 @@ class Navbar extends Component {
         window.location = `/login`;
     };
 
-    performSearch = () => {
-        fetch(`${API_URL}/search/${this.state.searchValue}`, {
-            method: `GET`,
-            headers: {}
+    performSearch = query => {
+        this.setState({lockSearch: true});
+        search(query, data => {
+            this.setState({});
+            if (data) this.setState({searchResults: data.results, lockSearch: false});
+            else this.setState({searchResults: {experiences: [], users: []}, lockSearch: false});
         });
     };
 
     onChangeSearchValue = e => {
-        this.setState({searchValue: e.target.value});
-        this.performSearch();
+        if (e.target.value.length >= 2 && !this.state.lockSearch) this.performSearch(e.target.value);
+        else this.setState({searchResults: {experiences: [], users: []}});
     };
 
     render() {
@@ -58,26 +60,33 @@ class Navbar extends Component {
                 <div className="nav-content">
                     <div className="logo flex-item pointer">Moments</div>
                     <Search
+                        searchResultsExperiences={this.state.searchResults.experiences}
+                        searchResultsUsers={this.state.searchResults.users}
                         searchValue={this.state.searchValue}
-                        onChangeSearchValue={this.onChangeSearchValue}>
+                        onChangeSearchValue={this.onChangeSearchValue}
+                    >
                         Search
                     </Search>
+                    <SearchResults
+                        experienceResults={this.state.searchResults.experiences}
+                        userResults={this.state.searchResults.users}
+                    />
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
                             <Add className="icon">add</Add>
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
-                            <Settings className="icon"/>
+                            <Settings className="icon" />
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
                             <Link to="/profile">
-                                <img src={user.picture} alt="profile"/>
+                                <img src={user.picture} alt="profile" />
                             </Link>
                         </div>
                         <div className="action logout pointer">
-                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
+                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout" />
                             <div className="action-detail">Logout</div>
                         </div>
                     </div>

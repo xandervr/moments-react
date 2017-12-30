@@ -10,7 +10,8 @@ class Comments extends Component {
         super(props);
         this.state = {
             commentText: '',
-            commentLimit: 5
+            commentLimit: 5,
+            commentsOpen: false
         };
     }
 
@@ -43,9 +44,10 @@ class Comments extends Component {
 
         if ($comments.classList.contains(`open-comments`)) {
             e.currentTarget.innerHTML = openHtml;
-            this.setState({commentLimit: 5});
+            this.setState({commentLimit: 5, commentsOpen: true});
         } else {
             e.currentTarget.innerHTML = closedHtml;
+            this.setState({commentsOpen: false});
         }
     };
 
@@ -109,7 +111,11 @@ class Comments extends Component {
                     </span>
                 </div>
                 <p className="pointer" onClick={this.toggleComments}>
-                    {comments.length - 1 > 0 ? `View ${otherComments.length} other comments` : ''}
+                    {comments.length - 1 > 0
+                        ? !this.state.commentsOpen
+                          ? `View ${otherComments.length} other comments`
+                          : 'View less comments'
+                        : ''}
                 </p>
             </div>
         );

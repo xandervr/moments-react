@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Comment from './Comment';
 import {comment, deleteComment} from '../../../assets/js/lib/tap-client';
 import Emoji from '../../Emoji';
+import {emojify} from 'react-emojione';
 import './index.css';
 
 class Comments extends Component {
@@ -50,7 +51,9 @@ class Comments extends Component {
     };
 
     onChangeCommentText = e => {
-        this.setState({commentText: e.target.value});
+        let text = e.target.value;
+        text = emojify(text, {output: 'unicode'});
+        this.setState({commentText: text});
     };
 
     addToComment = emoji => {

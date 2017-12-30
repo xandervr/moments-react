@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ReactEmojiSelector from 'react-emoji-selector';
-import 'react-emoji-selector/lib/react-emoji-selector.css';
+import {Picker} from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 
 class Emoji extends Component {
     constructor(props) {
@@ -10,18 +10,14 @@ class Emoji extends Component {
 
     selectEmoji(emoji) {
         const {addToComment} = this.props;
-        this.setState({emoji}); // {emoji: "🚀", key: "rocket"}
-        addToComment(emoji.emoji);
+        this.setState({emoji});
+        addToComment(emoji.native);
     }
 
     render() {
         return (
             <div className="emoji-selector">
-                <ReactEmojiSelector
-                    visibleAmount={10}
-                    searchPlaceholder="Search emoji"
-                    onSelect={emoji => this.selectEmoji(emoji)}
-                />
+                <Picker title="" emoji="smile" onClick={emoji => this.selectEmoji(emoji)} />
             </div>
         );
     }

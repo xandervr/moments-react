@@ -288,3 +288,57 @@ export const fetchUserByUsername = (username, cb) => {
         cb(false);
     }
 };
+
+/**
+ * @function boostExperience Boosts an experience.
+ * @param experience_id Experience to boost.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const boostExperience = (experience_id, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`${API_URL}/experiences/${experience_id}/boost`, {
+            method: `PUT`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
+    else console.log('Authorization error');
+};
+
+/**
+ * @function unboostExperience Boosts an experience.
+ * @param experience_id Experience to boost.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const unboostExperience = (experience_id, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`${API_URL}/experiences/${experience_id}/unboost`, {
+            method: `PUT`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
+    else console.log('Authorization error');
+};

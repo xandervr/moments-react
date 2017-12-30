@@ -261,7 +261,7 @@ export const fetchWall = cb => {
 /**
  * @function fetchUserByUsername Fetches the user by username.
  * @param username Username to fetch
- * @param cb Callback function returning wall object
+ * @param cb Callback function returning user object
  * @returns {Object}
  * @private
  */

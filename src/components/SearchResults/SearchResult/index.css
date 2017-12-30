@@ -1,0 +1,22 @@
+.result-holder {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1rem auto;
+}
+
+.result-holder > div > img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.result-holder > div.result-container {
+    height: 5rem;
+    padding: 2rem;
+    align-self: flex-start;
+}
+
+.result-holder:hover {
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

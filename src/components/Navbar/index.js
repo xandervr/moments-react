@@ -42,8 +42,7 @@ class Navbar extends Component {
         this.setState({lockSearch: true});
         search(query, data => {
             this.setState({});
-            if (data)
-                this.setState({searchResults: data.results, lockSearch: false});
+            if (data) this.setState({searchResults: data.results, lockSearch: false});
             else
                 this.setState({
                     searchResults: {
@@ -52,13 +51,11 @@ class Navbar extends Component {
                     },
                     lockSearch: false
                 });
-            }
-        );
+        });
     };
 
     onChangeSearchValue = e => {
-        if (e.target.value.length >= 2 && !this.state.lockSearch)
-            this.performSearch(e.target.value);
+        if (e.target.value.length >= 2 && !this.state.lockSearch) this.performSearch(e.target.value);
         else
             this.setState({
                 searchResults: {
@@ -66,8 +63,7 @@ class Navbar extends Component {
                     users: []
                 }
             });
-        }
-    ;
+    };
 
     render() {
         const {user} = this.props;
@@ -82,12 +78,17 @@ class Navbar extends Component {
                             searchResultsExperiences={this.state.searchResults.experiences}
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
-                            onChangeSearchValue={this.onChangeSearchValue}>
+                            onChangeSearchValue={this.onChangeSearchValue}
+                        >
                             Search
                         </Search>
-                        <SearchResults
-                            experienceResults={this.state.searchResults.experiences}
-                            userResults={this.state.searchResults.users}/>
+                        {this.state.searchResults.experiences.length > 0 ||
+                        this.state.searchResults.users.length > 0 ? (
+                            <SearchResults
+                                experienceResults={this.state.searchResults.experiences}
+                                userResults={this.state.searchResults.users}
+                            />
+                        ) : null}
                     </div>
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
@@ -95,17 +96,17 @@ class Navbar extends Component {
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
-                            <Settings className="icon"/>
+                            <Settings className="icon" />
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
                             <Link to="/profile">
-                                <img src={user.picture} alt="profile"/>
+                                <img src={user.picture} alt="profile" />
                             </Link>
                             <div className="action-detail profile-action-detail">Profile</div>
                         </div>
                         <div className="action logout pointer">
-                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
+                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout" />
                             <div className="action-detail">Logout</div>
                         </div>
                     </div>

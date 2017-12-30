@@ -12,22 +12,18 @@ class Wall extends Component {
     }
 
     updateWall = () => {
-        fetchWall()
-            .then(result => {
-                this.setState({data: result.experiences});
-            })
-            .catch(e => e);
+        fetchWall(wall => {
+            if (wall) this.setState({data: wall});
+        });
     };
 
     componentDidMount() {
         this.updateWall();
 
         setInterval(() => {
-            fetchWall()
-                .then(result => {
-                    this.setState({data: result.experiences});
-                })
-                .catch(e => e);
+            fetchWall(wall => {
+                if (wall) this.setState({data: wall});
+            });
         }, 5000);
     }
 

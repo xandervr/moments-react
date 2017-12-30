@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Comment from './Comment';
 import {comment, deleteComment} from '../../../assets/js/lib/tap-client';
 import Emoji from '../../Emoji';
-import {emojify} from 'react-emojione';
+import {emojify} from 'react-emojione2';
 import './index.css';
 
 class Comments extends Component {

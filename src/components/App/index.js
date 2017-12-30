@@ -3,6 +3,7 @@ import './index.css';
 import Navbar from '../Navbar';
 import Wall from '../Wall';
 import Profile from '../Profile';
+import Settings from '../Settings';
 
 class App extends Component {
     constructor(props) {
@@ -19,6 +20,9 @@ class App extends Component {
         switch (path) {
             case `/profile`:
                 show = <Profile user={user} />;
+                break;
+            case `/settings`:
+                show = <Settings user={user} />;
                 break;
             case `/`:
                 show = <Wall user={user} />;

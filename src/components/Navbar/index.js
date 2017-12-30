@@ -96,7 +96,9 @@ class Navbar extends Component {
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
-                            <Settings className="icon" />
+                            <Link to="/settings">
+                                <Settings className="icon" />
+                            </Link>
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">

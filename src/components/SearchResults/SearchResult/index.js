@@ -6,7 +6,7 @@ const SearchResultExperience = ({result, ...props}) => {
         <li>
             <div className="result-holder">
                 <div>
-                    <img width="20" src={result.image} />
+                    <img width="20" alt="" src={result.image} />
                 </div>
                 <div className="result-container">
                     <span className="result-text">{result.title}</span>
@@ -21,7 +21,7 @@ const SearchResultUser = ({result, ...props}) => {
         <li>
             <div className="result-holder">
                 <div>
-                    <img width="20" src={result.picture} />
+                    <img width="20" alt="" src={result.picture} />
                 </div>
                 <div className="result-container">
                     <span className="result-text">{result.username}</span>

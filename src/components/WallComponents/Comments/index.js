@@ -78,7 +78,7 @@ class Comments extends Component {
             <div className="comments">
                 <ul>{commentsList[0]}</ul>
                 <ul className="hide">{otherComments}</ul>
-                <div className="hide comment-form-holder">
+                <div className="comment-form-holder">
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
                             <label className="user-picture" htmlFor="comment">

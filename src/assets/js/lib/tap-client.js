@@ -228,6 +228,13 @@ const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
         });
 };
 
+/**
+ * @function fetchWall Fetches the wall of a user.
+ * @param cb Callback function returning wall object
+ * @returns {Object}
+ * @private
+ */
+
 export const fetchWall = cb => {
     let account = fetchAccount();
     if (account)
@@ -242,6 +249,37 @@ export const fetchWall = cb => {
             .then(r => r.json())
             .then(data => {
                 if (data.message === 'Success') cb(data.wall);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
+    else {
+        console.log('Authorization error');
+        cb(false);
+    }
+};
+
+/**
+ * @function fetchUserByUsername Fetches the user by username.
+ * @param username Username to fetch
+ * @param cb Callback function returning wall object
+ * @returns {Object}
+ * @private
+ */
+
+export const fetchUserByUsername = (username, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`http://moments.tntap.be/users/${username}`, {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success') cb(data.user);
                 else cb(false);
             })
             .catch(err => console.log(err));

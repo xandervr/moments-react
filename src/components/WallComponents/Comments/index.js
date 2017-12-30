@@ -9,7 +9,8 @@ class Comments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            commentText: ''
+            commentText: '',
+            commentLimit: 5
         };
     }
 
@@ -32,7 +33,7 @@ class Comments extends Component {
         });
     };
 
-    openComments = e => {
+    toggleComments = e => {
         const $comments = e.currentTarget.previousElementSibling.previousElementSibling,
             openHtml = `View less comments`,
             closedHtml = `View ${this.props.experience.comments.length - 1} other comments`;
@@ -40,9 +41,12 @@ class Comments extends Component {
         $comments.classList.toggle(`open-comments`);
         $comments.classList.toggle(`hide`);
 
-        $comments.classList.contains(`open-comments`)
-            ? (e.currentTarget.innerHTML = openHtml)
-            : (e.currentTarget.innerHTML = closedHtml);
+        if ($comments.classList.contains(`open-comments`)) {
+            e.currentTarget.innerHTML = openHtml;
+            this.setState({commentLimit: 5});
+        } else {
+            e.currentTarget.innerHTML = closedHtml;
+        }
     };
 
     onChangeCommentText = e => {
@@ -55,6 +59,10 @@ class Comments extends Component {
         this.setState({
             commentText: this.state.commentText + emoji
         });
+    };
+
+    changeCommentLimit = () => {
+        this.setState({commentLimit: this.state.commentLimit + 5});
     };
 
     toggleEmojiPicker = e => {
@@ -72,7 +80,14 @@ class Comments extends Component {
         return (
             <div className="comments">
                 <ul>{commentsList[0]}</ul>
-                <ul className="hide">{otherComments}</ul>
+                <ul className="more-comments hide">
+                    {otherComments.slice(0, this.state.commentLimit)}
+                    {this.state.commentLimit < otherComments.length ? (
+                        <li className="load-more" onClick={this.changeCommentLimit}>
+                            load more...
+                        </li>
+                    ) : null}
+                </ul>
                 <div className="comment-form-holder">
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
@@ -93,7 +108,7 @@ class Comments extends Component {
                         <Emoji addToComment={this.addToComment} />
                     </span>
                 </div>
-                <p className="pointer" onClick={this.openComments}>
+                <p className="pointer" onClick={this.toggleComments}>
                     {comments.length - 1 > 0 ? `View ${otherComments.length} other comments` : ''}
                 </p>
             </div>

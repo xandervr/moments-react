@@ -36,9 +36,6 @@
     margin: 0.2rem auto;
 }
 
-.comment-username {
-}
-
 .comment-text {
     display: flex;
     margin: 0.2rem 0;
@@ -104,6 +101,15 @@
 
 .comment-holder > a:active {
     box-shadow: 0 0.2rem 1rem var(--boxshadow);
+}
+
+.comments > .more-comments > .load-more {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.comments > .more-comments > .load-more:hover {
+    cursor: pointer;
 }
 
 .user-picture > img {

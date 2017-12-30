@@ -2,7 +2,7 @@
     position: absolute;
     background: white;
     left: 55rem;
-    top: 5rem;
+    top: 0rem;
     z-index: 10;
 }
 
@@ -94,30 +94,12 @@
     box-shadow: 0 0.2rem 1rem var(--boxshadow);
 }
 
-.react-emoji-selector {
-    width: 20rem;
-    height: 17rem;
-    border-radius: 1.3rem;
-}
-
 .user-picture > img {
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
 }
 
-.react-emoji-selector input {
-    border: none;
-    border-radius: 1.1rem;
-    box-shadow: 0 0.5rem 1rem var(--boxshadow);
-    padding: 0.3rem;
-    padding-left: 1rem;
-    height: 2rem;
-    width: 25rem;
-    font-size: 1.2rem;
-    appearance: none;
-}
-
-.react-emoji-selector .react-emoji-selector-show-more {
-    margin: auto 10;
+.emoji-picker .emoji-mart .emoji-mart-scroll {
+    height: 18rem;
 }

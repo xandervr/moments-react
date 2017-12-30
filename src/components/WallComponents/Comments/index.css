@@ -41,6 +41,7 @@
 
 .comment-text {
     display: flex;
+    margin: 0.2rem 0;
     max-height: 10rem;
 }
 

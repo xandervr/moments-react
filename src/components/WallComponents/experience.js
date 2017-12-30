@@ -80,14 +80,8 @@ class Experience extends Component {
                             </div>
                         </div>
                         <p className="username">
-                            {experience.user.surname}
-                            {experience.user.name}
-                            <TimeAgo
-                                style={{
-                                    marginLeft: '20rem'
-                                }}
-                                date={experience.created_on}
-                            />
+                            {experience.user.surname} {experience.user.name}
+                            <TimeAgo style={{marginLeft: '20rem'}} date={experience.created_on} />
                         </p>
                     </a>
                 </div>
@@ -105,10 +99,10 @@ class Experience extends Component {
                                 <img src={chat} alt="comment" />
                             </div> */}
                             <div className="action pointer">
-                                <img src={like} alt="like" />
+                                <i className="fas fa-fire" />
                             </div>
                             <div className="action pointer">
-                                <img src={share} alt="share" />
+                                <i className="fas fa-share-alt" />
                             </div>
                         </div>
                     </div>

@@ -1,19 +1,19 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 
 //Assets
-import profile from "../../assets/img/profile.jpg";
-import addWhite from "../../assets/svg/add-white.svg";
-import chat from "../../assets/svg/chat.svg";
-import like from "../../assets/svg/like.svg";
-import share from "../../assets/svg/share.svg";
-import france from "../../assets/img/france.jpg";
+import profile from '../../assets/img/profile.jpg';
+import addWhite from '../../assets/svg/add-white.svg';
+import chat from '../../assets/svg/chat.svg';
+import like from '../../assets/svg/like.svg';
+import share from '../../assets/svg/share.svg';
+import france from '../../assets/img/france.jpg';
 
 //Styling
-import "./experience.css";
+import './experience.css';
 
 //Components
-import Comments from "./Comments";
-import TimeAgo from "react-timeago";
+import Comments from './Comments';
+import TimeAgo from 'react-timeago';
 
 class Experience extends Component {
     constructor(props) {
@@ -21,32 +21,20 @@ class Experience extends Component {
     }
 
     animateUsers = e => {
-        const $users = [
-                ...e
-                    .currentTarget
-                    .querySelectorAll(`.side-user`)
-            ],
+        const $users = [...e.currentTarget.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
-            $users[i]
-                .classList
-                .add(`${userCSS[i]}`);
+            $users[i].classList.add(`${userCSS[i]}`);
         }
     };
 
     endAnimateUsers = e => {
-        const $users = [
-                ...e
-                    .currentTarget
-                    .querySelectorAll(`.side-user`)
-            ],
+        const $users = [...e.currentTarget.querySelectorAll(`.side-user`)],
             userCSS = [`zero`, `first`, `second`, `third`];
 
         for (let i = 0; i < $users.length; i++) {
-            $users[i]
-                .classList
-                .remove(`${userCSS[i]}`);
+            $users[i].classList.remove(`${userCSS[i]}`);
         }
     };
 
@@ -55,55 +43,31 @@ class Experience extends Component {
             openHtml = `See less moments`,
             closedHtml = `See more moments`;
 
-        $moments
-            .classList
-            .toggle(`open-moments`);
-        $moments
-            .firstElementChild
-            .classList
-            .toggle(`hide`);
+        $moments.classList.toggle(`open-moments`);
+        $moments.firstElementChild.classList.toggle(`hide`);
 
-        $moments
-            .classList
-            .contains(`open-moments`)
+        $moments.classList.contains(`open-moments`)
             ? (e.currentTarget.innerHTML = openHtml)
             : (e.currentTarget.innerHTML = closedHtml);
     };
 
     showAddComment = e => {
-        const $comment = e
-            .currentTarget
-            .parentNode
-            .parentNode
-            .parentNode
-            .querySelector(`.comment-form-holder`);
+        const $comment = e.currentTarget.parentNode.parentNode.parentNode.querySelector(`.comment-form-holder`);
 
-        $comment
-            .classList
-            .toggle(`hide`);
+        $comment.classList.toggle(`hide`);
     };
 
     render() {
         const {experience, updateWall, currentUser} = this.props;
         const ownerId = experience.user._id;
         console.log(ownerId);
-        const adminPictures = experience
-            .access
-            .admin
-            .filter(admin => admin._id !== ownerId)
-            .map(user => user.picture);
-        const writePictures = experience
-            .access
-            .write
-            .map(user => user.picture);
-        const userPictures = [
-            ...adminPictures,
-            ...writePictures
-        ];
+        const adminPictures = experience.access.admin.filter(admin => admin._id !== ownerId).map(user => user.picture);
+        const writePictures = experience.access.write.map(user => user.picture);
+        const userPictures = [...adminPictures, ...writePictures];
 
         const usersShow = userPictures.map((userPicture, i) => {
             while (i < 3) {
-                return (<img className="side-user" key={i} src={userPicture} alt="profile"/>);
+                return <img className="side-user" key={i} src={userPicture} alt="profile" />;
             }
         });
 
@@ -111,28 +75,25 @@ class Experience extends Component {
             <article className="moment">
                 <div className="profile">
                     <a href="">
-                        <div
-                            className="user-holder"
-                            onMouseOver={this.animateUsers}
-                            onMouseOut={this.endAnimateUsers}>
-                            <img className="main-user" src={experience.user.picture} alt="profile"/>
+                        <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
+                            <img className="main-user" src={experience.user.picture} alt="profile" />
                             <div className="side-users">
-                                <img className="side-user more" src={addWhite} alt=""/>{" "} {usersShow}
+                                <img className="side-user more" src={addWhite} alt="" /> {usersShow}
                             </div>
                         </div>
-                        <p className="username">
-                            {experience.user.surname}
-                            {experience.user.name}
-                            <TimeAgo
-                                style={{
-                                marginLeft: "20rem"
-                            }}
-                                date={experience.created_on}/>
-                        </p>
+                        <div className="experience-title">
+                            <div>
+                                <span className="username">
+                                    <span>{experience.user.surname}</span>
+                                    <span>{experience.user.name}</span>
+                                </span>
+                            </div>
+                            <TimeAgo date={experience.created_on} />
+                        </div>
                     </a>
                 </div>
                 <div className="head-img img-container">
-                    <img src={experience.image} alt=""/>
+                    <img src={experience.image} alt="" />
                 </div>
                 <div className="content">
                     <div className="head">
@@ -145,10 +106,10 @@ class Experience extends Component {
                                 <img src={chat} alt="comment" />
                             </div> */}
                             <div className="action pointer">
-                                <i className="fas fa-fire"/>
+                                <i className="fas fa-fire" />
                             </div>
                             <div className="action pointer">
-                                <i className="fas fa-share-alt"/>
+                                <i className="fas fa-share-alt" />
                             </div>
                         </div>
                     </div>
@@ -159,21 +120,22 @@ class Experience extends Component {
                         currentUser={currentUser}
                         experience={experience}
                         updateWall={updateWall}
-                        comments={experience.comments}/>
+                        comments={experience.comments}
+                    />
                 </div>
                 <div className="content images">
                     <div className="img-list hide">
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                         <div className="img-container">
-                            <img src={france} alt=""/>
+                            <img src={france} alt="" />
                         </div>
                     </div>
                     <p className="pointer" onClick={this.openMoments}>

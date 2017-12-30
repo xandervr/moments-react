@@ -44,10 +44,10 @@
     align-items: center;
 }
 
-.moment .profile .username {
+.moment .profile .experience-title {
     margin-top: -3.5rem;
     margin-left: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .user-holder {
@@ -87,6 +87,26 @@
     left: 6.9rem;
     top: 11.5rem;
     opacity: 1;
+}
+
+.experience-title {
+    display: flex;
+    flex-direction: row;
+    width: 40rem;
+    justify-content: space-between;
+}
+
+.experience-title .username {
+    font-size: 1.5rem;
+    height: 2rem;
+}
+
+.experience-title .username > span:first-child::after {
+    content: ' ';
+}
+
+.experience-title .time {
+    align-self: flex-end;
 }
 
 .user-holder .side-user.zero {

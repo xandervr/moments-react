@@ -101,9 +101,9 @@ class Experience extends Component {
                             <p className="location">Les Orres - France</p>
                         </div>
                         <div className="actions">
-                            <div className="action pointer" onClick={this.showAddComment}>
+                            {/* <div className="action pointer" onClick={this.showAddComment}>
                                 <img src={chat} alt="comment" />
-                            </div>
+                            </div> */}
                             <div className="action pointer">
                                 <img src={like} alt="like" />
                             </div>

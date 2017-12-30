@@ -153,7 +153,11 @@ class Settings extends Component {
                                     <div className="privacy-input">
                                         <label forhtml="">Account privacy</label>
                                         <select
-                                            className="privacy-select pointer"
+                                            className={
+                                                this.state.user.settings.profile_type === 'Public'
+                                                    ? 'privacy-select privacy-public pointer'
+                                                    : 'privacy-select privacy-private pointer'
+                                            }
                                             value={this.state.user.settings.profile_type}
                                             name=""
                                             onChange={this.onChangePrivacy}

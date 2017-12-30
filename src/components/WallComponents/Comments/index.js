@@ -50,7 +50,8 @@ class Comments extends Component {
     };
 
     onChangeCommentText = e => {
-        this.setState({commentText: e.target.value});
+        const text = e.target.value;
+        this.setState({commentText: text});
     };
 
     addToComment = emoji => {

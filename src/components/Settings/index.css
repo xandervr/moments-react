@@ -145,8 +145,16 @@
     border-radius: 0;
     width: 20rem;
     height: 4rem;
-    background: url(../../assets/svg/search.svg) 96% / 15% no-repeat #eee;
+
     font-size: 1.5rem;
+}
+
+.privacy-public {
+    background: url(../../assets/svg/unlock.svg) 96% / 10% no-repeat #eee;
+}
+
+.privacy-private {
+    background: url(../../assets/svg/lock.svg) 96% / 10% no-repeat #eee;
 }
 
 .submit-holder {

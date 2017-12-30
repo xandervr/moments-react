@@ -6,12 +6,19 @@
     z-index: 10;
 }
 
-.comment-container {
+.comment {
     display: flex;
+    justify-content: space-between;
+}
+
+.comment-container {
+    margin-top: 0.5rem;
+    display: flex;
+    align-self: flex-end;
     justify-content: space-between;
     flex-direction: column;
     position: relative;
-    width: 98%;
+    width: 90%;
 }
 
 .comment-container > a.delete-comment,
@@ -112,10 +119,19 @@
     cursor: pointer;
 }
 
-.user-picture > img {
+.comment > img {
     width: 4rem;
     height: 4rem;
+}
+
+.comment > img,
+.user-picture > img {
     border-radius: 50%;
+}
+
+.user-picture > img {
+    width: 3rem;
+    height: 3rem;
 }
 
 .emoji-picker .emoji-mart .emoji-mart-scroll {

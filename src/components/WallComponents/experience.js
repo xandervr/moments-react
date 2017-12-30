@@ -119,7 +119,6 @@ class Experience extends Component {
                         currentUser={currentUser}
                         experience={experience}
                         updateWall={updateWall}
-                        showAddComment={this.showAddComment}
                         comments={experience.comments}
                     />
                 </div>

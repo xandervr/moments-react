@@ -16,14 +16,9 @@ class Comments extends Component {
     onSubmitComment = e => {
         const {experience} = this.props;
         e.persist();
-        const removeCommentContainer = () => {
-            e.target.parentNode.classList.add(`hide`);
-            e.target.parentNode.querySelector(`.emoji-picker`).classList.add(`hide`);
-        };
         comment(experience._id, this.state.commentText, success => {
             if (success) {
                 this.setState({commentText: ''});
-                removeCommentContainer();
                 this.props.updateWall();
             }
         });

@@ -228,6 +228,25 @@ const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
         });
 };
 
-export const fetchWall = () => {
-    return fetch('http://moments.tntap.be/experiences').then(r => r.json());
+export const fetchWall = cb => {
+    let account = fetchAccount();
+    if (account)
+        fetch('http://moments.tntap.be/wall', {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success') cb(data.wall);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
+    else {
+        console.log('Authorization error');
+        cb(false);
+    }
 };

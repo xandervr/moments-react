@@ -1,9 +1,17 @@
 import React from 'react';
+import './index.css';
 
 const SearchResultExperience = ({result, ...props}) => {
     return (
         <li>
-            <span className="result-title">{result.title}</span>
+            <div className="result-holder">
+                <div>
+                    <img width="20" src={result.image} />
+                </div>
+                <div className="result-container">
+                    <span className="result-text">{result.title}</span>
+                </div>
+            </div>
         </li>
     );
 };
@@ -11,8 +19,14 @@ const SearchResultExperience = ({result, ...props}) => {
 const SearchResultUser = ({result, ...props}) => {
     return (
         <li>
-            <img width="20" src={result.picture} />
-            <span className="result-title">{result.username}</span>
+            <div className="result-holder">
+                <div>
+                    <img width="20" src={result.picture} />
+                </div>
+                <div className="result-container">
+                    <span className="result-text">{result.username}</span>
+                </div>
+            </div>
         </li>
     );
 };

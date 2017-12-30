@@ -18,21 +18,20 @@ class App extends Component {
         const {user} = this.props.authentication;
         let show = null;
         switch (path) {
-            case `/profile`:
-                show = <Profile user={user} />;
+            case `/u/`:
+                show = <Profile user={user}/>;
                 break;
             case `/settings`:
                 show = <Settings user={user} />;
                 break;
             case `/`:
-                show = <Wall user={user} />;
+                show = <Wall user={user}/>;
                 break;
             default:
         }
         return (
             <div>
-                <Navbar user={user} />
-                {show}
+                <Navbar user={user}/> {show}
             </div>
         );
     }

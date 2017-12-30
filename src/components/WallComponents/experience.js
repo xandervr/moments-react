@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 //Assets
 import profile from "../../assets/img/profile.jpg";
@@ -110,7 +111,7 @@ class Experience extends Component {
         return (
             <article className="moment">
                 <div className="profile">
-                    <a href="">
+                    <Link to={`/u/${experience.user.username}`}>
                         <div
                             className="user-holder"
                             onMouseOver={this.animateUsers}
@@ -129,7 +130,7 @@ class Experience extends Component {
                             }}
                                 date={experience.created_on}/>
                         </p>
-                    </a>
+                    </Link>
                 </div>
                 <div className="head-img img-container">
                     <img src={experience.image} alt=""/>

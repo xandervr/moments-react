@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import './index.css';
-import Navbar from '../Navbar';
-import Wall from '../Wall';
-import Profile from '../Profile';
+import React, {Component} from "react";
+import "./index.css";
+import Navbar from "../Navbar";
+import Wall from "../Wall";
+import Profile from "../Profile";
 
 class App extends Component {
     constructor(props) {
@@ -17,18 +17,17 @@ class App extends Component {
         const {user} = this.props.authentication;
         let show = null;
         switch (path) {
-            case `/profile`:
-                show = <Profile user={user} />;
+            case `/u/`:
+                show = <Profile user={user}/>;
                 break;
             case `/`:
-                show = <Wall user={user} />;
+                show = <Wall user={user}/>;
                 break;
             default:
         }
         return (
             <div>
-                <Navbar user={user} />
-                {show}
+                <Navbar user={user}/> {show}
             </div>
         );
     }

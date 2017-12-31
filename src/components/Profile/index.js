@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './index.css';
 import {fetchUserByUsername} from '../../assets/js/lib/tap-client';
+import {withRouter} from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props) {
@@ -10,12 +11,23 @@ class Profile extends Component {
         };
     }
 
-    componentDidMount() {
+    fetchProfile = () => {
         const url = window.location.href.split('/');
         const username = url.pop();
         fetchUserByUsername(username, profile => {
             this.setState({profile});
         });
+    };
+
+    componentDidMount() {
+        this.fetchProfile();
+        this.unlisten = this.props.history.listen((location, action) => {
+            this.fetchProfile();
+        });
+    }
+
+    componentWillUnmount() {
+        this.unlisten();
     }
 
     render() {
@@ -29,8 +41,8 @@ class Profile extends Component {
                             <img className="profile" src={profile.picture} alt="" />
                             <div className="username-actions">
                                 <h2 className="username">
-                                    {profile.surname}
-                                    {profile.name}
+                                    <span>{profile.surname}</span>
+                                    <span>{profile.name}</span>
                                 </h2>
                                 <div className="profilepage-actions">
                                     <button className="action upper pointer signup-btn">Update info</button>
@@ -64,4 +76,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+export default withRouter(Profile);

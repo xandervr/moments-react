@@ -21,12 +21,14 @@ class Profile extends Component {
 
     componentDidMount() {
         this.fetchProfile();
+        this.mounted = true;
         this.unlisten = this.props.history.listen((location, action) => {
-            this.fetchProfile();
+            if (this.mounted) this.fetchProfile();
         });
     }
 
     componentWillUnmount() {
+        this.mounted = false;
         this.unlisten();
     }
 
@@ -41,8 +43,7 @@ class Profile extends Component {
                             <img className="profile" src={profile.picture} alt="" />
                             <div className="username-actions">
                                 <h2 className="username">
-                                    <span>{profile.surname}</span>
-                                    <span>{profile.name}</span>
+                                    <span>{profile.fullname}</span>
                                 </h2>
                                 <div className="profilepage-actions">
                                     <button className="action upper pointer signup-btn">Update info</button>

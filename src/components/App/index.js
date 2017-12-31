@@ -18,7 +18,8 @@ class App extends Component {
         const {user} = this.props.authentication;
         let show = null;
         switch (path) {
-            case `/u/`:
+            case `/u/:username`:
+                console.log("we got here");
                 show = <Profile user={user}/>;
                 break;
             case `/settings`:

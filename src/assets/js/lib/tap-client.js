@@ -6,7 +6,7 @@
  * @desc [description]
  */
 
-import {API_URL} from '../consts';
+import {API_URL} from "../consts";
 
 /**
  * @function comment Add a comment.
@@ -19,22 +19,21 @@ import {API_URL} from '../consts';
 
 export const deleteComment = (experience_id, comment_id, cb) => {
     let account = fetchAccount();
-    if (account)
+    if (account) 
         fetch(`${API_URL}/experiences/${experience_id}/comments/${comment_id}`, {
             method: `DELETE`,
             headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8',
+                "User-Agent": "TapAuth Client/1.0",
+                "Content-Type": "application/json; charset=utf-8",
                 Authorization: `Bearer ${account.access_token}`
             }
-        })
-            .then(r => r.json())
-            .then(data => {
-                cb(data.message === 'Success');
-            })
-            .catch(err => console.log(err));
-    else console.log('Authorization error');
-};
+        }).then(r => r.json()).then(data => {
+            cb(data.message === "Success");
+        }).catch(err => console.log(err));
+    else 
+        console.log("Authorization error");
+    }
+;
 
 /**
  * @function comment Add a comment.
@@ -47,25 +46,22 @@ export const deleteComment = (experience_id, comment_id, cb) => {
 
 export const comment = (experience_id, text, cb) => {
     let account = fetchAccount();
-    if (account)
+    if (account) 
         fetch(`${API_URL}/experiences/${experience_id}/comments`, {
             method: `POST`,
             headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8',
+                "User-Agent": "TapAuth Client/1.0",
+                "Content-Type": "application/json; charset=utf-8",
                 Authorization: `Bearer ${account.access_token}`
             },
-            body: JSON.stringify({
-                text: text
-            })
-        })
-            .then(r => r.json())
-            .then(data => {
-                cb(data.message === 'Success');
-            })
-            .catch(err => console.log(err));
-    else console.log('Authorization error');
-};
+            body: JSON.stringify({text: text})
+        }).then(r => r.json()).then(data => {
+            cb(data.message === "Success");
+        }).catch(err => console.log(err));
+    else 
+        console.log("Authorization error");
+    }
+;
 
 /**
  * @function search Search.
@@ -77,22 +73,21 @@ export const comment = (experience_id, text, cb) => {
 
 export const search = (query, cb) => {
     let account = fetchAccount();
-    if (account)
+    if (account) 
         fetch(`${API_URL}/search/adv/${query}`, {
             method: `GET`,
             headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8',
+                "User-Agent": "TapAuth Client/1.0",
+                "Content-Type": "application/json; charset=utf-8",
                 Authorization: `Bearer ${account.access_token}`
             }
-        })
-            .then(r => r.json())
-            .then(data => {
-                cb(data);
-            })
-            .catch(err => console.log(err));
-    else console.log('Authorization error');
-};
+        }).then(r => r.json()).then(data => {
+            cb(data);
+        }).catch(err => console.log(err));
+    else 
+        console.log("Authorization error");
+    }
+;
 
 /**
  * @function login Login.
@@ -107,28 +102,21 @@ export const login = (username, password, cb) => {
     fetch(`${API_URL}/users/login`, {
         method: `POST`,
         headers: {
-            'User-Agent': 'TapAuth Client/1.0',
-            'Content-Type': 'application/json; charset=utf-8'
+            "User-Agent": "TapAuth Client/1.0",
+            "Content-Type": "application/json; charset=utf-8"
         },
-        body: JSON.stringify({
-            username: username,
-            password: password
+            body: JSON.stringify({username: username, password: password})
         })
-    })
         .then(r => r.json())
         .then(data => {
-            if (data.message === 'Success')
-                authenticate(
-                    data.token.client_id,
-                    data.token.client_secret,
-                    window.navigator.userAgent,
-                    window.navigator.userAgent,
-                    tokens => {
-                        cb(tokens);
-                    }
-                );
-            else cb(false);
-        })
+            if (data.message === "Success") 
+                authenticate(data.token.client_id, data.token.client_secret, window.navigator.userAgent, window.navigator.userAgent, tokens => {
+                    cb(tokens);
+                });
+            else 
+                cb(false);
+            }
+        )
         .catch(err => console.log(err));
 };
 
@@ -147,34 +135,25 @@ export const register = (surname, name, email, password, cb) => {
     fetch(`${API_URL}/users`, {
         method: `POST`,
         headers: {
-            'User-Agent': 'TapAuth Client/1.0',
-            'Content-Type': 'application/json; charset=utf-8'
+            "User-Agent": "TapAuth Client/1.0",
+            "Content-Type": "application/json; charset=utf-8"
         },
-        body: JSON.stringify({
-            surname: surname,
-            name: name,
-            email: email,
-            password: password
+            body: JSON.stringify({surname: surname, name: name, email: email, password: password})
         })
-    })
         .then(r => r.json())
         .then(data => {
-            if (data.message === 'Success')
-                authenticate(
-                    data.client.client_id,
-                    data.client.client_secret,
-                    window.navigator.userAgent,
-                    window.navigator.userAgent,
-                    tokens => {
-                        cb(tokens);
-                    }
-                );
-            else cb(false);
-        })
+            if (data.message === "Success") 
+                authenticate(data.client.client_id, data.client.client_secret, window.navigator.userAgent, window.navigator.userAgent, tokens => {
+                    cb(tokens);
+                });
+            else 
+                cb(false);
+            }
+        )
         .catch(err => console.log(err));
 };
 
-const fetchAccount = () => JSON.parse(localStorage.getItem('moments_account'));
+const fetchAccount = () => JSON.parse(localStorage.getItem("moments_account"));
 
 /**
  * @function authenticate Fetches an access_token object.
@@ -191,30 +170,21 @@ const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
     fetch(`${API_URL}/token`, {
         method: `POST`,
         headers: {
-            'User-Agent': 'TapAuth Client/1.0',
-            'Content-Type': 'application/json; charset=utf-8'
+            "User-Agent": "TapAuth Client/1.0",
+            "Content-Type": "application/json; charset=utf-8"
         },
-        body: JSON.stringify({
-            client_id: client_id,
-            client_secret: client_secret
+            body: JSON.stringify({client_id: client_id, client_secret: client_secret})
         })
-    })
         .then(r => r.json())
         .then(data => {
             fetch(`${API_URL}/authenticate`, {
                 method: `POST`,
                 headers: {
-                    'User-Agent': 'TapAuth Client/1.0',
-                    'Content-Type': 'application/json; charset=utf-8'
+                    "User-Agent": "TapAuth Client/1.0",
+                    "Content-Type": "application/json; charset=utf-8"
                 },
-                body: JSON.stringify({
-                    client_id: client_id,
-                    client_secret: client_secret,
-                    code: data.code,
-                    device_name: device_name,
-                    device_os: device_os
+                    body: JSON.stringify({client_id: client_id, client_secret: client_secret, code: data.code, device_name: device_name, device_os: device_os})
                 })
-            })
                 .then(r => r.json())
                 .then(data => {
                     cb(data);
@@ -237,23 +207,23 @@ const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
 
 export const fetchWall = cb => {
     let account = fetchAccount();
-    if (account)
-        fetch('http://moments.tntap.be/wall', {
+    if (account) 
+        fetch("http://moments.tntap.be/wall", {
             method: `GET`,
             headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8',
+                "User-Agent": "TapAuth Client/1.0",
+                "Content-Type": "application/json; charset=utf-8",
                 Authorization: `Bearer ${account.access_token}`
             }
-        })
-            .then(r => r.json())
-            .then(data => {
-                if (data.message === 'Success') cb(data.wall);
-                else cb(false);
-            })
-            .catch(err => console.log(err));
+        }).then(r => r.json()).then(data => {
+            if (data.message === "Success") 
+                cb(data.wall);
+            else 
+                cb(false);
+            }
+        ).catch(err => console.log(err));
     else {
-        console.log('Authorization error');
+        console.log("Authorization error");
         cb(false);
     }
 };
@@ -261,30 +231,30 @@ export const fetchWall = cb => {
 /**
  * @function fetchUserByUsername Fetches the user by username.
  * @param username Username to fetch
- * @param cb Callback function returning wall object
+ * @param cb Callback function returning user object
  * @returns {Object}
  * @private
  */
 
 export const fetchUserByUsername = (username, cb) => {
     let account = fetchAccount();
-    if (account)
+    if (account) 
         fetch(`http://moments.tntap.be/users/${username}`, {
             method: `GET`,
             headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8',
+                "User-Agent": "TapAuth Client/1.0",
+                "Content-Type": "application/json; charset=utf-8",
                 Authorization: `Bearer ${account.access_token}`
             }
-        })
-            .then(r => r.json())
-            .then(data => {
-                if (data.message === 'Success') cb(data.user);
-                else cb(false);
-            })
-            .catch(err => console.log(err));
+        }).then(r => r.json()).then(data => {
+            if (data.message === "Success") 
+                cb(data.user);
+            else 
+                cb(false);
+            }
+        ).catch(err => console.log(err));
     else {
-        console.log('Authorization error');
+        console.log("Authorization error");
         cb(false);
     }
 };

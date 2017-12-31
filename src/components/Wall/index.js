@@ -20,16 +20,15 @@ class Wall extends Component {
 
     componentDidMount() {
         this.updateWall();
-        this.mounted = true;
-        setInterval(() => {
+        this.wallUpdater = setInterval(() => {
             fetchWall(wall => {
-                if (wall && this.mounted) this.setState({data: wall});
+                if (wall) this.setState({data: wall});
             });
         }, 5000);
     }
 
     componentWillUnmount() {
-        this.mounted = false;
+        clearInterval(this.wallUpdater);
     }
 
     render() {

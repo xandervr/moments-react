@@ -2,11 +2,13 @@ import React from 'react';
 import './index.css';
 import {SearchResultExperience, SearchResultUser} from './SearchResult';
 
-const SearchResults = ({experienceResults, userResults, ...props}) => {
+const SearchResults = ({experienceResults, userResults, hideResults, ...props}) => {
     const experienceResultList = experienceResults.map(experience => (
         <SearchResultExperience key={experience._id} result={experience} />
     ));
-    const userResultList = userResults.map(user => <SearchResultUser key={user._id} result={user} />);
+    const userResultList = userResults.map(user => (
+        <SearchResultUser hideResults={hideResults} key={user._id} result={user} />
+    ));
 
     return (
         <div className="search-results">

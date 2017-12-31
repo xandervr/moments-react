@@ -9,6 +9,7 @@ class Wall extends Component {
         this.state = {
             data: null
         };
+        this.mounted = false;
     }
 
     updateWall = () => {
@@ -19,12 +20,16 @@ class Wall extends Component {
 
     componentDidMount() {
         this.updateWall();
-
+        this.mounted = true;
         setInterval(() => {
             fetchWall(wall => {
-                if (wall) this.setState({data: wall});
+                if (wall && this.mounted) this.setState({data: wall});
             });
         }, 5000);
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
     }
 
     render() {

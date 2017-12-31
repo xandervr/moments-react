@@ -15,10 +15,14 @@ import './experience.css';
 //Components
 import Comments from './Comments';
 import TimeAgo from 'react-timeago';
+import {boostExperience, unboostExperience} from '../../assets/js/lib/tap-client';
 
 class Experience extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            boosted: false
+        };
     }
 
     animateUsers = e => {
@@ -52,6 +56,35 @@ class Experience extends Component {
             : (e.currentTarget.innerHTML = closedHtml);
     };
 
+    boost = e => {
+        const {experience, updateWall} = this.props;
+        boostExperience(experience._id, boosted => {
+            if (boosted) {
+                this.setState({boosted: true});
+                updateWall();
+            }
+        });
+        e.target.classList.add(`boosted`);
+    };
+
+    unboost = e => {
+        const {experience, updateWall} = this.props;
+        unboostExperience(experience._id, unboosted => {
+            if (unboosted) {
+                this.setState({boosted: false});
+                updateWall();
+            }
+        });
+        e.target.classList.remove(`boosted`);
+    };
+
+    componentWillMount() {
+        const {experience, currentUser} = this.props;
+        experience.boosters.includes(currentUser._id)
+            ? this.setState({boosted: true})
+            : this.setState({boosted: false});
+    }
+
     showAddComment = e => {
         const $comment = e.currentTarget.parentNode.parentNode.parentNode.querySelector(`.comment-form-holder`);
 
@@ -61,7 +94,6 @@ class Experience extends Component {
     render() {
         const {experience, updateWall, currentUser} = this.props;
         const ownerId = experience.user._id;
-        console.log(ownerId);
         const adminPictures = experience.access.admin.filter(admin => admin._id !== ownerId).map(user => user.picture);
         const writePictures = experience.access.write.map(user => user.picture);
         const userPictures = [...adminPictures, ...writePictures];
@@ -106,8 +138,12 @@ class Experience extends Component {
                             {/* <div className="action pointer" onClick={this.showAddComment}>
                                 <img src={chat} alt="comment" />
                             </div> */}
-                            <div className="action pointer">
-                                <i className="fas fa-fire" />
+                            <div className="action pointer boosts">
+                                <span className="boost-count">{experience.boosters.length}</span>
+                                <i
+                                    onClick={this.state.boosted ? this.unboost : this.boost}
+                                    className={this.state.boosted ? 'fas fa-fire boosted' : 'fas fa-fire'}
+                                />
                             </div>
                             <div className="action pointer">
                                 <i className="fas fa-share-alt" />

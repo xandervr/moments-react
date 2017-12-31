@@ -1,0 +1,174 @@
+/* SETTINGS MODAL */
+
+.overlay {
+    background-color: white;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll !important;
+}
+
+.slide-in {
+    height: 100%;
+    opacity: 1;
+    z-index: 9999;
+}
+
+.settings-content {
+    width: 80rem;
+    margin-top: 3rem;
+}
+
+.nav-shadow {
+    box-shadow: 0 0.5rem 1rem var(--boxshadow);
+}
+
+.settings-header div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80rem;
+}
+
+.settings-header h2 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.settings-header img {
+    height: 2.5rem;
+    width: 2.5rem;
+    transform: rotate(45deg);
+}
+
+.settings-section {
+    width: 100%;
+    margin-top: 8rem;
+}
+
+.settings-section:last-of-type {
+    margin-bottom: 3rem;
+}
+
+.settings-section h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.settings-profile {
+    width: 100%;
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.5rem 1rem var(--boxshadow);
+    padding: 3rem;
+}
+
+.settings-profile .profile {
+    display: flex;
+    align-items: center;
+}
+
+.img-editor {
+    text-align: center;
+    margin-right: 3rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+.settings-profile .profile img {
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    border: dotted var(--blue) 0.2rem;
+    margin-right: 3rem;
+}
+
+.settings-profile .username {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-top: -2rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-form div {
+    padding: 2rem 0;
+}
+
+.profile-form label {
+    display: inline-block;
+    text-align: right;
+    min-width: 10rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.profile-form input {
+    width: 50rem;
+    border: none;
+    height: 4rem;
+    box-shadow: 0 0.5rem 1rem var(--boxshadow);
+    font-size: 1.5rem;
+    padding-left: 1rem;
+}
+
+.profile-form input.available {
+    border: 1px solid green;
+}
+
+.profile-form input.taken {
+    border: 1px solid red;
+}
+
+.privacy-input {
+    align-self: flex-start;
+    margin-left: 5.5rem;
+}
+
+.privacy-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: white !important;
+    box-shadow: 0 0.5rem 1rem var(--boxshadow);
+    padding: 1rem;
+    border-radius: 0;
+    width: 20rem;
+    height: 4rem;
+
+    font-size: 1.5rem;
+}
+
+.privacy-public {
+    background: url(../../assets/svg/unlock.svg) 96% / 10% no-repeat #eee;
+}
+
+.privacy-private {
+    background: url(../../assets/svg/lock.svg) 96% / 10% no-repeat #eee;
+}
+
+.submit-holder {
+    align-self: flex-start;
+    margin-left: 17.5rem;
+}
+
+.submit-holder button {
+    border: none;
+    font-size: 1.7rem;
+    padding: 1rem 1.5rem;
+    background-color: var(--blue);
+    color: white;
+    border-radius: 0.7rem;
+}
+
+/* END SETTINGS MODAL */

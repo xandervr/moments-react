@@ -1,23 +1,25 @@
-import React, {Component} from "react";
-import {search} from "../../assets/js/lib/tap-client";
-import Add from "../Buttons/add.js";
-import Settings from "../Buttons/settings";
-import Search from "../Search/index";
-import SearchResults from "../SearchResults/index";
-import logout from "../../assets/svg/logout.svg";
-import {Link} from "react-router-dom";
-import "./index.css";
+import React, {Component} from 'react';
+import {search} from '../../assets/js/lib/tap-client';
+import Add from '../Buttons/add.js';
+import Settings from '../Buttons/settings';
+import Search from '../Search/index';
+import SearchResults from '../SearchResults/index';
+import logout from '../../assets/svg/logout.svg';
+import {Link} from 'react-router-dom';
+import './index.css';
 
 class Navbar extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            searchValue: '',
             lockSearch: false,
             searchResults: {
                 experiences: [],
                 users: []
-            }
+            },
+            showResults: false
         };
     }
 
@@ -25,14 +27,11 @@ class Navbar extends Component {
         window.onscroll = e => {
             const $nav = document.querySelector(`nav`);
             if (window.scrollY <= 0) {
-                if ($nav) 
-                    $nav.classList.remove(`nav-shadow`);
-                }
-            else {
-                if ($nav) 
-                    $nav.classList.add(`nav-shadow`);
-                }
-            };
+                if ($nav) $nav.classList.remove(`nav-shadow`);
+            } else {
+                if ($nav) $nav.classList.add(`nav-shadow`);
+            }
+        };
     }
 
     logout = () => {
@@ -44,33 +43,36 @@ class Navbar extends Component {
     performSearch = query => {
         this.setState({lockSearch: true});
         search(query, data => {
-            this.setState({});
-            if (data) 
-                this.setState({searchResults: data.results, lockSearch: false});
-            else 
+            if (data)
+                this.setState({
+                    searchResults: data.results,
+                    lockSearch: false,
+                    showResults: true
+                });
+            else
                 this.setState({
                     searchResults: {
                         experiences: [],
                         users: []
                     },
-                    lockSearch: false
+                    lockSearch: false,
+                    showResults: false
                 });
-            }
-        );
+        });
+    };
+
+    hideResults = e => {
+        this.setState({showResults: false, searchValue: ''});
     };
 
     onChangeSearchValue = e => {
-        if (e.target.value.length >= 2 && !this.state.lockSearch) 
-            this.performSearch(e.target.value);
-        else 
-            this.setState({
-                searchResults: {
-                    experiences: [],
-                    users: []
-                }
-            });
-        }
-    ;
+        const searchValue = e.target.value;
+        this.setState({searchValue: searchValue}, () => {
+            if (this.state.searchValue.length >= 2 && !this.state.lockSearch)
+                this.performSearch(this.state.searchValue);
+            else this.setState({searchResults: {experiences: [], users: []}, showResults: false});
+        });
+    };
 
     render() {
         const {user} = this.props;
@@ -85,14 +87,17 @@ class Navbar extends Component {
                             searchResultsExperiences={this.state.searchResults.experiences}
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
-                            onChangeSearchValue={this.onChangeSearchValue}>
+                            onChangeSearchValue={this.onChangeSearchValue}
+                        >
                             Search
                         </Search>
-                        {this.state.searchResults.experiences.length > 0 || this.state.searchResults.users.length > 0
-                            ? (<SearchResults
+                        {this.state.showResults ? (
+                            <SearchResults
                                 experienceResults={this.state.searchResults.experiences}
-                                userResults={this.state.searchResults.users}/>)
-                            : null}
+                                userResults={this.state.searchResults.users}
+                                hideResults={this.hideResults}
+                            />
+                        ) : null}
                     </div>
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
@@ -107,14 +112,12 @@ class Navbar extends Component {
                         </div>
                         <div className="action profile pointer">
                             <Link to={`/u/${user.username}`}>
-                                <img src={user.picture} alt="profile"/>
+                                <img src={user.picture} alt="profile" />
                             </Link>
-                            <div className="action-detail profile-action-detail">
-                                Profile
-                            </div>
+                            <div className="action-detail profile-action-detail">Profile</div>
                         </div>
                         <div className="action logout pointer">
-                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout"/>
+                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout" />
                             <div className="action-detail">Logout</div>
                         </div>
                     </div>

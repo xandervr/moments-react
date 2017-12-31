@@ -3,7 +3,7 @@ import search from '../../assets/svg/search.svg';
 import '../Navbar/index.css';
 import experience from '../WallComponents/experience';
 
-const Search = ({onChangeSearchValue, children}) => {
+const Search = ({onChangeSearchValue, searchValue, children}) => {
     return (
         <div className="search flex-item">
             <div className="search-input-holder">
@@ -14,6 +14,7 @@ const Search = ({onChangeSearchValue, children}) => {
                     results="5"
                     name={children}
                     placeholder={children}
+                    value={searchValue}
                     autoComplete="off"
                     spellCheck="false"
                 />

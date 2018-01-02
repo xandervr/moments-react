@@ -4,6 +4,7 @@ import {fetchUserByUsername, unfollowUser, followUser} from "../../assets/js/lib
 import {withRouter} from "react-router-dom";
 import ProfileHeader from "./ProfileHeader";
 import ExperienceContent from "./ExperienceContent";
+import FollowingContent from "./FollowingContent";
 
 class Profile extends Component {
   constructor(props) {
@@ -92,9 +93,25 @@ class Profile extends Component {
   };
 
   render() {
-    const {user, content} = this.props;
+    const {user, content, match} = this.props;
     const {profile, profileNotFound} = this.state;
-    const profileContent = (<ExperienceContent profile={profile} user={user}/>);
+    let profileContent = null;
+    console.log(match.params.page);
+    switch (match.params.page) {
+      case undefined:
+        profileContent = (<ExperienceContent profile={profile} user={user}/>);
+        break;
+      case "followers":
+        profileContent = <div>Followers</div>;
+        break;
+      case "following":
+        profileContent = (<FollowingContent profile={profile} user={user}/>);
+        break;
+      default:
+        profileContent = <p>route doesn't exist</p>;
+        break;
+    }
+
     return (
       <div className="profile-holder">
         <ProfileHeader

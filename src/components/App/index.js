@@ -22,7 +22,7 @@ class App extends Component {
                 show = <Profile user={user} content={"experiences"}/>;
                 break;
             case `/u/:username`:
-                show = <Profile user={user}/>;
+                show = <Profile user={user} content={null}/>;
                 break;
             case `/settings`:
                 show = <Settings user={user}/>;

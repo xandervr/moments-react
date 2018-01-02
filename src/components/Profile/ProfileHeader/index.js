@@ -55,7 +55,9 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
                         <p className="info-name">Following</p>
                     </div>
                     <div className="profile-info-holder">
-                        <p className="info-counter">1</p>
+                        <p className="info-counter">
+                            {profile.experiences.length}
+                        </p>
                         <p className="info-name">Experiences</p>
                     </div>
                     <div className="profile-info-holder">

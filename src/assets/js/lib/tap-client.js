@@ -391,3 +391,57 @@ export const saveUserSettings = (user, cb) => {
             .catch(err => console.log(err));
     else console.log('Authorization error');
 };
+
+/**
+ * @function followUser Follows a user.
+ * @param user_id User to follow.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const followUser = (user_id, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`${API_URL}/users/${user_id}/follow`, {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
+    else console.log('Authorization error');
+};
+
+/**
+ * @function unfollowUser Unfollows a user.
+ * @param user_id User to unfollow.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const unfollowUser = (user_id, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`${API_URL}/users/${user_id}/unfollow`, {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
+    else console.log('Authorization error');
+};

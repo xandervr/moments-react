@@ -125,7 +125,7 @@ class Experience extends Component {
                     </Link>
                 </div>
                 <div className="head-img img-container">
-                    <img src={experience.image} alt="" />
+                    <img src={experience.media.image} alt="" />
                 </div>
                 <div className="content">
                     <div className="head">

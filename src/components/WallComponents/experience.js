@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 //Assets
 import profile from '../../assets/img/profile.jpg';
@@ -117,8 +117,7 @@ class Experience extends Component {
                         <div className="experience-title">
                             <div>
                                 <span className="username">
-                                    <span>{experience.user.surname}</span>
-                                    <span>{experience.user.name}</span>
+                                    <span>{experience.user.fullname}</span>
                                 </span>
                             </div>
                             <TimeAgo date={experience.created_on} />

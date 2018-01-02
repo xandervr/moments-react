@@ -131,7 +131,13 @@ class Experience extends Component {
                     <div className="head">
                         <div>
                             <h2 className="title">{experience.title}</h2>
-                            <p className="location">Les Orres - France</p>
+                            <p className="location">
+                                {experience.media.metadata &&
+                                experience.media.metadata.gps_city &&
+                                experience.media.metadata.gps_country
+                                    ? `${experience.media.metadata.gps_city} - ${experience.media.metadata.gps_country}`
+                                    : 'Les Orres - France'}
+                            </p>
                         </div>
                         <div className="actions">
                             {/* <div className="action pointer" onClick={this.showAddComment}>

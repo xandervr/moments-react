@@ -60,6 +60,12 @@ class Routing extends Component {
                         <AuthenticatedRoute authentication={this.authentication} exact path="/" component={App} />
                         <AuthenticatedRoute
                             exact
+                            path="/create-experience"
+                            authentication={this.authentication}
+                            component={App}
+                        />
+                        <AuthenticatedRoute
+                            exact
                             path="/u/:username"
                             authentication={this.authentication}
                             component={App}

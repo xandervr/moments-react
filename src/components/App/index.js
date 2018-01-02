@@ -4,6 +4,7 @@ import Navbar from '../Navbar';
 import Wall from '../Wall';
 import Profile from '../Profile';
 import Settings from '../Settings';
+import {ExperienceCreate} from '../Experience';
 
 class App extends Component {
     constructor(props) {
@@ -19,20 +20,22 @@ class App extends Component {
         let show = null;
         switch (path) {
             case `/u/:username`:
-                console.log("we got here");
-                show = <Profile user={user}/>;
+                show = <Profile user={user} />;
+                break;
+            case `/create-experience`:
+                show = <ExperienceCreate />;
                 break;
             case `/settings`:
                 show = <Settings user={user} />;
                 break;
             case `/`:
-                show = <Wall user={user}/>;
+                show = <Wall user={user} />;
                 break;
             default:
         }
         return (
             <div>
-                <Navbar user={user}/> {show}
+                <Navbar user={user} /> {show}
             </div>
         );
     }

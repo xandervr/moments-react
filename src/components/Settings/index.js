@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
+import {checkUsernameAvailable} from '../../assets/js/lib/tap-client';
 import './index.css';
 
 class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isChanged: false,
-            saved: false,
-            usernameChanged: false
+            isChanged: false
         };
     }
 
@@ -39,15 +37,13 @@ class Settings extends Component {
         const name = fullname
             .split(' ')
             .splice(1)
-            .join(' ') || undefined;
-        console.log(`"${name}"`);
+            .join(' ');
         this.setState(
             prevState => ({
                 user: {
                     ...prevState.user,
                     surname: surname,
-                    name: name,
-                    fullname: fullname
+                    name: name
                 }
             }),
             () => this.isChanged()
@@ -59,11 +55,15 @@ class Settings extends Component {
         e.persist();
         checkUsernameAvailable(username, available => {
             if (available) {
-                this.setState({usernameAvailable: true, usernameChanged: true});
+                e.target.classList.add('available');
+                this.setState({usernameAvailable: true});
             } else if (username !== this.state.old_user.username) {
-                this.setState({usernameAvailable: false, usernameChanged: true});
+                e.target.classList.add('taken');
+                this.setState({usernameAvailable: false});
             } else {
-                this.setState({usernameAvailable: true, usernameChanged: false});
+                e.target.classList.remove('available');
+                e.target.classList.remove('taken');
+                this.setState({usernameAvailable: true});
             }
         });
         this.setState(prevState => ({user: {...prevState.user, username: username}}), () => this.isChanged());
@@ -100,9 +100,6 @@ class Settings extends Component {
 
     saveSettings = e => {
         e.preventDefault();
-        saveUserSettings(this.state.user, saved => {
-            if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
-        });
     };
 
     render() {
@@ -130,22 +127,20 @@ class Settings extends Component {
                                         />
                                     </div>
                                 </div>
-                                <p className="username">
-                                    {this.state.saved ? this.state.user.username : user.username}
-                                </p>
+                                <p className="username">{user.username}</p>
                             </div>
                             <div className="">
-                                <form className="profile-form" onSubmit={this.saveSettings}>
+                                <form className="profile-form" onSubmit={this.saveSettings} action="index.html">
                                     <div>
                                         <label forhtml="">Name</label>
                                         <input
-                                            value={this.state.user.fullname}
+                                            value={this.state.user.surname + ' ' + this.state.user.name}
                                             onChange={this.onChangeName}
                                         />
                                     </div>
                                     <div>
                                         <label forhtml="">Username</label>
-                                        <input className={this.state.usernameChanged ? (this.state.usernameAvailable ? 'available' : 'taken') : ''} value={this.state.user.username} onChange={this.onChangeUsername} />
+                                        <input value={this.state.user.username} onChange={this.onChangeUsername} />
                                     </div>
                                     <div>
                                         <label forhtml="">Email</label>

@@ -76,3 +76,8 @@
     letter-spacing: 0.2rem;
     margin-top: 0.3rem;
 }
+
+.btn-active-following {
+    background-color: var(--blue) !important;
+    color: white !important;
+}

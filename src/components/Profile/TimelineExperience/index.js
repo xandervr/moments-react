@@ -6,6 +6,7 @@ const TimelineExperience = ({}) => {
   return (
     <div className="timeline-experience">
       <div>
+        <p className="time">11:23</p>
         <p className="title">Paris</p>
         <p>4 Moments</p>
         <p>30 Boosts</p>

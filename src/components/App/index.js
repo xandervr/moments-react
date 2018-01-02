@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import './index.css';
-import Navbar from '../Navbar';
-import Wall from '../Wall';
-import Profile from '../Profile';
-import Settings from '../Settings';
+import React, {Component} from "react";
+import "./index.css";
+import Navbar from "../Navbar";
+import Wall from "../Wall";
+import Profile from "../Profile";
+import Settings from "../Settings";
 
 class App extends Component {
     constructor(props) {
@@ -18,17 +18,26 @@ class App extends Component {
         const {user} = this.props.authentication;
         let show = null;
         switch (path) {
+            case "/u/:username/experiences":
+                show = <Profile user={user} content={"experiences"}/>;
+                break;
             case `/u/:username`:
-                console.log("we got here");
                 show = <Profile user={user}/>;
                 break;
             case `/settings`:
-                show = <Settings user={user} />;
+                show = <Settings user={user}/>;
                 break;
             case `/`:
                 show = <Wall user={user}/>;
                 break;
             default:
+                show = (
+                    <p style={{
+                        fontSize: "5rem"
+                    }}>
+                        Page not Found
+                    </p>
+                );
         }
         return (
             <div>

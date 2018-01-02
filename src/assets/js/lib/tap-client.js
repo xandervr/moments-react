@@ -445,3 +445,38 @@ export const unfollowUser = (user_id, cb) => {
             .catch(err => console.log(err));
     else console.log('Authorization error');
 };
+
+/**
+ * @function createExperience Create an experience.
+ * @param experience_form Form that creates the experience.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const createExperience = (experience_form, cb) => {
+    let account = fetchAccount();
+    if (experience_form) {
+        const formData = new FormData(experience_form);
+        if (account)
+            fetch(`${API_URL}/experiences`, {
+                method: `POST`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    'Content-Type': 'multipart/formdata',
+                    Authorization: `Bearer ${account.access_token}`
+                },
+                body: formData
+            })
+                .then(r => r.json())
+                .then(data => {
+                    console.log(data);
+                    cb(data.message === 'Success');
+                })
+                .catch(err => console.log(err));
+        else console.log('Authorization error');
+    } else {
+        console.log('No experience_form provided');
+        cb(false);
+    }
+};

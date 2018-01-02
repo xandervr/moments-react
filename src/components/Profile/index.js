@@ -6,7 +6,7 @@ import timelineBorder from "../../assets/img/timeline-border.png";
 import world from "../../assets/svg/world.svg";
 import map from "../../assets/svg/map-localization.svg";
 import TimelineExperience from "./TimelineExperience";
-import Experience from "./Experience";
+import ExperienceCard from "./Experience";
 import ProfileHeader from "./ProfileHeader";
 
 class Profile extends Component {
@@ -109,7 +109,13 @@ class Profile extends Component {
           onUnfollow={this.onUnfollow}/>{" "} {content
           ? (<div/>)
           : (
-            <div>
+            <div
+              style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}>
               <div className="timeline-map-holder">
                 <section
                   className="timeline-section"

@@ -22,6 +22,10 @@ select {
     font-family: 'Roboto';
 }
 
+textarea {
+  resize: none;
+}
+
 .upper {
     text-transform: uppercase;
 }

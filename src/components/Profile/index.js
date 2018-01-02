@@ -28,11 +28,8 @@ class Profile extends Component {
   }
 
   fetchProfile = () => {
-    const url = window
-      .location
-      .href
-      .split("/");
-    const username = url.pop();
+    console.log(this.props.match);
+    const username = this.props.match.params.username;
     fetchUserByUsername(username, profile => {
       if (profile) {
         this.setState({profile: profile, profileNotFound: false});
@@ -47,7 +44,6 @@ class Profile extends Component {
     const {profile} = this.state;
     console.log(profile._id);
     followUser(profile._id, followed => {
-      console.log(followed);
       if (!profile.followers.includes(user._id) && followed) {
         this.setState((prevState, props) => ({
           profile: {
@@ -69,7 +65,6 @@ class Profile extends Component {
     const {user} = this.props;
     const {profile} = this.state;
     unfollowUser(profile._id, unfollowed => {
-      console.log(unfollowed);
       if (profile.followers.includes(user._id) && unfollowed) {
         this.setState((prevState, props) => ({
           profile: {
@@ -88,8 +83,9 @@ class Profile extends Component {
   };
 
   render() {
-    const {user} = this.props;
+    const {user, content} = this.props;
     const {profile, profileNotFound} = this.state;
+
     return (
       <div className="profile-holder">
         <ProfileHeader
@@ -97,7 +93,9 @@ class Profile extends Component {
           profile={profile}
           profileNotFound={profileNotFound}
           onFollow={this.onFollow}
-          onUnfollow={this.onUnfollow}/>
+          onUnfollow={this.onUnfollow}/>{" "} {content
+          ? <p>Experiences</p>
+          : null}
       </div>
     );
   }

@@ -97,3 +97,7 @@
 .moment-form .input-holder {
   transform: scale(.8);
 }
+
+.experience-btn {
+  margin: 2rem 0;
+}

@@ -1,0 +1,103 @@
+.add-experience-section {
+  width: 70rem;
+  margin: 10rem auto 0 auto;
+}
+
+.experience-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-experience-title {
+  color: var(--blue);
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+.input-holder textarea {
+  padding-top: 3rem;
+  font-size: 2rem;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  width: 35rem;
+  height: 12rem;
+  border: none;
+  box-shadow: 0 .5rem 1rem var(--boxshadow);
+  margin: 1rem 0;
+  color: var(--blue);
+}
+
+.input-holder textarea:not(:empty) + .input-label,
+.input-holder textarea:focus + .input-label {
+  transform: translateY(-4.3rem);
+  font-weight: lighter;
+  color: var(--grey);
+}
+
+.experience-photo-input {
+  width: 0.1rem;
+	height: 0.1rem;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.file-selector {
+  width: 30rem;
+  height: 30rem;
+  border-radius: 1.5rem;
+  background-color: white;
+  box-shadow: 0 .5rem 1rem var(--boxshadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-selector img {
+  width: 8rem;
+}
+
+.file-label {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--grey);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: .1rem;
+}
+
+.add-experience-section h2 {
+  margin-top: 5rem;
+  color: var(--blue);
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.moment-form {
+  display: flex;
+  align-items: center;
+}
+
+.file-selector-holder {
+  margin-top: 3rem;
+  width: 20rem;
+}
+
+.file-selector-holder .file-selector {
+  width: 20rem;
+  height: 20rem;
+}
+
+.moment-inputs-holder {
+  margin-top: -2rem;
+}
+
+.moment-form .input-holder {
+  transform: scale(.8);
+}
+
+.experience-btn {
+  margin: 2rem 0;
+}

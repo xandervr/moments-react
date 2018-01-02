@@ -2,12 +2,8 @@ import React, {Component} from "react";
 import "./index.css";
 import {fetchUserByUsername, unfollowUser, followUser} from "../../assets/js/lib/tap-client";
 import {withRouter} from "react-router-dom";
-import timelineBorder from "../../assets/img/timeline-border.png";
-import world from "../../assets/svg/world.svg";
-import map from "../../assets/svg/map-localization.svg";
-import TimelineExperience from "./TimelineExperience";
-import Experience from "./Experience";
 import ProfileHeader from "./ProfileHeader";
+import ExperienceContent from "./ExperienceContent";
 
 class Profile extends Component {
   constructor(props) {
@@ -98,7 +94,7 @@ class Profile extends Component {
   render() {
     const {user, content} = this.props;
     const {profile, profileNotFound} = this.state;
-
+    const profileContent = (<ExperienceContent profile={profile} user={user}/>);
     return (
       <div className="profile-holder">
         <ProfileHeader
@@ -106,35 +102,7 @@ class Profile extends Component {
           profile={profile}
           profileNotFound={profileNotFound}
           onFollow={this.onFollow}
-          onUnfollow={this.onUnfollow}/>{" "} {content
-          ? (<div/>)
-          : (
-            <div>
-              <div className="timeline-map-holder">
-                <section
-                  className="timeline-section"
-                  style={{
-                  backgroundImage: `url(${timelineBorder})`
-                }}>
-                  {/* TODO */}
-                  <TimelineExperience/>
-                  <TimelineExperience/>
-                  <TimelineExperience/>
-                </section>
-                <section className="map-section">
-                  <div className="map-title-holder">
-                    <img className="map-icon" src={map} alt=""/>
-                    <p>Places</p>
-                  </div>
-                  <img className="world-map" src={world} alt=""/>
-                </section>
-              </div>
-              <section className="experiences-section">
-                <Experience/>
-                <Experience/>
-              </section>
-            </div>
-          )}
+          onUnfollow={this.onUnfollow}/>{" "} {profileContent}
       </div>
     );
   }

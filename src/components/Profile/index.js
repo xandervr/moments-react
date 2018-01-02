@@ -2,6 +2,11 @@ import React, {Component} from "react";
 import "./index.css";
 import {fetchUserByUsername} from "../../assets/js/lib/tap-client";
 import {withRouter} from "react-router-dom";
+import timelineBorder from '../../assets/img/timeline-border.png';
+import world from '../../assets/svg/world.svg';
+import map from '../../assets/svg/map-localization.svg';
+import TimelineExperience from './TimelineExperience';
+import Experience from './Experience';
 
 class Profile extends Component {
   constructor(props) {
@@ -124,6 +129,25 @@ class Profile extends Component {
                 <p className="info-name">Moments</p>
               </div>
             </div>
+          </section>
+          <div className="timeline-map-holder">
+            <section className="timeline-section" style={{backgroundImage: `url(${timelineBorder})`}}>
+              {/* TODO */}
+              <TimelineExperience/>
+              <TimelineExperience/>
+              <TimelineExperience/>
+            </section>
+            <section className="map-section">
+              <div className="map-title-holder">
+                <img className="map-icon" src={map} alt=""/>
+                <p>Places</p>
+              </div>
+              <img className="world-map" src={world} alt=""/>
+            </section>
+          </div>
+          <section class="experiences-section">
+            <Experience/>
+            <Experience/>
           </section>
         </div>
       );

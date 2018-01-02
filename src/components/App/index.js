@@ -19,19 +19,29 @@ class App extends Component {
         const {user} = this.props.authentication;
         let show = null;
         switch (path) {
+            case "/u/:username/experiences":
+                show = <Profile user={user} content={"experiences"}/>;
+                break;
             case `/u/:username`:
-                show = <Profile user={user} />;
+                show = <Profile user={user} content={null}/>;
                 break;
             case `/create-experience`:
                 show = <ExperienceCreate />;
                 break;
             case `/settings`:
-                show = <Settings user={user} />;
+                show = <Settings user={user}/>;
                 break;
             case `/`:
                 show = <Wall user={user} />;
                 break;
             default:
+                show = (
+                    <p style={{
+                        fontSize: "5rem"
+                    }}>
+                        Page not Found
+                    </p>
+                );
         }
         return (
             <div>

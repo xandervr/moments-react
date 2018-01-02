@@ -117,7 +117,8 @@ class Experience extends Component {
                         <div className="experience-title">
                             <div>
                                 <span className="username">
-                                    <span>{experience.user.fullname}</span>
+                                    <span>{experience.user.surname}</span>
+                                    <span>{experience.user.name}</span>
                                 </span>
                             </div>
                             <TimeAgo date={experience.created_on} />

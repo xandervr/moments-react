@@ -11,7 +11,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
             <img alt="" src={comment.user.picture} />
             <div className="comment-container">
                 <span className="username comment-username">
-                    <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>
+                    <Link to={`/u/${comment.user.username}`}>{comment.user.surname + ' ' + comment.user.name}</Link>
                 </span>
                 <div className="comment-user-text">
                     <div className="comment-text">{comment.text}</div>
@@ -29,7 +29,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
             <img alt="" src={comment.user.picture} />
             <div className="comment-container">
                 <span className="username comment-username">
-                    <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>
+                    <Link to={`/u/${comment.user.username}`}>{comment.user.surname + ' ' + comment.user.name}</Link>
                 </span>
                 <div className="comment-user-text">
                     <div className="comment-text">{comment.text}</div>

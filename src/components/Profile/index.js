@@ -10,14 +10,6 @@ class Profile extends Component {
       profile: null
     };
   }
-    
-    componentDidMount() {
-        this.fetchProfile();
-        this.mounted = true;
-        this.unlisten = this.props.history.listen((location, action) => {
-                                                  if (this.mounted) this.fetchProfile();
-                                                  });
-
 
   fetchProfile = () => {
     const url = window
@@ -49,50 +41,58 @@ class Profile extends Component {
     }
   };
 
-    componentWillUnmount() {
-        this.mounted = false;
-        this.unlisten();
+  componentDidMount() {
+    this.fetchProfile();
+    this.unlisten = this
+      .props
+      .history
+      .listen((location, action) => {
+        this.fetchProfile();
+      });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
+  }
+
+  render() {
+    const {user} = this.props;
+    const {profile} = this.state;
+    let followButton = null;
+    if (profile !== null) {
+      if (profile.followers.includes(user._id)) {
+        followButton = (
+          <button className="action upper pointer signup-btn btn-active-following">
+            Following
+          </button>
+        );
+      } else {
+        followButton = (
+          <button className="action upper pointer signup-btn" onClick={this.onFollow}>
+            Follow
+          </button>
+        );
+      }
     }
 
-    render() {
-        const {user} = this.props;
-        const {profile} = this.state;
-        if (this.state.profile) {
-            return (
-                <div className="profile-holder">
-                    <section className="profile-info-section">
-                        <div className="profile-left">
-                            <img className="profile" src={profile.picture} alt="" />
-                            <div className="username-actions">
-                                <h2 className="username">
-                                    <span>{profile.fullname}</span>
-                                </h2>
-                                <div className="profilepage-actions">
-                                    <button className="action upper pointer signup-btn">Update info</button>
-                                    {/* <button className="action upper">Follow</button> */}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="divide-line" />
-                        <div className="profile-right">
-                            <div className="profile-info-holder">
-                                <p className="info-counter">{profile.followers.length}</p>
-                                <p className="info-name">Followers</p>
-                            </div>
-                            <div className="profile-info-holder">
-                                <p className="info-counter">{profile.following.length}</p>
-                                <p className="info-name">Following</p>
-                            </div>
-                            <div className="profile-info-holder">
-                                <p className="info-counter">1</p>
-                                <p className="info-name">Experiences</p>
-                            </div>
-                            <div className="profile-info-holder">
-                                <p className="info-counter">1</p>
-                                <p className="info-name">Moments</p>
-                            </div>
-                        </div>
-                    </section>
+    if (this.state.profile) {
+      return (
+        <div className="profile-holder">
+          <section className="profile-info-section">
+            <div className="profile-left">
+              <img className="profile" src={profile.picture} alt=""/>
+              <div className="username-actions">
+                <h2 className="username">
+                  <span>{profile.surname}</span>
+                  <span>{profile.name}</span>
+                </h2>
+                <div className="profilepage-actions">
+                  <button className="action upper pointer signup-btn">
+                    Update info
+                  </button>
+                  {profile._id !== user._id
+                    ? followButton
+                    : null}
                 </div>
               </div>
             </div>

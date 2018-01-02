@@ -30,12 +30,13 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
                             <span>{profile.name}</span>
                         </h2>
                         <div className="profilepage-actions">
-                            <button className="action upper pointer signup-btn">
-                                Update info
-                            </button>
                             {profile._id !== user._id
-                                ? followButton
-                                : null}
+                                ? (followButton)
+                                : (
+                                    <button className="action upper pointer signup-btn">
+                                        Update info
+                                    </button>
+                                )}
                         </div>
                     </div>
                 </div>

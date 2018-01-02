@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "./index.css";
-import {fetchUserByUsername} from "../../assets/js/lib/tap-client";
+import {fetchUserByUsername, unfollowUser, followUser} from "../../assets/js/lib/tap-client";
 import {withRouter} from "react-router-dom";
 import ProfileHeader from "./ProfileHeader";
 
@@ -45,40 +45,46 @@ class Profile extends Component {
   onFollow = () => {
     const {user} = this.props;
     const {profile} = this.state;
-    if (!profile.followers.includes(user._id)) {
-      this.setState((prevState, props) => ({
-        profile: {
-          ...prevState.profile,
-          followers: [
-            ...profile.followers,
-            user._id
-          ]
-        }
-      }));
-    } else {
-      alert("you are allready following this person!");
-      return;
-    }
+    console.log(profile._id);
+    followUser(profile._id, followed => {
+      console.log(followed);
+      if (!profile.followers.includes(user._id) && followed) {
+        this.setState((prevState, props) => ({
+          profile: {
+            ...prevState.profile,
+            followers: [
+              ...prevState.profile.followers,
+              user._id
+            ]
+          }
+        }));
+      } else {
+        alert("you are allready following this person!");
+        return;
+      }
+    });
   };
 
   onUnfollow = () => {
     const {user} = this.props;
     const {profile} = this.state;
-
-    if (profile.followers.includes(user._id)) {
-      this.setState((prevState, props) => ({
-        profile: {
-          ...prevState.profile,
-          followers: prevState
-            .profile
-            .followers
-            .filter(follower => follower !== user._id)
-        }
-      }));
-    } else {
-      alert("you are not allready following this person!");
-      return;
-    }
+    unfollowUser(profile._id, unfollowed => {
+      console.log(unfollowed);
+      if (profile.followers.includes(user._id) && unfollowed) {
+        this.setState((prevState, props) => ({
+          profile: {
+            ...prevState.profile,
+            followers: prevState
+              .profile
+              .followers
+              .filter(follower => follower !== user._id)
+          }
+        }));
+      } else {
+        alert("you are not allready following this person!");
+        return;
+      }
+    });
   };
 
   render() {

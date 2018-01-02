@@ -1,9 +1,10 @@
-import React, {Component} from "react";
-import "./index.css";
-import Navbar from "../Navbar";
-import Wall from "../Wall";
-import Profile from "../Profile";
-import Settings from "../Settings";
+import React, {Component} from 'react';
+import './index.css';
+import Navbar from '../Navbar';
+import Wall from '../Wall';
+import Profile from '../Profile';
+import Settings from '../Settings';
+import {ExperienceCreate} from '../Experience';
 
 class App extends Component {
     constructor(props) {
@@ -24,11 +25,14 @@ class App extends Component {
             case `/u/:username`:
                 show = <Profile user={user} content={null}/>;
                 break;
+            case `/create-experience`:
+                show = <ExperienceCreate />;
+                break;
             case `/settings`:
                 show = <Settings user={user}/>;
                 break;
             case `/`:
-                show = <Wall user={user}/>;
+                show = <Wall user={user} />;
                 break;
             default:
                 show = (
@@ -41,7 +45,7 @@ class App extends Component {
         }
         return (
             <div>
-                <Navbar user={user}/> {show}
+                <Navbar user={user} /> {show}
             </div>
         );
     }

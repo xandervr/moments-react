@@ -7,7 +7,8 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: null
+      profile: null,
+      profileNotFound: false
     };
   }
 
@@ -18,7 +19,11 @@ class Profile extends Component {
       .split("/");
     const username = url.pop();
     fetchUserByUsername(username, profile => {
-      this.setState({profile: profile});
+      if (profile) {
+        this.setState({profile: profile, profileNotFound: false});
+      } else {
+        this.setState({profile: profile, profileNotFound: true});
+      }
     });
   };
 
@@ -57,9 +62,9 @@ class Profile extends Component {
 
   render() {
     const {user} = this.props;
-    const {profile} = this.state;
+    const {profile, profileNotFound} = this.state;
     let followButton = null;
-    if (profile !== null) {
+    if (profile) {
       if (profile.followers.includes(user._id)) {
         followButton = (
           <button className="action upper pointer signup-btn btn-active-following">
@@ -75,7 +80,7 @@ class Profile extends Component {
       }
     }
 
-    if (this.state.profile) {
+    if (profile) {
       return (
         <div className="profile-holder">
           <section className="profile-info-section">
@@ -122,9 +127,16 @@ class Profile extends Component {
           </section>
         </div>
       );
-    } else 
+    } else if (profileNotFound) {
+      return (
+        <div className="profile-holder profile-not-found">
+          Profile not found
+        </div>
+      );
+    } else {
       return null;
     }
   }
+}
 
 export default withRouter(Profile);

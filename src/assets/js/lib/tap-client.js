@@ -458,12 +458,13 @@ export const createExperience = (experience_form, cb) => {
     let account = fetchAccount();
     if (experience_form) {
         const formData = new FormData(experience_form);
+        if (formData.get('description') === '') formData.delete('description');
+        if (formData.get('location') === '') formData.delete('location');
         if (account)
             fetch(`${API_URL}/experiences`, {
                 method: `POST`,
                 headers: {
                     'User-Agent': 'TapAuth Client/1.0',
-                    'Content-Type': 'multipart/formdata',
                     Authorization: `Bearer ${account.access_token}`
                 },
                 body: formData

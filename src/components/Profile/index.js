@@ -1,31 +1,34 @@
-import React, {Component} from "react";
-import "./index.css";
-import {fetchUserByUsername, unfollowUser, followUser} from "../../assets/js/lib/tap-client";
-import {withRouter} from "react-router-dom";
-import ProfileHeader from "./ProfileHeader";
+import React, {Component} from 'react';
+import './index.css';
+import {fetchUserByUsername, unfollowUser, followUser} from '../../assets/js/lib/tap-client';
+import {withRouter} from 'react-router-dom';
+import ProfileHeader from './ProfileHeader';
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      profile: null,
-      profileNotFound: false
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            profile: null,
+            profileNotFound: false
+        };
+    }
 
-  componentDidMount() {
-    this.fetchProfile();
-    this.unlisten = this
-      .props
-      .history
-      .listen((location, action) => {
+    componentDidMount() {
         this.fetchProfile();
-      });
-  }
+        this.mounted = true;
+        this.unlisten = this.props.history.listen((location, action) => {
+            if (this.mounted) this.fetchProfile();
+        });
+        this.updateProfile = setInterval(() => {
+            if (this.mounted) this.fetchProfile();
+        }, 5000);
+    }
 
-  componentWillUnmount() {
-    this.unlisten();
-  }
+    componentWillUnmount() {
+        this.mounted = false;
+        this.unlisten();
+        clearInterval(this.updateProfile);
+    }
 
   fetchProfile = () => {
     console.log(this.props.match);

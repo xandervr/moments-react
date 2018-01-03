@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import './index.css';
-import Navbar from '../Navbar';
-import Wall from '../Wall';
-import Profile from '../Profile';
-import Settings from '../Settings';
-import {ExperienceCreate} from '../Experience';
+import React, {Component} from "react";
+import "./index.css";
+import Navbar from "../Navbar";
+import Wall from "../Wall";
+import Profile from "../Profile";
+import Settings from "../Settings";
+import {ExperienceCreate} from "../Experience";
 
 class App extends Component {
     constructor(props) {
@@ -16,23 +16,21 @@ class App extends Component {
 
     render() {
         const {path} = this.props;
+        const {authentication} = this.props;
         const {user} = this.props.authentication;
         let show = null;
         switch (path) {
-            case "/u/:username/:page":
-                show = <Profile user={user} content={true}/>;
-                break;
             case `/u/:username`:
-                show = <Profile user={user} content={null}/>;
+                show = (<Profile user={user} authentication={authentication} content={null}/>);
                 break;
             case `/create-experience`:
-                show = <ExperienceCreate />;
+                show = <ExperienceCreate/>;
                 break;
             case `/settings`:
                 show = <Settings user={user}/>;
                 break;
             case `/`:
-                show = <Wall user={user} />;
+                show = <Wall user={user}/>;
                 break;
             default:
                 show = (
@@ -45,7 +43,7 @@ class App extends Component {
         }
         return (
             <div>
-                <Navbar user={user} /> {show}
+                <Navbar user={user}/> {show}
             </div>
         );
     }

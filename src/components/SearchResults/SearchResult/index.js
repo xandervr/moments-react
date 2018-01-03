@@ -1,18 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Media from '../../Media';
 import './index.css';
 
 const SearchResultExperience = ({result, hideResults, ...props}) => {
     return (
         <li>
-            <div className="result-holder">
-                <div>
-                    <img width="20" alt="" src={result.image} />
+            <Link onClick={hideResults} to={`/e/${result._id}`}>
+                <div className="result-holder">
+                    <div>
+                        <Media width="20" media={result.media} />
+                    </div>
+                    <div className="result-container">
+                        <span className="result-text">{result.title}</span>
+                    </div>
                 </div>
-                <div className="result-container">
-                    <span className="result-text">{result.title}</span>
-                </div>
-            </div>
+            </Link>
         </li>
     );
 };

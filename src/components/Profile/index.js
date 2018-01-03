@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import "./index.css";
 import {fetchUserByUsername, unfollowUser, followUser} from "../../assets/js/lib/tap-client";
-import {withRouter} from "react-router-dom";
+import {withRouter, Route} from "react-router-dom";
 import ProfileHeader from "./ProfileHeader";
 import ExperienceContent from "./ExperienceContent";
 import FollowingContent from "./FollowingContent";
+import {AuthenticatedRoute} from "../../Routes";
 
 class Profile extends Component {
   constructor(props) {
@@ -95,25 +96,10 @@ class Profile extends Component {
   };
 
   render() {
-    const {user, content, match} = this.props;
+    const {authentication, user, content, match} = this.props;
     const {profile, profileNotFound} = this.state;
     let profileContent = null;
-    console.log(match.params.page, profile);
-    switch (match.params.page) {
-      case undefined:
-        profileContent = (<ExperienceContent profile={profile} user={user}/>);
-        break;
-      case "followers":
-        profileContent = <div>Followers</div>;
-        break;
-      case "following":
-        profileContent = (<FollowingContent profile={profile} user={user}/>);
-        break;
-      default:
-        profileContent = <p>route doesn't exist</p>;
-        break;
-    }
-
+    console.log(match.url, profile);
     if (profile) {
       return (
         <div className="profile-holder">
@@ -123,7 +109,21 @@ class Profile extends Component {
             profile={profile}
             profileNotFound={profileNotFound}
             onFollow={this.onFollow}
-            onUnfollow={this.onUnfollow}/>{" "} {profileContent}{" "}
+            onUnfollow={this.onUnfollow}/>{" "}
+          <AuthenticatedRoute
+            exact
+            path={`${match.url}`}
+            user={user}
+            profile={profile}
+            authentication={authentication}
+            component={ExperienceContent}/>
+          <AuthenticatedRoute
+            exact
+            path={`${match.url}/following`}
+            profile={profile}
+            user={user}
+            authentication={authentication}
+            component={FollowingContent}/>
         </div>
       );
     } else {

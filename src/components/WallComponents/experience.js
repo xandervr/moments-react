@@ -15,6 +15,7 @@ import './experience.css';
 //Components
 import Comments from './Comments';
 import Media from '../Media';
+import Location from '../Location';
 import TimeAgo from 'react-timeago';
 import {boostExperience, unboostExperience} from '../../assets/js/lib/tap-client';
 
@@ -131,14 +132,10 @@ class Experience extends Component {
                 <div className="content">
                     <div className="head">
                         <div>
-                            <h2 className="title">{experience.title}</h2>
-                            <p className="location">
-                                {experience.media.metadata &&
-                                experience.media.metadata.gps_city &&
-                                experience.media.metadata.gps_country
-                                    ? `${experience.media.metadata.gps_city} - ${experience.media.metadata.gps_country}`
-                                    : 'Les Orres - France'}
-                            </p>
+                            <Link to={`/e/${experience._id}`}>
+                                <h2 className="title">{experience.title}</h2>
+                            </Link>
+                            <Location experience={experience} />
                         </div>
                         <div className="actions">
                             {/* <div className="action pointer" onClick={this.showAddComment}>

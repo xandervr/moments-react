@@ -51,13 +51,13 @@ class Routing extends Component {
                         cb();
                     })
                     .catch(err => console.log(err));
-            } else
+            } else 
                 cb();
             }
         };
 
     render() {
-        if (this.state.fetched)
+        if (this.state.fetched) 
             return (
                 <Router>
                     <div>
@@ -75,16 +75,9 @@ class Routing extends Component {
                             exact
                             path="/create-experience"
                             authentication={this.authentication}
-                            component={App}
-                        />
-                        <AuthenticatedRoute
-                            exact
-                            path="/u/:username"
-                            authentication={this.authentication}
                             component={App}/>
                         <AuthenticatedRoute
-                            exact
-                            path="/u/:username/:page"
+                            path="/u/:username"
                             authentication={this.authentication}
                             component={App}/>
                         <AuthenticatedRoute
@@ -95,7 +88,7 @@ class Routing extends Component {
                     </div>
                 </Router>
             );
-        else
+        else 
             return null;
         }
     }
@@ -114,7 +107,7 @@ const LoginRoute = ({
     );
 };
 
-const AuthenticatedRoute = ({
+export const AuthenticatedRoute = ({
     component: Component,
     authentication,
     ...rest

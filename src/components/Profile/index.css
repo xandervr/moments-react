@@ -64,6 +64,10 @@
     text-align: center;
 }
 
+.profile-info-holder:hover {
+  cursor: pointer;
+}
+
 .info-counter {
     font-weight: bold;
     font-size: 2rem;

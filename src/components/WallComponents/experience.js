@@ -14,6 +14,7 @@ import './experience.css';
 
 //Components
 import Comments from './Comments';
+import Media from '../Media';
 import TimeAgo from 'react-timeago';
 import {boostExperience, unboostExperience} from '../../assets/js/lib/tap-client';
 
@@ -125,7 +126,7 @@ class Experience extends Component {
                     </Link>
                 </div>
                 <div className="head-img img-container">
-                    <img src={experience.media.image} alt="" />
+                    <Media media={experience.media} />
                 </div>
                 <div className="content">
                     <div className="head">

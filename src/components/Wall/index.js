@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Infinite} from 'react-infinite';
+import Infinite from 'react-infinite';
 import {Experience} from '../WallComponents';
 import {fetchWall, fetchWallOffset} from '../../assets/js/lib/tap-client';
 import './index.css';
@@ -8,16 +8,16 @@ class Wall extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            data: [],
             isInfiniteLoading: false,
             offset: 0,
-            limit: 10
+            limit: 5
         };
         this.mounted = false;
     }
 
     updateWall = () => {
-        fetchWall(wall => {
+        fetchWallOffset(0, this.state.offset + this.state.limit, wall => {
             if (wall) this.setState({data: wall});
         });
     };
@@ -26,7 +26,7 @@ class Wall extends Component {
         this.loadWall();
         this.mounted = true;
         this.wallUpdater = setInterval(() => {
-            if (this.mounted) this.loadWall();
+            if (this.mounted) this.updateWall();
         }, 5000);
     }
 
@@ -36,13 +36,19 @@ class Wall extends Component {
     }
 
     loadWall = advance => {
-        fetchWallOffset(this.state.offset, this.state.limit + advance ? advance : 0, wall => {
-            if (wall) this.setState({data: wall, limit: this.state.limit + advance ? advance : 0});
+        fetchWallOffset(this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
+            if (wall)
+                this.setState({
+                    data: this.state.data.concat(wall),
+                    offset: this.state.offset + (advance ? advance : 0),
+                    isInfiniteLoading: false
+                });
         });
     };
 
     loadMore = () => {
-        this.loadWall(10);
+        this.setState({isInfiniteLoading: true});
+        this.loadWall(2);
     };
 
     loadingInProgress = () => {
@@ -55,7 +61,21 @@ class Wall extends Component {
         const experiencesList = experiences.map(el => (
             <Experience currentUser={user} updateWall={this.updateWall} key={el._id} experience={el} />
         ));
-        return <main>{experiencesList}</main>;
+
+        return (
+            <main>
+                <Infinite
+                    elementHeight={600}
+                    useWindowAsScrollContainer={true}
+                    infiniteLoadBeginEdgeOffset={100}
+                    onInfiniteLoad={this.loadMore}
+                    loadingSpinnerDelegate={this.loadingInProgress()}
+                    isInfiniteLoading={this.state.isInfiniteLoading}
+                >
+                    {experiencesList}
+                </Infinite>
+            </main>
+        );
     }
 }
 

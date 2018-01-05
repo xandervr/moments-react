@@ -20,6 +20,11 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
             );
         }
     }
+    const boosts = profile
+        ? profile
+            .experiences
+            .reduce((boosts, exp) => exp.boosters.length + boosts, 0)
+        : 0;
     if (profile) {
         return (
             <section className="profile-info-section">
@@ -70,6 +75,10 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
                     <div className="profile-info-holder">
                         <p className="info-counter">1</p>
                         <p className="info-name">Moments</p>
+                    </div>
+                    <div className="profile-info-holder">
+                        <p className="info-counter">{boosts}</p>
+                        <p className="info-name">Boosts</p>
                     </div>
                 </div>
             </section>

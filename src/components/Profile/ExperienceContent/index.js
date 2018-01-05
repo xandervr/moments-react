@@ -30,11 +30,7 @@ class ExperienceContent extends Component {
             }}>
                 {" "}
                 <div className="timeline-map-holder">
-                    <section
-                        className="timeline-section"
-                        style={{
-                        backgroundImage: `url(${timelineBorder})`
-                    }}>
+                    <section className="timeline-section">
                         {/* TODO */}
                         {timelineList}
                     </section>

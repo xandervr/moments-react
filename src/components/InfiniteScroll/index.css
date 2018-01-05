@@ -1,0 +1,11 @@
+.infinite-loader {
+    margin: auto;
+    align-self: center;
+}
+
+.infinite-loader-container {
+    margin-top: -10rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}

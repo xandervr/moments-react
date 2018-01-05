@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Infinite} from 'react-infinite';
 import {Experience} from '../WallComponents';
+import InfiniteScroll from '../InfiniteScroll';
 import {fetchWall, fetchWallOffset} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -8,25 +8,24 @@ class Wall extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
-            isInfiniteLoading: false,
+            data: [],
+            hasMore: true,
             offset: 0,
-            limit: 10
+            limit: 4
         };
         this.mounted = false;
     }
 
     updateWall = () => {
-        fetchWall(wall => {
-            if (wall) this.setState({data: wall});
-        });
+        // fetchWallOffset(0, this.state.offset + this.state.limit, wall => {     if
+        // (wall) this.setState({data: wall}); });
     };
 
     componentDidMount() {
         this.loadWall();
         this.mounted = true;
         this.wallUpdater = setInterval(() => {
-            if (this.mounted) this.loadWall();
+            if (this.mounted) this.updateWall();
         }, 5000);
     }
 
@@ -35,14 +34,23 @@ class Wall extends Component {
         clearInterval(this.wallUpdater);
     }
 
-    loadWall = advance => {
-        fetchWallOffset(this.state.offset, this.state.limit + advance ? advance : 0, wall => {
-            if (wall) this.setState({data: wall, limit: this.state.limit + advance ? advance : 0});
+    loadWall = (advance, cb) => {
+        fetchWallOffset(this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
+            if (wall && wall.length > 0)
+                this.setState(
+                    {
+                        data: this.state.data.concat(wall),
+                        offset: this.state.offset + (advance ? advance : 0),
+                        hasMore: true
+                    },
+                    cb
+                );
+            else this.setState({hasMore: false}, cb);
         });
     };
 
-    loadMore = () => {
-        this.loadWall(10);
+    loadMore = cb => {
+        this.loadWall(4, cb);
     };
 
     loadingInProgress = () => {
@@ -55,7 +63,14 @@ class Wall extends Component {
         const experiencesList = experiences.map(el => (
             <Experience currentUser={user} updateWall={this.updateWall} key={el._id} experience={el} />
         ));
-        return <main>{experiencesList}</main>;
+
+        return (
+            <main>
+                <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={300}>
+                    {experiencesList}
+                </InfiniteScroll>
+            </main>
+        );
     }
 }
 

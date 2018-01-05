@@ -64,6 +64,10 @@
     text-align: center;
 }
 
+.profile-info-holder:hover {
+  cursor: pointer;
+}
+
 .info-counter {
     font-weight: bold;
     font-size: 2rem;
@@ -90,7 +94,7 @@
 /* TIMELINE SECTION */
 
 .timeline-map-holder {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   margin-top: 5rem;
@@ -98,20 +102,23 @@
 
 .timeline-section {
   height: 40rem;
-  width: 37rem;
+  width: 40%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-repeat: repeat-y;
   background-size: 3rem;
-  margin-left: 5rem;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
   padding: 3rem 0 3.5rem 0;
 }
 
 .timeline-experience {
   display: flex;
-  height: 9rem;
+  margin-top: 3rem;
+  min-height: 10rem;
+  justify-content: center;
+  width: 100%;
   position: relative;
 }
 
@@ -122,9 +129,9 @@
 }
 
 .timeline-experience .time {
-  position: absolute;
-  left: -18rem;
-  top: -2rem;
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
 }
 
 .timeline-experience .title {
@@ -165,8 +172,12 @@
   width: 3rem;
 }
 
+.map-section {
+  width: 60%;
+}
+
 .world-map {
-  width: 80rem;
+  width: 100%;
 }
 
 /* END TIMELINE SECTION */

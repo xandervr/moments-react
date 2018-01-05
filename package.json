@@ -6,6 +6,7 @@
         "axios": "^0.17.1",
         "emoji-mart": "^2.4.0",
         "material-ui": "^0.20.0",
+        "node-geocoder": "^3.21.1",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "react-emojione2": "^2.2.18",

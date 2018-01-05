@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) => {
     let followButton = null;
@@ -19,6 +20,11 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
             );
         }
     }
+    const boosts = profile
+        ? profile
+            .experiences
+            .reduce((boosts, exp) => exp.boosters.length + boosts, 0)
+        : 0;
     if (profile) {
         return (
             <section className="profile-info-section">
@@ -42,27 +48,37 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
                 </div>
                 <div className="divide-line"/>
                 <div className="profile-right">
-                    <div className="profile-info-holder">
-                        <p className="info-counter">
-                            {profile.followers.length}
-                        </p>
-                        <p className="info-name">Followers</p>
-                    </div>
-                    <div className="profile-info-holder">
-                        <p className="info-counter">
-                            {profile.following.length}
-                        </p>
-                        <p className="info-name">Following</p>
-                    </div>
-                    <div className="profile-info-holder">
-                        <p className="info-counter">
-                            {profile.experiences.length}
-                        </p>
-                        <p className="info-name">Experiences</p>
-                    </div>
+                    <Link to={`/u/${profile.username}/followers`}>
+                        <div className="profile-info-holder">
+                            <p className="info-counter">
+                                {profile.followers.length}
+                            </p>
+                            <p className="info-name">Followers</p>
+                        </div>
+                    </Link>
+                    <Link to={`/u/${profile.username}/following`}>
+                        <div className="profile-info-holder">
+                            <p className="info-counter">
+                                {profile.following.length}
+                            </p>
+                            <p className="info-name">Following</p>
+                        </div>
+                    </Link>
+                    <Link to={`/u/${profile.username}`}>
+                        <div className="profile-info-holder">
+                            <p className="info-counter">
+                                {profile.experiences.length}
+                            </p>
+                            <p className="info-name">Experiences</p>
+                        </div>
+                    </Link>
                     <div className="profile-info-holder">
                         <p className="info-counter">1</p>
                         <p className="info-name">Moments</p>
+                    </div>
+                    <div className="profile-info-holder">
+                        <p className="info-counter">{boosts}</p>
+                        <p className="info-name">Boosts</p>
                     </div>
                 </div>
             </section>

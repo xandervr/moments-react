@@ -9,7 +9,7 @@
 import {API_URL} from '../consts';
 
 /**
- * @function comment Add a comment.
+ * @function deleteComment Delete a comment.
  * @param experience_id ID of experience to delete comment from.
  * @param comment_id Comment to delete.
  * @param cb Callback function returning boolean
@@ -246,6 +246,38 @@ export const fetchWall = cb => {
 };
 
 /**
+ * @function fetchWallOffset Fetches the wall of a user.
+ * @param offset Offset to start.
+ * @param limit Limit to end.
+ * @param cb Callback function returning wall object
+ * @returns {Object}
+ * @private
+ */
+
+export const fetchWallOffset = (offset, limit, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`http://moments.tntap.be/wall/${offset}/${limit}`, {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success' && data.wall.length > 0) cb(data.wall);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
+    else {
+        console.log('Authorization error');
+        cb(false);
+    }
+};
+
+/**
  * @function fetchUserByUsername Fetches the user by username.
  * @param username Username to fetch
  * @param cb Callback function returning user object
@@ -458,25 +490,56 @@ export const createExperience = (experience_form, cb) => {
     let account = fetchAccount();
     if (experience_form) {
         const formData = new FormData(experience_form);
+        if (formData.get('description') === '') formData.delete('description');
+        if (formData.get('location') === '') formData.delete('location');
         if (account)
             fetch(`${API_URL}/experiences`, {
                 method: `POST`,
                 headers: {
                     'User-Agent': 'TapAuth Client/1.0',
-                    'Content-Type': 'multipart/formdata',
                     Authorization: `Bearer ${account.access_token}`
                 },
                 body: formData
             })
                 .then(r => r.json())
                 .then(data => {
-                    console.log(data);
                     cb(data.message === 'Success');
                 })
                 .catch(err => console.log(err));
         else console.log('Authorization error');
     } else {
         console.log('No experience_form provided');
+        cb(false);
+    }
+};
+
+/**
+ * @function getExperienceById Fetch an experience.
+ * @param experience_id Experience ID.
+ * @param cb Callback function returning an experience object.
+ * @returns {Object}
+ * @private
+ */
+
+export const fetchExperienceById = (experience_id, cb) => {
+    let account = fetchAccount();
+    if (experience_id) {
+        if (account)
+            fetch(`${API_URL}/experiences/${experience_id}`, {
+                method: `GET`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    Authorization: `Bearer ${account.access_token}`
+                }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    cb(data.message === 'Success' ? data.experience : false);
+                })
+                .catch(err => console.log(err));
+        else console.log('Authorization error');
+    } else {
+        console.log('No experience_id provided');
         cb(false);
     }
 };

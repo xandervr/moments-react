@@ -1,21 +1,13 @@
 import React from "react";
+import ProfileCard from "../ProfileCard";
 
 const FollowingContent = ({profile}) => {
     const followingList = profile
         .following
-        .map(followingProfile => (
-            <div style={{
-                fontSize: "4rem"
-            }}>
-                <img
-                    style={{
-                    width: "20%",
-                    height: "20%"
-                }}
-                    src={followingProfile.picture}/>{" "} {followingProfile.fullname}
-            </div>
-        ));
-    return <div>{followingList}</div>;
+        .map(followingProfile => (<ProfileCard profile={followingProfile}/>));
+    return <div style={{
+        display: "flex"
+    }}>{followingList}</div>;
 };
 
 export default FollowingContent;

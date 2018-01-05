@@ -278,6 +278,39 @@ export const fetchWallOffset = (offset, limit, cb) => {
 };
 
 /**
+ * @function fetchUserExperiencesOffset Fetches the wall of a user.
+ * @param user_id User to fetch wall from.
+ * @param offset Offset to start.
+ * @param limit Limit to end.
+ * @param cb Callback function returning wall object
+ * @returns {[Object]}
+ * @private
+ */
+
+export const fetchUserExperiencesOffset = (user_id, offset, limit, cb) => {
+    let account = fetchAccount();
+    if (account)
+        fetch(`http://moments.tntap.be/users/${user_id}/experiences/${offset}/${limit}`, {
+            method: `GET`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${account.access_token}`
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success' && data.experiences.length > 0) cb(data.experiences);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
+    else {
+        console.log('Authorization error');
+        cb(false);
+    }
+};
+
+/**
  * @function fetchUserByUsername Fetches the user by username.
  * @param username Username to fetch
  * @param cb Callback function returning user object

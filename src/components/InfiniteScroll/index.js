@@ -42,16 +42,17 @@ class InfiniteScroll extends Component {
 
     render() {
         const {children} = this.props;
-        if (this.isLoading) {
-            return (
-                <div>
-                    {children}
-                    <div className="infinite-loader-container">
-                        <img className="infinite-loader" src={loadingImage} />
-                    </div>
-                </div>
-            );
-        } else return children;
+        // if (this.isLoading) {
+        //     return (
+        //         <div>
+        //             {children}
+        //             <div className="infinite-loader-container">
+        //                 <img className="infinite-loader" src={loadingImage} />
+        //             </div>
+        //         </div>
+        //     );
+        // } else return children;
+        return children;
     }
 }
 

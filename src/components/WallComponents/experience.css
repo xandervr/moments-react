@@ -41,6 +41,11 @@
   color: white;
 }
 
+.volume-slider {
+  transform: rotate(-90deg) translateX(2rem);
+  width: 7rem;
+}
+
 .moment .content {
     position: relative;
     top: -10rem;

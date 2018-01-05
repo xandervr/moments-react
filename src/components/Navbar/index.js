@@ -23,12 +23,16 @@ class Navbar extends Component {
         };
     }
 
-    componentDidMount() {
-        // window.onscroll = e => {     const $nav = document.querySelector(`nav`);
-        // if (window.scrollY <= 0) {         if ($nav)
-        // $nav.classList.remove(`nav-shadow`);     } else {         if ($nav)
-        // $nav.classList.add(`nav-shadow`);     } };
-    }
+    // componentDidMount() {
+    //     window.onscroll = e => {
+    //         const $nav = document.querySelector(`nav`);
+    //         if (window.scrollY <= 0) {
+    //             if ($nav) $nav.classList.remove(`nav-shadow`);
+    //         } else {
+    //             if ($nav) $nav.classList.add(`nav-shadow`);
+    //         }
+    //     };
+    // }
 
     logout = () => {
         localStorage.removeItem(`moments_account`);
@@ -39,9 +43,9 @@ class Navbar extends Component {
     performSearch = query => {
         this.setState({lockSearch: true});
         search(query, data => {
-            if (data) 
+            if (data)
                 this.setState({searchResults: data.results, lockSearch: false, showResults: true});
-            else 
+            else
                 this.setState({
                     searchResults: {
                         experiences: [],
@@ -63,9 +67,9 @@ class Navbar extends Component {
         this.setState({
             searchValue: searchValue
         }, () => {
-            if (this.state.searchValue.length >= 2 && !this.state.lockSearch) 
+            if (this.state.searchValue.length >= 2 && !this.state.lockSearch)
                 this.performSearch(this.state.searchValue);
-            else 
+            else
                 this.setState({
                     searchResults: {
                         experiences: [],

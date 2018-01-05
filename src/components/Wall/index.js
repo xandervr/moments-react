@@ -17,8 +17,9 @@ class Wall extends Component {
     }
 
     updateWall = () => {
-        // fetchWallOffset(0, this.state.offset + this.state.limit, wall => {     if
-        // (wall) this.setState({data: wall}); });
+        fetchWallOffset(0, this.state.offset + this.state.limit, wall => {
+            if (wall) this.setState({data: wall});
+        });
     };
 
     componentDidMount() {

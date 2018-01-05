@@ -267,7 +267,7 @@ export const fetchWallOffset = (offset, limit, cb) => {
         })
             .then(r => r.json())
             .then(data => {
-                if (data.message === 'Success') cb(data.wall);
+                if (data.message === 'Success' && data.wall.length > 0) cb(data.wall);
                 else cb(false);
             })
             .catch(err => console.log(err));

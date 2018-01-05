@@ -23,16 +23,16 @@ class Navbar extends Component {
         };
     }
 
-    componentDidMount() {
-        window.onscroll = e => {
-            const $nav = document.querySelector(`nav`);
-            if (window.scrollY <= 0) {
-                if ($nav) $nav.classList.remove(`nav-shadow`);
-            } else {
-                if ($nav) $nav.classList.add(`nav-shadow`);
-            }
-        };
-    }
+    // componentDidMount() {
+    //     window.onscroll = e => {
+    //         const $nav = document.querySelector(`nav`);
+    //         if (window.scrollY <= 0) {
+    //             if ($nav) $nav.classList.remove(`nav-shadow`);
+    //         } else {
+    //             if ($nav) $nav.classList.add(`nav-shadow`);
+    //         }
+    //     };
+    // }
 
     logout = () => {
         localStorage.removeItem(`moments_account`);

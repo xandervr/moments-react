@@ -13,6 +13,19 @@ class ExperienceCreate extends Component {
     };
   }
 
+  previewUpload = ev => {
+    if (ev.target.files && ev.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        document.querySelector(`.preview-image`).setAttribute(`src`, e.target.result);
+        document.querySelector(`.preview-image`).classList.add(`preview-image-`);
+      };
+
+      reader.readAsDataURL(ev.target.files[0]);
+    }
+  }
+
   onChangeTitle = e => {
     const title = e.target.value;
     this.setState({title: title});
@@ -65,10 +78,10 @@ class ExperienceCreate extends Component {
               </div>
             </div>
             <div>
-              <input className="experience-photo-input" id="file" type="file" accept="image/*|video*"/>
+              <input className="experience-photo-input" id="file" type="file" accept="image/*|video*" onChange={this.previewUpload}/>
               <label className="pointer" htmlFor="file">
                 <div className="file-selector">
-                  <img src={add} alt=""/>
+                  <img className="preview-image" src={add} alt=""/>
                 </div>
                 <p className="file-label">Choose an experience photo</p>
               </label>

@@ -23,10 +23,23 @@ class ExperienceCreate extends Component {
         e.preventDefault();
     };
 
-    onChangeTitle = e => {
-        const title = e.target.value;
-        this.setState({title: title});
-    };
+  previewUpload = ev => {
+    if (ev.target.files && ev.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        document.querySelector(`.preview-image`).setAttribute(`src`, e.target.result);
+        document.querySelector(`.preview-image`).classList.add(`preview-image-`);
+      };
+
+      reader.readAsDataURL(ev.target.files[0]);
+    }
+  }
+
+  onChangeTitle = e => {
+    const title = e.target.value;
+    this.setState({title: title});
+  };
 
     onChangeDescription = e => {
         const description = e.target.value;

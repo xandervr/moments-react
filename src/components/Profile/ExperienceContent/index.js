@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import timelineBorder from "../../../assets/img/timeline-border.png";
 import world from "../../../assets/svg/world.svg";
 import map from "../../../assets/svg/map-localization.svg";
 import TimelineExperience from "./TimelineExperience";

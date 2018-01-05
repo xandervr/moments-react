@@ -72,11 +72,7 @@ class ExperienceContent extends Component {
         return (
             <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div className="timeline-map-holder">
-<<<<<<< HEAD
-                    <section className="timeline-section" style={{backgroundImage: `url(${timelineBorder})`}}>
-=======
                     <section className="timeline-section">
->>>>>>> origin
                         {/* TODO */}
                         {timelineList}
                     </section>

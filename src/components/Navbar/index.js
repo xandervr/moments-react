@@ -108,8 +108,8 @@ class Navbar extends Component {
                         <div className="action add pointer">
                             <Link to="/create-experience">
                                 <Add className="icon">add</Add>
-                                <div className="action-detail">Add</div>
                             </Link>
+                            <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
                             <Link to="/settings">

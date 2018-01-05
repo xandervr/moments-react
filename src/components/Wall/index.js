@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Infinite from 'react-infinite';
 import {Experience} from '../WallComponents';
+import InfiniteScroll from '../InfiniteScroll';
 import {fetchWall, fetchWallOffset} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -9,17 +9,16 @@ class Wall extends Component {
         super(props);
         this.state = {
             data: [],
-            isInfiniteLoading: false,
+            hasMore: true,
             offset: 0,
-            limit: 5
+            limit: 4
         };
         this.mounted = false;
     }
 
     updateWall = () => {
-        fetchWallOffset(0, this.state.offset + this.state.limit, wall => {
-            if (wall) this.setState({data: wall});
-        });
+        // fetchWallOffset(0, this.state.offset + this.state.limit, wall => {     if
+        // (wall) this.setState({data: wall}); });
     };
 
     componentDidMount() {
@@ -35,20 +34,23 @@ class Wall extends Component {
         clearInterval(this.wallUpdater);
     }
 
-    loadWall = advance => {
+    loadWall = (advance, cb) => {
         fetchWallOffset(this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
-            if (wall)
-                this.setState({
-                    data: this.state.data.concat(wall),
-                    offset: this.state.offset + (advance ? advance : 0),
-                    isInfiniteLoading: false
-                });
+            if (wall && wall.length > 0)
+                this.setState(
+                    {
+                        data: this.state.data.concat(wall),
+                        offset: this.state.offset + (advance ? advance : 0),
+                        hasMore: true
+                    },
+                    cb
+                );
+            else this.setState({hasMore: false}, cb);
         });
     };
 
-    loadMore = () => {
-        this.setState({isInfiniteLoading: true});
-        this.loadWall(2);
+    loadMore = cb => {
+        this.loadWall(4, cb);
     };
 
     loadingInProgress = () => {
@@ -64,16 +66,9 @@ class Wall extends Component {
 
         return (
             <main>
-                <Infinite
-                    elementHeight={600}
-                    useWindowAsScrollContainer={true}
-                    infiniteLoadBeginEdgeOffset={100}
-                    onInfiniteLoad={this.loadMore}
-                    loadingSpinnerDelegate={this.loadingInProgress()}
-                    isInfiniteLoading={this.state.isInfiniteLoading}
-                >
+                <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={300}>
                     {experiencesList}
-                </Infinite>
+                </InfiniteScroll>
             </main>
         );
     }

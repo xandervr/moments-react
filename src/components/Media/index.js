@@ -4,7 +4,10 @@ import './index.css';
 class Media extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      sliderValue: 0,
+      volumeValue: .7,
+    };
   }
 
   playVideo = e => {
@@ -26,6 +29,7 @@ class Media extends Component {
   playSliderVideo = e => {
     const $video = e.target.parentNode.parentNode.querySelector(`video`);
     $video.play();
+    document.querySelector(`.play-btn`).innerHTML = `pause`;
   }
 
   fullScreenVideo = e => {
@@ -59,7 +63,14 @@ class Media extends Component {
   updateSlider = e => {
     const $slider = e.target.parentNode.querySelector(`input[type="range"]`);
     const value = (100 / e.target.duration) * e.target.currentTime;
-    $slider.value = value;
+    this.setState({sliderValue: value});
+  }
+
+  volumeSliderVideo = e => {
+    console.log(this.state.volumeValue);
+    const $video = e.target.parentNode.parentNode.querySelector(`video`);
+    this.setState({volumeValue: e.target.value});
+    $video.volume = e.target.value;
   }
 
   render() {
@@ -92,8 +103,25 @@ class Media extends Component {
         </video>
         <span className="play-btn pointer" onClick={this.playVideo}>play</span>
         <span className="video-controls">
-          <span className="mute-btn" onClick={this.muteVideo}>MUTE</span>
-          <input type="range" onChange={this.scrollVideo} onMouseDown={this.pauseSliderVideo} onMouseUp={this.playSliderVideo}/>
+          <span className="mute-btn" onClick={this.muteVideo}>mute</span>
+          <input
+             type="range"
+             className="pointer"
+             value={this.state.sliderValue}
+             onChange={this.scrollVideo}
+             onMouseDown={this.pauseSliderVideo}
+             onMouseUp={this.playSliderVideo}
+           />
+          <input
+            type="range"
+            className="volume-slider pointer"
+            min="0"
+            max="1"
+            step="0.01"
+            value={this.state.volumeValue}
+            onChange={this.volumeSliderVideo}
+          />
+            <span className="fullscreen-btn pointer" onClick={this.fullScreenVideo}>full</span>
         </span>
       </div>);
     } else

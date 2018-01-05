@@ -8,16 +8,37 @@
 .head-img {
     width: 100%;
     height: 45rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.img-container img {
+.head-img img,
+.head-img video {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 1.5rem;
 }
 
-.head-img img {
-    width: 100%;
-    height: 100%;
+.play-btn,
+.pause-btn {
+  position: absolute;
+  color: white;
+  font-size: 3rem;
+  margin-top: -3rem
+}
+
+.video-controls {
+  position: absolute;
+  left: 0;
+  bottom: 10rem;
+  width: 100%;
+  height: 4rem;
+  background-color: var(--blue);
+  opacity: .7;
+  color: white;
 }
 
 .moment .content {

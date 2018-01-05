@@ -58,6 +58,8 @@ class ExperienceContent extends Component {
         this.loadWall(6, cb);
     };
 
+    loadMoreTimeline = cb => {};
+
     render() {
         const {profile, user} = this.props;
         const {data} = this.state;
@@ -74,7 +76,9 @@ class ExperienceContent extends Component {
                 <div className="timeline-map-holder">
                     <section className="timeline-section">
                         {/* TODO */}
-                        {timelineList}
+                        <InfiniteScroll parent={true} loadMore={this.loadMoreTimeline} loadMoreOffset={50}>
+                            {timelineList}
+                        </InfiniteScroll>
                     </section>
                     <section className="map-section">
                         <div className="map-title-holder">

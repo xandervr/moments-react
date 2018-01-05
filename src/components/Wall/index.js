@@ -67,7 +67,7 @@ class Wall extends Component {
 
         return (
             <main>
-                <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={300}>
+                <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={600}>
                     {experiencesList}
                 </InfiniteScroll>
             </main>

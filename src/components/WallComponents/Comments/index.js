@@ -82,7 +82,7 @@ class Comments extends Component {
         return (
             <div className="comments">
                 <ul>{commentsList[0]}</ul>
-                <ul className="more-comments hide">
+                <ul className={this.state.commentsOpen ? 'comments-open more-comments' : 'more-comments hide'}>
                     {otherComments.slice(0, this.state.commentLimit)}
                     {this.state.commentLimit < otherComments.length ? (
                         <li className="load-more" onClick={this.changeCommentLimit}>

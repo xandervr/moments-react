@@ -6,6 +6,7 @@ import ProfileHeader from "./ProfileHeader";
 import ExperienceContent from "./ExperienceContent";
 import FollowingContent from "./FollowingContent";
 import {AuthenticatedRoute} from "../../Routes";
+import FollowersContent from "./FollowersContent";
 
 class Profile extends Component {
     constructor(props) {
@@ -44,6 +45,7 @@ class Profile extends Component {
 
     fetchProfile = () => {
         const username = this.props.match.params.username;
+        console.log(username);
         fetchUserByUsername(username, profile => {
             if (profile) {
                 this.setState({profile: profile, profileNotFound: false});
@@ -123,6 +125,13 @@ class Profile extends Component {
                         user={user}
                         authentication={authentication}
                         component={FollowingContent}/>
+                    <AuthenticatedRoute
+                        exact
+                        path={`${match.url}/followers`}
+                        profile={profile}
+                        user={user}
+                        authentication={authentication}
+                        component={FollowersContent}/>
                 </div>
             );
         } else {

@@ -41,7 +41,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
                     <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>
                 </span>
                 <div className="comment-user-text">
-                    <div className="comment-text">{comment.text}</div>
+                    <div className={emoji ? 'comment-text big-emoji' : 'comment-text'}>{comment.text}</div>
                 </div>
                 <span className="comment-time">
                     <TimeAgo date={comment.created_on} minPeriod="60" formatter={buildFormatter(englishStrings)} />

@@ -112,9 +112,11 @@ class Experience extends Component {
                     <Link to={`/u/${experience.user.username}`}>
                         <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
                             <img className="main-user" src={experience.user.picture} alt="profile" />
-                            <div className="side-users">
-                                <img className="side-user more" src={addWhite} alt="" /> {usersShow}
-                            </div>
+                            {usersShow.length > 0 ? (
+                                <div className="side-users">
+                                    <img className="side-user more" src={addWhite} alt="" /> {usersShow}
+                                </div>
+                            ) : null}
                         </div>
                         <div className="experience-title">
                             <div>
@@ -127,7 +129,7 @@ class Experience extends Component {
                     </Link>
                 </div>
                 <div className="head-img img-container">
-                    <Media media={experience.media} />
+                    <Media media={experience.media} onDoubleClick={this.state.boosted ? this.unboost : this.boost} />
                 </div>
                 <div className="content">
                     <div className="head">

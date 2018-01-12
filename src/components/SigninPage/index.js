@@ -1,5 +1,10 @@
-import React, {Component} from 'react';
-import {login, register} from '../../assets/js/lib/tap-client';
+import React, {
+    Component
+} from 'react';
+import {
+    login,
+    register
+} from '../../assets/js/lib/tap-client';
 import Signin from '../Signin';
 import Signup from '../Signup';
 import france from '../../assets/img/france.jpg';
@@ -9,9 +14,22 @@ class SigninPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: {username: '', password: ''},
-            register: {surname: '', name: '', email: '', password: '', password_check: ''},
-            account: {access_token: '', expire_date: '', refresh_token: ''}
+            login: {
+                username: '',
+                password: ''
+            },
+            register: {
+                surname: '',
+                name: '',
+                email: '',
+                password: '',
+                password_check: ''
+            },
+            account: {
+                access_token: '',
+                expire_date: '',
+                refresh_token: ''
+            }
         };
     }
 
@@ -53,7 +71,10 @@ class SigninPage extends Component {
     onChangeRemember = e => {};
 
     performLogin = (e, cb) => {
-        const {username, password} = this.state.login;
+        const {
+            username,
+            password
+        } = this.state.login;
 
         if (username === ``) {
             document.querySelector(`.email-error`).classList.add(`show-error`);
@@ -107,6 +128,7 @@ class SigninPage extends Component {
         }));
     };
 
+
     onChangeEmail = e => {
         const email = e.target.value;
         this.setState(prevState => ({
@@ -138,7 +160,13 @@ class SigninPage extends Component {
     };
 
     performRegister = (e, cb) => {
-        const {surname, name, email, password, password_check} = this.state.register;
+        const {
+            surname,
+            name,
+            email,
+            password,
+            password_check
+        } = this.state.register;
 
         if (surname !== `` && name !== `` && email !== `` && password !== `` && password === password_check) {
             register(surname, name, email, password, tokens => {
@@ -163,32 +191,93 @@ class SigninPage extends Component {
 
     render() {
 
-        return <section className="sign-section">
-                <div className="image-holder">
-                    <img src={france} alt="france" />
-                </div>
-                <div className="login-section">
-                    <div className="titles">
-                        <h1>
-                            Welcome to <span>MOMENTS</span>
-                        </h1>
-                        <h2>Welcome back, please login to your account</h2>
-                    </div>
-                    <div className="form-holder">
-                        <div className="sign-titles">
-                            <h2 onClick={this.showSignup} className="active signin pointer">
-                                <span>Sign in</span>
-                            </h2>
-                            <h2 onClick={this.showSignup} className="inactive signup pointer">
-                                <span>Sign up</span>
-                            </h2>
-                        </div>
-                        <Signin authentication={this.props.authentication} performLogin={this.performLogin} onChangeRemember={this.onChangeRemember} onChangeUsername={this.onChangeUsername} onChangePassword={this.onChangePassword} login={this.state.login} />
-                        <Signup authentication={this.props.authentication} performRegister={this.performRegister} onChangeSurname={this.onChangeSurname} onChangeName={this.onChangeName} onChangeEmail={this.onChangeEmail} onChangePassword={this.onChangeRegisterPassword} onChangePasswordCheck={this.onChangeRegisterPasswordCheck} register={this.state.register} />
-                    </div>
-                    <div className="terms" />
-                </div>
-            </section>;
+        return <section className = "sign-section" >
+            <
+            div className = "image-holder" >
+            <
+            img src = {
+                france
+            }
+        alt = "france" / >
+            <
+            /div> <
+            div className = "login-section" >
+            <
+            div className = "titles" >
+            <
+            h1 >
+            Welcome to < span > MOMENTS < /span> <
+            /h1> <
+            h2 > Welcome back, please login to your account < /h2> <
+            /div> <
+            div className = "form-holder" >
+            <
+            div className = "sign-titles" >
+            <
+            h2 onClick = {
+                this.showSignup
+            }
+        className = "active signin pointer" >
+            <
+            span > Sign in < /span> <
+            /h2> <
+            h2 onClick = {
+                this.showSignup
+            }
+        className = "inactive signup pointer" >
+            <
+            span > Sign up < /span> <
+            /h2> <
+            /div> <
+            Signin authentication = {
+                this.props.authentication
+            }
+        performLogin = {
+            this.performLogin
+        }
+        onChangeRemember = {
+            this.onChangeRemember
+        }
+        onChangeUsername = {
+            this.onChangeUsername
+        }
+        onChangePassword = {
+            this.onChangePassword
+        }
+        login = {
+            this.state.login
+        }
+        /> <
+        Signup authentication = {
+            this.props.authentication
+        }
+        performRegister = {
+            this.performRegister
+        }
+        onChangeSurname = {
+            this.onChangeSurname
+        }
+        onChangeName = {
+            this.onChangeName
+        }
+        onChangeEmail = {
+            this.onChangeEmail
+        }
+        onChangePassword = {
+            this.onChangeRegisterPassword
+        }
+        onChangePasswordCheck = {
+            this.onChangeRegisterPasswordCheck
+        }
+        register = {
+            this.state.register
+        }
+        /> <
+        /div> <
+        div className = "terms" / >
+            <
+            /div> <
+            /section>;
     }
 }
 

@@ -8,11 +8,16 @@
     background: white;
     border-radius: 1.1rem;
     box-shadow: 0 0.5rem 1rem var(--boxshadow);
-    padding: 1rem;
+    /* padding: 1rem; */
     width: 45rem;
     font-size: 1.5rem;
     position: absolute;
     top: 6rem;
     left: -10rem;
     z-index: 99;
+}
+
+.search-result-title {
+    padding: 1rem;
+    border-bottom: solid 0.1rem var(--blue);
 }

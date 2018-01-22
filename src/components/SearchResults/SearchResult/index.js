@@ -5,7 +5,7 @@ import './index.css';
 
 const SearchResultExperience = ({result, hideResults, ...props}) => {
     return (
-        <li>
+        <li className="result-list-item">
             <Link onClick={hideResults} to={`/e/${result._id}`}>
                 <div className="result-holder">
                     <div>
@@ -22,7 +22,7 @@ const SearchResultExperience = ({result, hideResults, ...props}) => {
 
 const SearchResultUser = ({result, hideResults, ...props}) => {
     return (
-        <li>
+        <li className="result-list-item">
             <Link onClick={hideResults} to={`/u/${result.username}`}>
                 <div className="result-holder">
                     <div>

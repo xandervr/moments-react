@@ -1,7 +1,8 @@
 .result-holder {
     display: flex;
     justify-content: flex-start;
-    margin: 1rem auto;
+    /* margin: 1rem auto; */
+    padding: 1rem;
 }
 
 .result-holder > div > img {
@@ -17,6 +18,11 @@
 }
 
 .result-holder:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(47, 64, 82, 0.4);
     cursor: pointer;
+}
+
+.search-results .result-holder:last-child {
+    border-bottom-left-radius: 1.1rem;
+    border-bottom-right-radius: 1.1rem;
 }

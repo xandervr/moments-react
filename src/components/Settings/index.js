@@ -29,7 +29,6 @@ class Settings extends Component {
             }
         }
         if (user.settings.profile_type !== other.settings.profile_type) result = true;
-
         this.setState({isChanged: result});
     };
 

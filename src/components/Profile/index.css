@@ -22,7 +22,9 @@
     height: 10rem;
     width: 10rem;
     border-radius: 50%;
-    border: dotted 0.2rem var(--blue);
+}
+
+.profile-header-picture {
 }
 
 .username-actions {

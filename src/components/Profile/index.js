@@ -6,6 +6,7 @@ import ProfileHeader from "./ProfileHeader";
 import ExperienceContent from "./ExperienceContent";
 import FollowingContent from "./FollowingContent";
 import {AuthenticatedRoute} from "../../Routes";
+import FollowersContent from "./FollowersContent";
 
 class Profile extends Component {
     constructor(props) {
@@ -44,6 +45,7 @@ class Profile extends Component {
 
     fetchProfile = () => {
         const username = this.props.match.params.username;
+        console.log(username);
         fetchUserByUsername(username, profile => {
             if (profile) {
                 this.setState({profile: profile, profileNotFound: false});
@@ -56,16 +58,21 @@ class Profile extends Component {
     onFollow = () => {
         const {user} = this.props;
         const {profile} = this.state;
+        const followList = profile
+            .followers
+            .map(follower => follower._id);
         followUser(profile._id, followed => {
-            if (!profile.followers.includes(user._id) && followed) {
+            if (!followList.includes(user._id) && followed) {
                 this.setState((prevState, props) => ({
                     profile: {
                         ...prevState.profile,
                         followers: [
                             ...prevState.profile.followers,
-                            user._id
+                            user
                         ]
                     }
+                }, () => {
+                    console.log(profile.followers);
                 }));
             } else {
                 alert("you are allready following this person!");
@@ -77,15 +84,18 @@ class Profile extends Component {
     onUnfollow = () => {
         const {user} = this.props;
         const {profile} = this.state;
+        const followList = profile
+            .followers
+            .map(follower => follower._id);
         unfollowUser(profile._id, unfollowed => {
-            if (profile.followers.includes(user._id) && unfollowed) {
+            if (followList.includes(user._id) && unfollowed) {
                 this.setState((prevState, props) => ({
                     profile: {
                         ...prevState.profile,
                         followers: prevState
                             .profile
                             .followers
-                            .filter(follower => follower !== user._id)
+                            .filter(follower => follower._id !== user._id)
                     }
                 }));
             } else {
@@ -123,6 +133,13 @@ class Profile extends Component {
                         user={user}
                         authentication={authentication}
                         component={FollowingContent}/>
+                    <AuthenticatedRoute
+                        exact
+                        path={`${match.url}/followers`}
+                        profile={profile}
+                        user={user}
+                        authentication={authentication}
+                        component={FollowersContent}/>
                 </div>
             );
         } else {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import './index.css';
 import Navbar from '../Navbar';
 import Wall from '../Wall';
@@ -21,7 +21,7 @@ class App extends Component {
         let show = null;
         switch (path) {
             case `/u/:username`:
-                show = <Profile user={user} authentication={authentication} content={null} />;
+                show = <Profile user={user} authentication={authentication} />;
                 break;
             case `/create-experience`:
                 show = <ExperienceCreate />;
@@ -36,12 +36,20 @@ class App extends Component {
                 show = <Wall user={user} />;
                 break;
             default:
-                show = <p style={{fontSize: '5rem'}}>Page not Found</p>;
+                show = (
+                    <p
+                        style={{
+                            fontSize: '5rem'
+                        }}
+                    >
+                        Page not Found
+                    </p>
+                );
         }
         return (
-            <div>
+            <Fragment>
                 <Navbar user={user} /> {show}
-            </div>
+            </Fragment>
         );
     }
 }

@@ -1,13 +1,12 @@
 import React from "react";
 import ProfileCard from "../ProfileCard";
+import "../ProfileCard/index.css";
 
 const FollowingContent = ({profile}) => {
     const followingList = profile
         .following
-        .map(followingProfile => (<ProfileCard profile={followingProfile}/>));
-    return <div style={{
-        display: "flex"
-    }}>{followingList}</div>;
+        .map(followingProfile => (<ProfileCard key={followingProfile.username} profile={followingProfile}/>));
+    return <div className="all-profile-card-container">{followingList}</div>;
 };
 
 export default FollowingContent;

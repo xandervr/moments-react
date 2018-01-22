@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import App from '../components/App';
 import {API_URL} from '../assets/js/consts';
@@ -55,7 +55,7 @@ class Routing extends Component {
         if (this.state.fetched)
             return (
                 <Router>
-                    <div>
+                    <Fragment>
                         <LoginRoute authentication={this.authentication} exact path="/login" component={SigninPage} />
                         <AuthenticatedRoute authentication={this.authentication} exact path="/" component={App} />
                         <AuthenticatedRoute
@@ -64,19 +64,10 @@ class Routing extends Component {
                             authentication={this.authentication}
                             component={App}
                         />
-                        <AuthenticatedRoute
-                            path="/e/:experience_id"
-                            authentication={this.authentication}
-                            component={App}
-                        />
+                        <AuthenticatedRoute path="/e/:experience_id" authentication={this.authentication} component={App} />
                         <AuthenticatedRoute path="/u/:username" authentication={this.authentication} component={App} />
-                        <AuthenticatedRoute
-                            exact
-                            path="/settings"
-                            authentication={this.authentication}
-                            component={App}
-                        />
-                    </div>
+                        <AuthenticatedRoute exact path="/settings" authentication={this.authentication} component={App} />
+                    </Fragment>
                 </Router>
             );
         else return null;
@@ -88,11 +79,7 @@ const LoginRoute = ({component: Component, authentication, ...rest}) => {
         <Route
             {...rest}
             render={() =>
-                !authentication.isAuthenticated ? (
-                    <Component authentication={authentication} {...rest} />
-                ) : (
-                    <Redirect to="/" />
-                )
+                !authentication.isAuthenticated ? <Component authentication={authentication} {...rest} /> : <Redirect to="/" />
             }
         />
     );

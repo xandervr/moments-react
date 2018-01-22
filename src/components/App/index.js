@@ -1,10 +1,10 @@
-import React, {Component} from "react";
-import "./index.css";
-import Navbar from "../Navbar";
-import Wall from "../Wall";
-import Profile from "../Profile";
-import Settings from "../Settings";
-import {ExperienceCreate, ExperienceDetail} from "../Experience";
+import React, {Component, Fragment} from 'react';
+import './index.css';
+import Navbar from '../Navbar';
+import Wall from '../Wall';
+import Profile from '../Profile';
+import Settings from '../Settings';
+import {ExperienceCreate, ExperienceDetail} from '../Experience';
 
 class App extends Component {
     constructor(props) {
@@ -21,29 +21,35 @@ class App extends Component {
         let show = null;
         switch (path) {
             case `/u/:username`:
-                show = <Profile user={user} authentication={authentication}/>;
+                show = <Profile user={user} authentication={authentication} />;
                 break;
             case `/create-experience`:
-                show = <ExperienceCreate/>;
+                show = <ExperienceCreate />;
                 break;
             case `/e/:experience_id`:
-                show = (<ExperienceDetail user={user} authentication={authentication}/>);
+                show = <ExperienceDetail user={user} authentication={authentication} />;
                 break;
             case `/settings`:
-                show = <Settings user={user}/>;
+                show = <Settings user={user} />;
                 break;
             case `/`:
-                show = <Wall user={user}/>;
+                show = <Wall user={user} />;
                 break;
             default:
-                show = <p style={{
-                    fontSize: "5rem"
-                }}>Page not Found</p>;
+                show = (
+                    <p
+                        style={{
+                            fontSize: '5rem'
+                        }}
+                    >
+                        Page not Found
+                    </p>
+                );
         }
         return (
-            <div>
-                <Navbar user={user}/> {show}
-            </div>
+            <Fragment>
+                <Navbar user={user} /> {show}
+            </Fragment>
         );
     }
 }

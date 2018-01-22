@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {checkUsernameAvailable, saveUserSettings} from "../../assets/js/lib/tap-client";
-import "./index.css";
+import React, {Component} from 'react';
+import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
+import './index.css';
 
 class Settings extends Component {
     constructor(props) {
@@ -23,32 +23,35 @@ class Settings extends Component {
         const keys = Object.keys(user);
         let result = false;
         for (let i = 0; i < keys.length; i++) {
-            if (user[keys[i]] !== other[keys[i]] && keys[i] !== "settings") {
+            if (user[keys[i]] !== other[keys[i]] && keys[i] !== 'settings') {
                 result = true;
                 break;
             }
         }
-        if (user.settings.profile_type !== other.settings.profile_type) 
-            result = true;
-        
+        if (user.settings.profile_type !== other.settings.profile_type) result = true;
+
         this.setState({isChanged: result});
     };
 
     onChangeName = e => {
         const fullname = e.target.value;
-        const surname = fullname.split(" ")[0];
-        const name = fullname
-            .split(" ")
-            .splice(1)
-            .join(" ") || undefined;
-        this.setState(prevState => ({
-            user: {
-                ...prevState.user,
-                surname: surname,
-                name: name,
-                fullname: fullname
-            }
-        }), () => this.isChanged());
+        const surname = fullname.split(' ')[0];
+        const name =
+            fullname
+                .split(' ')
+                .splice(1)
+                .join(' ') || undefined;
+        this.setState(
+            prevState => ({
+                user: {
+                    ...prevState.user,
+                    surname: surname,
+                    name: name,
+                    fullname: fullname
+                }
+            }),
+            () => this.isChanged()
+        );
     };
 
     onChangeUsername = e => {
@@ -63,44 +66,51 @@ class Settings extends Component {
                 this.setState({usernameAvailable: true, usernameChanged: false});
             }
         });
-        this.setState(prevState => ({
-            user: {
-                ...prevState.user,
-                username: username
-            }
-        }), () => this.isChanged());
+        this.setState(
+            prevState => ({
+                user: {
+                    ...prevState.user,
+                    username: username
+                }
+            }),
+            () => this.isChanged()
+        );
     };
 
     onChangeEmail = e => {
         const email = e.target.value;
-        this.setState(prevState => ({
-            user: {
-                ...prevState.user,
-                email: email
-            }
-        }), () => this.isChanged());
+        this.setState(
+            prevState => ({
+                user: {
+                    ...prevState.user,
+                    email: email
+                }
+            }),
+            () => this.isChanged()
+        );
     };
 
     onChangePrivacy = e => {
         const profile_type = e.target.value;
-        this.setState(prevState => ({
-            user: {
-                ...prevState.user,
-                settings: {
-                    ...prevState.user.settings,
-                    profile_type: profile_type
+        this.setState(
+            prevState => ({
+                user: {
+                    ...prevState.user,
+                    settings: {
+                        ...prevState.user.settings,
+                        profile_type: profile_type
+                    }
                 }
-            }
-        }), () => this.isChanged());
+            }),
+            () => this.isChanged()
+        );
     };
 
     saveSettings = e => {
         e.preventDefault();
         saveUserSettings(this.state.user, saved => {
-            if (saved) 
-                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
-            }
-        );
+            if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
+        });
     };
 
     render() {
@@ -113,74 +123,56 @@ class Settings extends Component {
                         <div className="settings-profile">
                             <div className="profile">
                                 <div>
-                                    <img src={this.state.user.picture} alt=""/>
+                                    <img src={this.state.user.picture} alt="" />
                                     <div className="img-editor">
                                         <label forhtml="image-picker" className="pointer">
                                             Edit photo
                                         </label>
-                                        <input
-                                            id="image-picker"
-                                            className="hide"
-                                            type="file"
-                                            accept="image/*"
-                                            name=""
-                                            value=""/>
+                                        <input id="image-picker" className="hide" type="file" accept="image/*" name="" value="" />
                                     </div>
                                 </div>
-                                <p className="username">
-                                    {this.state.saved
-                                        ? this.state.user.username
-                                        : user.username}
-                                </p>
+                                <p className="username">{this.state.saved ? this.state.user.username : user.username}</p>
                             </div>
                             <div className="">
                                 <form className="profile-form" onSubmit={this.saveSettings}>
                                     <div>
                                         <label forhtml="">Name</label>
-                                        <input value={this.state.user.fullname} onChange={this.onChangeName}/>
+                                        <input value={this.state.user.fullname} onChange={this.onChangeName} />
                                     </div>
                                     <div>
                                         <label forhtml="">Username</label>
                                         <input
-                                            className={this.state.usernameChanged
-                                            ? this.state.usernameAvailable
-                                                ? "available"
-                                                : "taken"
-                                            : ""}
+                                            className={
+                                                this.state.usernameChanged
+                                                    ? this.state.usernameAvailable ? 'available' : 'taken'
+                                                    : ''
+                                            }
                                             value={this.state.user.username}
-                                            onChange={this.onChangeUsername}/>
+                                            onChange={this.onChangeUsername}
+                                        />
                                     </div>
                                     <div>
                                         <label forhtml="">Email</label>
-                                        <input
-                                            type="email"
-                                            value={this.state.user.email}
-                                            onChange={this.onChangeEmail}/>
+                                        <input type="email" value={this.state.user.email} onChange={this.onChangeEmail} />
                                     </div>
                                     <div className="privacy-input">
-                                        <label forhtml="">
-                                            Account privacy
-                                        </label>
+                                        <label forhtml="">Account privacy</label>
                                         <select
-                                            className={this.state.user.settings.profile_type === "Public"
-                                            ? "privacy-select privacy-public pointer"
-                                            : "privacy-select privacy-private pointer"}
+                                            className={
+                                                this.state.user.settings.profile_type === 'Public'
+                                                    ? 'privacy-select privacy-public pointer'
+                                                    : 'privacy-select privacy-private pointer'
+                                            }
                                             value={this.state.user.settings.profile_type}
                                             name=""
                                             onChange={this.onChangePrivacy}>
-                                            <option value="Private">
-                                                Private
-                                            </option>
-                                            <option value="Public">
-                                                Public
-                                            </option>
+                                            <option value="Private">Private</option>
+                                            <option value="Public">Public</option>
                                         </select>
                                     </div>
                                     <div className="submit-holder">
                                         <button
-                                            className={this.state.isChanged
-                                            ? "pointer btn-save"
-                                            : "pointer btn-save disabled"}
+                                            className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
                                             disabled={!this.state.isChanged}>
@@ -193,7 +185,7 @@ class Settings extends Component {
                     </section>
                     <section className="settings-section">
                         <h2>Notifications</h2>
-                        <div className="settings-profile"/>
+                        <div className="settings-profile" />
                     </section>
                 </div>
             </div>

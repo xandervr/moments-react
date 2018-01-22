@@ -40,8 +40,7 @@ class App extends Component {
                     <p
                         style={{
                             fontSize: '5rem'
-                        }}
-                    >
+                        }}>
                         Page not Found
                     </p>
                 );

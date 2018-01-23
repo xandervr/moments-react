@@ -17,7 +17,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
     const emoji = checkEmojiString(comment.text);
     return currentUser._id === comment.user._id ? (
         <li className="comment">
-            <img alt="" src={comment.user.picture} />
+            <img alt="" src={comment.user.picture.image} />
             <div className="comment-container">
                 <span className="username comment-username">
                     <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>
@@ -35,7 +35,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
         </li>
     ) : (
         <li className="comment">
-            <img alt="" src={comment.user.picture} />
+            <img alt="" src={comment.user.picture.image} />
             <div className="comment-container">
                 <span className="username comment-username">
                     <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>

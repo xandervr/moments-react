@@ -94,7 +94,7 @@ class Comments extends Component {
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
                             <label className="user-picture" htmlFor="comment">
-                                <img alt="" src={currentUser.picture} />
+                                <img alt="" src={currentUser.picture.image} />
                             </label>
                             <input
                                 id="comment"

@@ -134,7 +134,7 @@ class Navbar extends Component {
                         </div>
                         <div className="action profile pointer">
                             <Link to={`/u/${user.username}`}>
-                                <img src={user.picture} alt="profile" />
+                                <img src={user.picture.image} alt="profile" />
                             </Link>
                             <div className="action-detail profile-action-detail">Profile</div>
                         </div>

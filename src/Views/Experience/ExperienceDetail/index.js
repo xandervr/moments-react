@@ -74,8 +74,8 @@ class ExperienceDetail extends Component {
                             <p className="experience-users-title">with</p>
                             <div className="experience-users-holder">
                                 {experience.tagged_users.map((user, index) => (
-                                    <Link className="experience-users" path to={`/u/${user.username}`}>
-                                        <img src={user.picture.image} alt="" />
+                                    <Link key={index} to={`/u/${user.username}`} className="experience-users">
+                                        <img src={user.picture} alt="" />
                                         <p>
                                             {user.surname} {user.name}
                                         </p>
@@ -87,11 +87,13 @@ class ExperienceDetail extends Component {
                     <div className="experience-moments">
                         <p className="moments-detail-title upper">Moments</p>
                         <div>
-                            <div className="experience-img-holder moment-img-holder">
-                                <Media media={experience.media} />
-                                <p className="detail-moment-title">{experience.title}</p>
-                                <p className="detail-moment-desc">{experience.description}</p>
-                            </div>
+                            {experience.moments.map((moment, index) => (
+                                <div key={index} className="experience-img-holder moment-img-holder">
+                                    <Media media={moment.media} />
+                                    <p className="detail-moment-title">{moment.title}</p>
+                                    <p className="detail-moment-desc">{moment.description}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="experience-extra">frfr</div>

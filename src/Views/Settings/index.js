@@ -113,6 +113,27 @@ class Settings extends Component {
         e.preventDefault();
     };
 
+    previewUpload = ev => {
+        if (ev.target.files && ev.target.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = e => {
+                // if (this.isVideo(e.target.result)) {
+                //   document.querySelector(`.video-preview`).classList.toggle(`hide`);
+                //   document.querySelector(`.video-preview`).setAttribute(`src`, e.target.result);
+                // } else {
+                //   document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
+                //   document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
+                // }
+
+                document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
+                // }
+            };
+
+            reader.readAsDataURL(ev.target.files[0]);
+        }
+    };
+
     render() {
         const {user} = this.props;
         return (
@@ -125,7 +146,7 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <Media media={this.state.user.picture} />
+                                            <Media className="image-preview" media={this.state.user.picture} />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>
@@ -134,7 +155,14 @@ class Settings extends Component {
                                             <label htmlFor="image-picker" className="pointer">
                                                 Edit photo
                                             </label>
-                                            <input id="image-picker" className="hide" type="file" accept="image/*" name="" />
+                                            <input
+                                                id="image-picker"
+                                                className="hide"
+                                                type="file"
+                                                accept="image/*"
+                                                name=""
+                                                onChange={this.previewUpload}
+                                            />
                                         </div>
                                     </div>
                                     <div>
@@ -167,8 +195,7 @@ class Settings extends Component {
                                             }
                                             value={this.state.user.settings.profile_type}
                                             name=""
-                                            onChange={this.onChangePrivacy}
-                                        >
+                                            onChange={this.onChangePrivacy}>
                                             <option value="Private">Private</option>
                                             <option value="Public">Public</option>
                                         </select>
@@ -178,8 +205,7 @@ class Settings extends Component {
                                             className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
-                                            disabled={!this.state.isChanged}
-                                        >
+                                            disabled={!this.state.isChanged}>
                                             Save
                                         </button>
                                     </div>

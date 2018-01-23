@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Media from '../../components/Media';
+import ReactCrop from 'react-image-crop';
 import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -29,7 +30,7 @@ class Settings extends Component {
                 break;
             }
         }
-        if (user.settings.profile_type !== other.settings.profile_type) result = true;
+        if (user.settings.profile_type !== other.settings.profile_type || this.state.pictureUpdated) result = true;
         this.setState({isChanged: result});
     };
 
@@ -107,7 +108,7 @@ class Settings extends Component {
     };
 
     saveSettings = e => {
-        saveUserSettings(this.state.user, saved => {
+        saveUserSettings(this.state.user, e.target, saved => {
             if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
         });
         e.preventDefault();
@@ -116,20 +117,10 @@ class Settings extends Component {
     previewUpload = ev => {
         if (ev.target.files && ev.target.files[0]) {
             var reader = new FileReader();
-
             reader.onload = e => {
-                // if (this.isVideo(e.target.result)) {
-                //   document.querySelector(`.video-preview`).classList.toggle(`hide`);
-                //   document.querySelector(`.video-preview`).setAttribute(`src`, e.target.result);
-                // } else {
-                //   document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-                //   document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
-                // }
-
                 document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-                // }
+                this.setState({pictureUpdated: true, cropSource: e.target.result}, this.isChanged);
             };
-
             reader.readAsDataURL(ev.target.files[0]);
         }
     };
@@ -146,7 +137,7 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <Media className="image-preview" media={this.state.user.picture} />
+                                            <Media className="image-preview" media={this.state.user.picture} contain />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>
@@ -160,7 +151,7 @@ class Settings extends Component {
                                                 className="hide"
                                                 type="file"
                                                 accept="image/*"
-                                                name=""
+                                                name="media"
                                                 onChange={this.previewUpload}
                                             />
                                         </div>
@@ -195,7 +186,8 @@ class Settings extends Component {
                                             }
                                             value={this.state.user.settings.profile_type}
                                             name=""
-                                            onChange={this.onChangePrivacy}>
+                                            onChange={this.onChangePrivacy}
+                                        >
                                             <option value="Private">Private</option>
                                             <option value="Public">Public</option>
                                         </select>
@@ -205,7 +197,8 @@ class Settings extends Component {
                                             className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
-                                            disabled={!this.state.isChanged}>
+                                            disabled={!this.state.isChanged}
+                                        >
                                             Save
                                         </button>
                                     </div>

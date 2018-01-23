@@ -75,7 +75,7 @@ class ExperienceDetail extends Component {
                             <div className="experience-users-holder">
                                 {experience.tagged_users.map((user, index) => (
                                     <Link key={index} to={`/u/${user.username}`} className="experience-users">
-                                        <Media media={user.picture} />
+                                        <Media media={user.picture} contain />
                                         <p>
                                             {user.surname} {user.name}
                                         </p>

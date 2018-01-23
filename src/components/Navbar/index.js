@@ -3,9 +3,11 @@ import {search} from '../../assets/js/lib/tap-client';
 import settingsIcon from '../../assets/svg/settings.svg';
 import addIcon from '../../assets/svg/add.svg';
 import Search from '../Search/index';
+import Media from '../Media';
 import SearchResults from '../SearchResults/index';
 import logout from '../../assets/svg/logout.svg';
 import {Link} from 'react-router-dom';
+
 import './index.css';
 
 class Navbar extends Component {
@@ -134,7 +136,7 @@ class Navbar extends Component {
                         </div>
                         <div className="action profile pointer">
                             <Link to={`/u/${user.username}`}>
-                                <img src={user.picture.image} alt="profile" />
+                                <Media media={user.picture} alt="profile" contain />
                             </Link>
                             <div className="action-detail profile-action-detail">Profile</div>
                         </div>

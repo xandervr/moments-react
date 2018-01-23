@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Comment from './Comment';
 import {comment, deleteComment} from '../../../assets/js/lib/tap-client';
 import Emoji from '../../Emoji';
+import Media from '../../Media';
 import {emojify} from 'react-emojione2';
 import './index.css';
 
@@ -94,7 +95,7 @@ class Comments extends Component {
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
                             <label className="user-picture" htmlFor="comment">
-                                <img alt="" src={currentUser.picture.image} />
+                                <Media media={currentUser.picture} contain />
                             </label>
                             <input
                                 id="comment"

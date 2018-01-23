@@ -430,31 +430,33 @@ export const checkUsernameAvailable = (username, cb) => {
  * @private
  */
 
-export const saveUserSettings = (user, cb) => {
+export const saveUserSettings = (user, form, cb) => {
     let account = fetchAccount();
-    if (account)
-        fetch(`${API_URL}/users/${user._id}`, {
-            method: `PUT`,
-            headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${account.access_token}`
-            },
-            body: JSON.stringify({
-                surname: user.surname,
-                name: user.name,
-                username: user.username,
-                email: user.email,
-                picture: user.picture,
-                profile_type: user.settings.profile_type
-            })
-        })
-            .then(r => r.json())
-            .then(data => {
-                cb(data.message === 'Success');
-            })
-            .catch(err => console.log(err));
-    else console.log('Authorization error');
+    if (account) {
+        const formData = new FormData(form);
+        console.log(formData);
+        // fetch(`${API_URL}/users/${user._id}`, {
+        //     method: `PUT`,
+        //     headers: {
+        //         'User-Agent': 'TapAuth Client/1.0',
+        //         'Content-Type': 'application/json; charset=utf-8',
+        //         Authorization: `Bearer ${account.access_token}`
+        //     },
+        //     body: JSON.stringify({
+        //         surname: user.surname,
+        //         name: user.name,
+        //         username: user.username,
+        //         email: user.email,
+        //         picture: user.picture,
+        //         profile_type: user.settings.profile_type
+        //     })
+        // })
+        //     .then(r => r.json())
+        //     .then(data => {
+        //         cb(data.message === 'Success');
+        //     })
+        //     .catch(err => console.log(err));
+    } else console.log('Authorization error');
 };
 
 /**

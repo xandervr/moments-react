@@ -29,7 +29,6 @@ class Settings extends Component {
             }
         }
         if (user.settings.profile_type !== other.settings.profile_type) result = true;
-
         this.setState({isChanged: result});
     };
 
@@ -107,10 +106,11 @@ class Settings extends Component {
     };
 
     saveSettings = e => {
-        e.preventDefault();
         saveUserSettings(this.state.user, saved => {
-            if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
+            if (saved)
+                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
         });
+        e.preventDefault();
     };
 
     render() {
@@ -121,15 +121,26 @@ class Settings extends Component {
                     <section className="settings-section">
                         <h2>Profile</h2>
                         <div className="settings-profile">
-                            <div className="profile">
-                                <div>
-                                    <img src={this.state.user.picture} alt="" />
-                                    <div className="img-editor">
-                                        <label forhtml="image-picker" className="pointer">
-                                            Edit photo
-                                        </label>
-                                        <input id="image-picker" className="hide" type="file" accept="image/*" name="" value="" />
+                            <form className="profile-form" onSubmit={this.saveSettings}>
+                                <div className="profile">
+                                    <div>
+                                        <img src={this.state.user.picture} alt="" />
+                                        <div className="img-editor">
+                                            <label forhtml="image-picker" className="pointer">
+                                                Edit photo
+                                            </label>
+                                            <input
+                                                id="image-picker"
+                                                className="hide"
+                                                type="file"
+                                                accept="image/*"
+                                                name=""
+                                            />
+                                        </div>
                                     </div>
+                                    <p className="username">
+                                        {this.state.saved ? this.state.user.username : user.username}
+                                    </p>
                                 </div>
                                 <p className="username">{this.state.saved ? this.state.user.username : user.username}</p>
                             </div>
@@ -153,7 +164,11 @@ class Settings extends Component {
                                     </div>
                                     <div>
                                         <label forhtml="">Email</label>
-                                        <input type="email" value={this.state.user.email} onChange={this.onChangeEmail} />
+                                        <input
+                                            type="email"
+                                            value={this.state.user.email}
+                                            onChange={this.onChangeEmail}
+                                        />
                                     </div>
                                     <div className="privacy-input">
                                         <label forhtml="">Account privacy</label>
@@ -175,12 +190,13 @@ class Settings extends Component {
                                             className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
-                                            disabled={!this.state.isChanged}>
+                                            disabled={!this.state.isChanged}
+                                        >
                                             Save
                                         </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </section>
                     <section className="settings-section">

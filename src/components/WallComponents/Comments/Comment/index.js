@@ -2,6 +2,7 @@ import React from 'react';
 import TimeAgo from 'react-timeago';
 import englishStrings from 'react-timeago/lib/language-strings/en';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
+import Media from '../../../Media';
 import {Link} from 'react-router-dom';
 import './index.css';
 const regex = new RegExp(
@@ -17,7 +18,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
     const emoji = checkEmojiString(comment.text);
     return currentUser._id === comment.user._id ? (
         <li className="comment">
-            <img alt="" src={comment.user.picture.image} />
+            <Media media={comment.user.picture} />
             <div className="comment-container">
                 <span className="username comment-username">
                     <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>
@@ -35,7 +36,7 @@ const Comment = ({comment, deleteComment, currentUser, ...props}) => {
         </li>
     ) : (
         <li className="comment">
-            <img alt="" src={comment.user.picture.image} />
+            <Media media={comment.user.picture} />
             <div className="comment-container">
                 <span className="username comment-username">
                     <Link to={`/u/${comment.user.username}`}>{comment.user.fullname}</Link>

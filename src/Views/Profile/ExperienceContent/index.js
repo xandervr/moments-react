@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
-import world from '../../../assets/svg/world.svg';
-import map from '../../../assets/svg/map-localization.svg';
-import TimelineExperience from './TimelineExperience';
-import ExperienceCard from './ExperienceCard';
-import InfiniteScroll from '../../../components/InfiniteScroll';
-import {fetchUserExperiencesOffset} from '../../../assets/js/lib/tap-client';
+import React, { Component, Fragment } from "react";
+import world from "../../../assets/svg/world.svg";
+import map from "../../../assets/svg/map-localization.svg";
+import TimelineExperience from "./TimelineExperience";
+import ExperienceCard from "./ExperienceCard";
+import InfiniteScroll from "../../../components/InfiniteScroll";
+import MapContainer from "../../../components/Map";
+import { fetchUserExperiencesOffset } from "../../../assets/js/lib/tap-client";
 
 class ExperienceContent extends Component {
     constructor(props) {
@@ -31,26 +32,36 @@ class ExperienceContent extends Component {
     }
 
     updateWall = () => {
-        const {profile} = this.props;
-        fetchUserExperiencesOffset(profile._id, 0, this.state.offset + this.state.limit, wall => {
-            if (wall) this.setState({data: wall});
-        });
+        const { profile } = this.props;
+        fetchUserExperiencesOffset(
+            profile._id,
+            0,
+            this.state.offset + this.state.limit,
+            wall => {
+                if (wall) this.setState({ data: wall });
+            }
+        );
     };
 
     loadWall = (advance, cb) => {
-        const {profile} = this.props;
-        fetchUserExperiencesOffset(profile._id, this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
-            if (wall && wall.length > 0)
-                this.setState(
-                    {
-                        data: this.state.data.concat(wall),
-                        offset: this.state.offset + (advance ? advance : 0),
-                        hasMore: true
-                    },
-                    cb
-                );
-            else this.setState({hasMore: false}, cb);
-        });
+        const { profile } = this.props;
+        fetchUserExperiencesOffset(
+            profile._id,
+            this.state.offset + (advance ? advance : 0),
+            this.state.limit,
+            wall => {
+                if (wall && wall.length > 0)
+                    this.setState(
+                        {
+                            data: this.state.data.concat(wall),
+                            offset: this.state.offset + (advance ? advance : 0),
+                            hasMore: true
+                        },
+                        cb
+                    );
+                else this.setState({ hasMore: false }, cb);
+            }
+        );
     };
 
     loadMore = cb => {
@@ -60,39 +71,39 @@ class ExperienceContent extends Component {
     loadMoreTimeline = cb => {};
 
     render() {
-        const {profile} = this.props;
-        const {data} = this.state;
+        const { profile } = this.props;
+        const { data } = this.state;
         let experienceList = null;
         let timelineList = null;
         if (profile) {
-            experienceList = data.map(experience => <ExperienceCard key={experience._id} experience={experience} />);
+            experienceList = data.map(experience => (
+                <ExperienceCard key={experience._id} experience={experience} />
+            ));
 
-            timelineList = data.map(experience => <TimelineExperience key={experience._id} experience={experience} />);
+            timelineList = data.map(experience => (
+                <TimelineExperience
+                    key={experience._id}
+                    experience={experience}
+                />
+            ));
         }
 
         return (
-            <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Fragment>
                 <div className="timeline-map-holder">
-                    <section className="timeline-section">
-                        {/* TODO */}
-                        <InfiniteScroll parent={true} loadMore={this.loadMoreTimeline} loadMoreOffset={50}>
-                            {timelineList}
-                        </InfiniteScroll>
-                    </section>
                     <section className="map-section">
-                        <div className="map-title-holder">
-                            <img className="map-icon" src={map} alt="" />
-                            <p>Places</p>
-                        </div>
-                        <img className="world-map" src={world} alt="" />
+                        <MapContainer />
                     </section>
                 </div>
                 <section className="experiences-section">
-                    <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={300}>
+                    <InfiniteScroll
+                        loadMore={this.loadMore}
+                        loadMoreOffset={300}
+                    >
                         {experienceList}
                     </InfiniteScroll>
                 </section>
-            </div>
+            </Fragment>
         );
     }
 }

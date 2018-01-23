@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {fetchExperienceById} from '../../../assets/js/lib/tap-client';
+import Media from '../../../components/Media';
 import './index.css';
 
 class ExperienceDetail extends Component {
@@ -45,14 +46,56 @@ class ExperienceDetail extends Component {
     };
 
     render() {
-        const {authentication, user} = this.props;
         const {experience, experienceNotFound} = this.state;
+        console.log(experienceNotFound);
         if (experience) {
             return (
-                <div>
-                    <p style={{marginTop: '20rem'}}>{experience.title}</p>
-                    <p>{experience.description}</p>
-                    <img style={{width: '20rem'}} src={experience.media.image} alt="" />
+                <div className="experience-wrapper">
+                    <div className="experience-header">
+                        <div className="experience-img-holder">
+                            <Media media={experience.media} />
+                        </div>
+                        <div className="detail-experience-info">
+                            <div>
+                                <p className="detail-experience-title">{experience.title}</p>
+                                <p className="detail-experience-desc">{experience.description}</p>
+                            </div>
+                            <div className="experience-actions-holder">
+                                <div>
+                                    Boosts <span>{experience.boosters.length}</span>
+                                    <i className="fas fa-fire" />
+                                </div>
+                                <div>
+                                    Comments <span>{experience.comments.length}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="experience-collabs">
+                            <p className="experience-users-title">with</p>
+                            <div className="experience-users-holder">
+                                {experience.tagged_users.map((user, index) => (
+                                    <Link className="experience-users" path to={`/u/${user.username}`}>
+                                        <img src={user.picture} alt="" />
+                                        <p>
+                                            {user.surname} {user.name}
+                                        </p>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="experience-moments">
+                        <p className="moments-detail-title upper">Moments</p>
+                        <div>
+                            <div className="experience-img-holder moment-img-holder">
+                                <Media media={experience.media} />
+                                <p className="detail-moment-title">{experience.title}</p>
+                                <p className="detail-moment-desc">{experience.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="experience-extra">frfr</div>
+
                     <input type="file" />
                     <button type="submit">submit</button>
                 </div>

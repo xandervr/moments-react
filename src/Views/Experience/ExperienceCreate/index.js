@@ -13,7 +13,7 @@ class ExperienceCreate extends Component {
             location: '',
             privacy: ''
         };
-    };
+    }
 
     submitExperience = e => {
         createExperience(e.target, created => {
@@ -24,48 +24,50 @@ class ExperienceCreate extends Component {
     };
 
     getExtension = filename => {
-      const parts = filename.split('.');
-      return parts[parts.length - 1];
+        const parts = filename.split('.');
+        return parts[parts.length - 1];
     };
 
     isVideo = filename => {
-      console.log(filename);
-      const ext = this.getExtension(filename);
-      switch (ext.toLowerCase()) {
-      case 'm4v':
-      case 'avi':
-      case 'mpg':
-      case 'mp4':
-          return true;
-      }
-      return false;
+        console.log(filename);
+        const ext = this.getExtension(filename);
+        switch (ext.toLowerCase()) {
+            case 'm4v':
+            case 'avi':
+            case 'mpg':
+            case 'mp4':
+                return true;
+            default:
+                break;
+        }
+        return false;
     };
 
     previewUpload = ev => {
-      if (ev.target.files && ev.target.files[0]) {
-        var reader = new FileReader();
+        if (ev.target.files && ev.target.files[0]) {
+            var reader = new FileReader();
 
-        reader.onload = e => {
-          // if (this.isVideo(e.target.result)) {
-          //   document.querySelector(`.video-preview`).classList.toggle(`hide`);
-          //   document.querySelector(`.video-preview`).setAttribute(`src`, e.target.result);
-          // } else {
-          //   document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-          //   document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
-          // }
+            reader.onload = e => {
+                // if (this.isVideo(e.target.result)) {
+                //   document.querySelector(`.video-preview`).classList.toggle(`hide`);
+                //   document.querySelector(`.video-preview`).setAttribute(`src`, e.target.result);
+                // } else {
+                //   document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
+                //   document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
+                // }
 
-          document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-          document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
-        // }
-        };
+                document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
+                document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
+                // }
+            };
 
-        reader.readAsDataURL(ev.target.files[0]);
-      }
+            reader.readAsDataURL(ev.target.files[0]);
+        }
     };
 
     onChangeTitle = e => {
-      const title = e.target.value;
-      this.setState({title: title});
+        const title = e.target.value;
+        this.setState({title: title});
     };
 
     onChangeDescription = e => {
@@ -129,8 +131,7 @@ class ExperienceCreate extends Component {
                                             : 'privacy-select privacy-private pointer'
                                     }
                                     value={privacy}
-                                    onChange={this.onChangePrivacy}
-                                >
+                                    onChange={this.onChangePrivacy}>
                                     <option value="Public">Public</option>
                                     <option value="Private">Private</option>
                                 </select>
@@ -147,7 +148,7 @@ class ExperienceCreate extends Component {
                             />
                             <label className="pointer" htmlFor="file">
                                 <div className="file-selector">
-                                  <video className="preview-image video-preview preview-image-full hide" src=""></video>
+                                    <video className="preview-image video-preview preview-image-full hide" src="" />
                                     <img className="preview-image image-preview" src={add} alt="" />
                                 </div>
                                 <p className="file-label">Choose an experience photo</p>

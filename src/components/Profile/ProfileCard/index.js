@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import "./index.css";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import './index.css';
 
 class ProfileCard extends Component {
     constructor(props) {
@@ -24,19 +24,10 @@ class ProfileCard extends Component {
         const {profile} = this.props;
         return (
             <Link className="profile-card-container" to={`/u/${profile.username}`}>
-                <img className="profile-card-img" src={profile.picture}/>
-                <div
-                    onMouseEnter={this.mouseIn}
-                    onMouseLeave={this.mouseOut}
-                    className="profile-card-overlay">
-                    {" "}
-                    {this.state.mouseIn
-                        ? (
-                            <span className="profile-card-name">
-                                {profile.fullname}
-                            </span>
-                        )
-                        : null}{" "} {/* <div className="profile-card-info-container">
+                <img className="profile-card-img" src={profile.picture} alt="" />
+                <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut} className="profile-card-overlay">
+                    {this.state.mouseIn ? <span className="profile-card-name">{profile.fullname}</span> : null}
+                    {/* <div className="profile-card-info-container">
                     <div className="profile-info-holder">
                         <p className="info-counter">12</p>
                         <p className="info-name">Followers</p>

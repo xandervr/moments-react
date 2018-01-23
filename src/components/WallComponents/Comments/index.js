@@ -68,11 +68,11 @@ class Comments extends Component {
     };
 
     toggleEmojiPicker = e => {
-        e.target.parentNode.parentNode.parentNode.querySelector(`.emoji-picker`).classList.toggle(`hide`);
+        e.currentTarget.parentNode.parentNode.parentNode.querySelector(`.emoji-picker`).classList.toggle(`hide`);
     };
 
     render() {
-        const {comments, openComments, currentUser} = this.props;
+        const {comments, currentUser} = this.props;
         const commentsList = comments.map(comment => (
             <Comment key={comment._id} comment={comment} deleteComment={this.deleteComment} currentUser={currentUser} />
         ));
@@ -103,7 +103,9 @@ class Comments extends Component {
                                 autoComplete="off"
                                 placeholder="Add a comment..."
                             />
-                            <a onClick={this.toggleEmojiPicker}>😀</a>
+                            <a onClick={this.toggleEmojiPicker}>
+                                <span role="img">😀</span>
+                            </a>
                         </div>
                     </form>
                     <span className="emoji-picker hide">
@@ -112,9 +114,7 @@ class Comments extends Component {
                 </div>
                 <p className="pointer" onClick={this.toggleComments}>
                     {comments.length - 1 > 0
-                        ? !this.state.commentsOpen
-                          ? `View ${otherComments.length} other comments`
-                          : 'View less comments'
+                        ? !this.state.commentsOpen ? `View ${otherComments.length} other comments` : 'View less comments'
                         : ''}
                 </p>
             </div>

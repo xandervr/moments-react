@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import loadingImage from '../../assets/img/loading.gif';
+import {Component} from 'react';
+// import loadingImage from '../../assets/img/loading.gif';
 import './index.css';
 
 class InfiniteScroll extends Component {
@@ -22,13 +22,7 @@ class InfiniteScroll extends Component {
         const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
         const body = document.body;
         const html = document.documentElement;
-        const docHeight = Math.max(
-            body.scrollHeight,
-            body.offsetHeight,
-            html.clientHeight,
-            html.scrollHeight,
-            html.offsetHeight
-        );
+        const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
         const windowBottom = windowHeight + window.pageYOffset + loadMoreOffset;
         if (windowBottom >= docHeight) {
             if (!this.isLoading) {

@@ -123,21 +123,25 @@ class Settings extends Component {
                             <form className="profile-form" onSubmit={this.saveSettings}>
                                 <div className="profile">
                                     <div>
-                                        <img src={this.state.user.picture} alt="" />
+                                        <div className="profile-image-holder">
+                                            <img src={this.state.user.picture} alt="" />
+                                            <p className="username">
+                                                {this.state.saved ? this.state.user.username : user.username}
+                                            </p>
+                                        </div>
                                         <div className="img-editor">
-                                            <label forhtml="image-picker" className="pointer">
+                                            <label htmlFor="image-picker" className="pointer">
                                                 Edit photo
                                             </label>
                                             <input id="image-picker" className="hide" type="file" accept="image/*" name="" />
                                         </div>
                                     </div>
-                                    <p className="username">{this.state.saved ? this.state.user.username : user.username}</p>
                                     <div>
-                                        <label forhtml="">Name</label>
+                                        <label htmlFor="">Name</label>
                                         <input value={this.state.user.fullname} onChange={this.onChangeName} />
                                     </div>
                                     <div>
-                                        <label forhtml="">Username</label>
+                                        <label htmlFor="">Username</label>
                                         <input
                                             className={
                                                 this.state.usernameChanged
@@ -149,11 +153,11 @@ class Settings extends Component {
                                         />
                                     </div>
                                     <div>
-                                        <label forhtml="">Email</label>
+                                        <label htmlFor="">Email</label>
                                         <input type="email" value={this.state.user.email} onChange={this.onChangeEmail} />
                                     </div>
                                     <div className="privacy-input">
-                                        <label forhtml="">Account privacy</label>
+                                        <label htmlFor="">Account privacy</label>
                                         <select
                                             className={
                                                 this.state.user.settings.profile_type === 'Public'
@@ -162,8 +166,7 @@ class Settings extends Component {
                                             }
                                             value={this.state.user.settings.profile_type}
                                             name=""
-                                            onChange={this.onChangePrivacy}
-                                        >
+                                            onChange={this.onChangePrivacy}>
                                             <option value="Private">Private</option>
                                             <option value="Public">Public</option>
                                         </select>
@@ -173,8 +176,7 @@ class Settings extends Component {
                                             className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
-                                            disabled={!this.state.isChanged}
-                                        >
+                                            disabled={!this.state.isChanged}>
                                             Save
                                         </button>
                                     </div>

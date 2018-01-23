@@ -107,8 +107,7 @@ class Settings extends Component {
 
     saveSettings = e => {
         saveUserSettings(this.state.user, saved => {
-            if (saved)
-                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
+            if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
         });
         e.preventDefault();
     };
@@ -129,20 +128,10 @@ class Settings extends Component {
                                             <label forhtml="image-picker" className="pointer">
                                                 Edit photo
                                             </label>
-                                            <input
-                                                id="image-picker"
-                                                className="hide"
-                                                type="file"
-                                                accept="image/*"
-                                                name=""
-                                            />
+                                            <input id="image-picker" className="hide" type="file" accept="image/*" name="" />
                                         </div>
                                     </div>
-                                    <p className="username">
-                                        {this.state.saved ? this.state.user.username : user.username}
-                                    </p>
-                                </div>
-                                <div className="">
+                                    <p className="username">{this.state.saved ? this.state.user.username : user.username}</p>
                                     <div>
                                         <label forhtml="">Name</label>
                                         <input value={this.state.user.fullname} onChange={this.onChangeName} />
@@ -161,11 +150,7 @@ class Settings extends Component {
                                     </div>
                                     <div>
                                         <label forhtml="">Email</label>
-                                        <input
-                                            type="email"
-                                            value={this.state.user.email}
-                                            onChange={this.onChangeEmail}
-                                        />
+                                        <input type="email" value={this.state.user.email} onChange={this.onChangeEmail} />
                                     </div>
                                     <div className="privacy-input">
                                         <label forhtml="">Account privacy</label>
@@ -185,9 +170,7 @@ class Settings extends Component {
                                     </div>
                                     <div className="submit-holder">
                                         <button
-                                            className={
-                                                this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'
-                                            }
+                                            className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
                                             disabled={!this.state.isChanged}

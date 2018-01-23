@@ -48,7 +48,15 @@ class ExperienceDetail extends Component {
         const {authentication, user} = this.props;
         const {experience, experienceNotFound} = this.state;
         if (experience) {
-            return <p style={{marginTop: '200px'}}>{experience.title}</p>;
+            return (
+                <div>
+                    <p style={{marginTop: '20rem'}}>{experience.title}</p>
+                    <p>{experience.description}</p>
+                    <img style={{width: '20rem'}} src={experience.media.image} alt="" />
+                    <input type="file" />
+                    <button type="submit">submit</button>
+                </div>
+            );
         } else return null;
     }
 }

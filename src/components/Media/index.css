@@ -1,3 +1,7 @@
 .rotated {
     transform: rotate(90deg);
 }
+
+img.contain {
+    object-fit: contain;
+}

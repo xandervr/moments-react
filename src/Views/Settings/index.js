@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Media from '../../components/Media';
+import ReactCrop from 'react-image-crop';
 import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -118,7 +119,7 @@ class Settings extends Component {
             var reader = new FileReader();
             reader.onload = e => {
                 document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-                this.setState({pictureUpdated: true}, this.isChanged);
+                this.setState({pictureUpdated: true, cropSource: e.target.result}, this.isChanged);
             };
             reader.readAsDataURL(ev.target.files[0]);
         }
@@ -136,7 +137,7 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <Media className="image-preview" media={this.state.user.picture} />
+                                            <Media className="image-preview" media={this.state.user.picture} contain />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>

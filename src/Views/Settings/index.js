@@ -125,8 +125,7 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <Media media={this.state.user.picture.image} />
-                                            <img src={this.state.user.picture.image} alt="" />
+                                            <Media media={this.state.user.picture} />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>

@@ -74,7 +74,7 @@ class Media extends Component {
     };
 
     render() {
-        const {media, picture} = this.props;
+        const {media} = this.props;
         if (media.image) {
             if (media.metadata) {
                 switch (media.metadata.orientation) {

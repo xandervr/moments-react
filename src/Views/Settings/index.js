@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Media from '../../components/Media';
 import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -124,7 +125,8 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <img src={this.state.user.picture} alt="" />
+                                            <Media media={this.state.user.picture.image} />
+                                            <img src={this.state.user.picture.image} alt="" />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>
@@ -166,7 +168,8 @@ class Settings extends Component {
                                             }
                                             value={this.state.user.settings.profile_type}
                                             name=""
-                                            onChange={this.onChangePrivacy}>
+                                            onChange={this.onChangePrivacy}
+                                        >
                                             <option value="Private">Private</option>
                                             <option value="Public">Public</option>
                                         </select>
@@ -176,7 +179,8 @@ class Settings extends Component {
                                             className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
                                             type="submit"
                                             name="button"
-                                            disabled={!this.state.isChanged}>
+                                            disabled={!this.state.isChanged}
+                                        >
                                             Save
                                         </button>
                                     </div>

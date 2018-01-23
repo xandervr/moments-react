@@ -74,7 +74,7 @@ class Media extends Component {
     };
 
     render() {
-        const {media} = this.props;
+        const {media, picture} = this.props;
         if (media.image) {
             if (media.metadata) {
                 switch (media.metadata.orientation) {
@@ -94,7 +94,8 @@ class Media extends Component {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
-                    }}>
+                    }}
+                >
                     <video width="320" height="240" onTimeUpdate={this.updateSlider} {...this.props}>
                         <source src={media.video} type={media.mime} />
                         Your browser does not support the video tag.

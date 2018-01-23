@@ -69,14 +69,19 @@
 
 .settings-profile .profile {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
 .img-editor {
-    text-align: center;
-    margin-right: 3rem;
-    margin-top: 1rem;
+    margin-top: -1rem;
     font-size: 1.2rem;
+    padding: 0 !important;
+    margin-left: -3rem;
+}
+
+.profile-image-holder {
+    display: flex;
+    align-items: center;
 }
 
 .settings-profile .profile img {
@@ -90,7 +95,6 @@
 .settings-profile .username {
     font-weight: bold;
     font-size: 2rem;
-    margin-top: -2rem;
 }
 
 .profile-form {
@@ -106,7 +110,7 @@
 .profile-form label {
     display: inline-block;
     text-align: right;
-    min-width: 10rem;
+    min-width: 11rem;
     font-weight: bold;
     font-size: 1.5rem;
     margin-right: 1rem;
@@ -131,7 +135,6 @@
 
 .privacy-input {
     align-self: flex-start;
-    margin-left: 5.5rem;
 }
 
 .privacy-select {
@@ -159,7 +162,7 @@
 
 .submit-holder {
     align-self: flex-start;
-    margin-left: 17.5rem;
+    margin-left: 12rem;
 }
 
 .submit-holder button {

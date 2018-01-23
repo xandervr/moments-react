@@ -1,9 +1,9 @@
-import React, {Component} from "react";
-import world from "../../../assets/svg/world.svg";
-import map from "../../../assets/svg/map-localization.svg";
-import TimelineExperience from "./TimelineExperience";
-import ExperienceCard from "./ExperienceCard";
-import InfiniteScroll from '../../InfiniteScroll';
+import React, {Component} from 'react';
+import world from '../../../assets/svg/world.svg';
+import map from '../../../assets/svg/map-localization.svg';
+import TimelineExperience from './TimelineExperience';
+import ExperienceCard from './ExperienceCard';
+import InfiniteScroll from '../../../components/InfiniteScroll';
 import {fetchUserExperiencesOffset} from '../../../assets/js/lib/tap-client';
 
 class ExperienceContent extends Component {

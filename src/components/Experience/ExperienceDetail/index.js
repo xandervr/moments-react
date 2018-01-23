@@ -22,15 +22,15 @@ class ExperienceDetail extends Component {
                 });
             }
         });
-        this.updateExperience = setInterval(() => {
-            if (this.mounted) this.fetchExperience();
-        }, 5000);
+        // this.updateExperience = setInterval(() => {
+        //     if (this.mounted) this.fetchExperience();
+        // }, 5000);
     }
 
     componentWillUnmount() {
         this.mounted = false;
         this.unlisten();
-        clearInterval(this.updateExperience);
+        //clearInterval(this.updateExperience);
     }
 
     fetchExperience = () => {

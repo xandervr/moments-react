@@ -74,17 +74,17 @@ class Media extends Component {
     };
 
     render() {
-        const {media, className} = this.props;
+        const {media, className, contain} = this.props;
+        const classNames = className + (contain ? ' contain' : '');
         if (media.image) {
             if (media.metadata) {
-                console.log(media.metadata);
                 switch (media.metadata.orientation) {
                     case 6:
-                        return <img src={media.image} className={`${className} rotated`} alt={media.name} />;
+                        return <img src={media.image} className={`${classNames} rotated`} alt={media.name} />;
                     default:
-                        return <img src={media.image} className={className} alt={media.name} />;
+                        return <img src={media.image} className={classNames} alt={media.name} />;
                 }
-            } else return <img src={media.image} className={className} alt={media.name} />;
+            } else return <img src={media.image} className={classNames} alt={media.name} />;
         } else if (media.video) {
             return (
                 <div

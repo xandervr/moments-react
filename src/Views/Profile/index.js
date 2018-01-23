@@ -91,19 +91,17 @@ class Profile extends Component {
     render() {
         const {authentication, user, match} = this.props;
         const {profile, profileNotFound} = this.state;
-        console.log(profileNotFound);
         // let profileContent = null;
         if (profile) {
             return (
                 <div className="profile-holder">
-                    {' '}
                     <ProfileHeader
                         user={user}
                         profile={profile}
                         profileNotFound={profileNotFound}
                         onFollow={this.onFollow}
                         onUnfollow={this.onUnfollow}
-                    />{' '}
+                    />
                     <AuthenticatedRoute
                         exact
                         path={`${match.url}`}

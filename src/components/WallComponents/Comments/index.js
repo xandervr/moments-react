@@ -95,7 +95,7 @@ class Comments extends Component {
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
                             <label className="user-picture" htmlFor="comment">
-                                <Media media={currentUser.picture} />
+                                <Media media={currentUser.picture} contain />
                             </label>
                             <input
                                 id="comment"

@@ -105,7 +105,7 @@ class Experience extends Component {
                 <div className="profile">
                     <Link to={`/u/${experience.user.username}`}>
                         <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
-                            <Media className="main-user" media={experience.user.picture} alt="profile" />
+                            <Media className="main-user" media={experience.user.picture} alt="profile" contain />
                             {usersShow.length > 0 ? (
                                 <div className="side-users">
                                     <img className="side-user more" src={addWhite} alt="" /> {usersShow}

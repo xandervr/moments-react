@@ -76,7 +76,7 @@ class Media extends Component {
     render() {
         const {media, className, contain} = this.props;
         const classNames = className + (contain ? ' contain' : '');
-        if (media.image) {
+        if (media && media.image) {
             if (media.metadata) {
                 switch (media.metadata.orientation) {
                     case 6:
@@ -85,7 +85,7 @@ class Media extends Component {
                         return <img src={media.image} className={classNames} alt={media.name} />;
                 }
             } else return <img src={media.image} className={classNames} alt={media.name} />;
-        } else if (media.video) {
+        } else if (media && media.video) {
             return (
                 <div
                     style={{

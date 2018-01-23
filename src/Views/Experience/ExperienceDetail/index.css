@@ -10,9 +10,15 @@
     margin-bottom: 5rem;
 }
 
+.experience-header > div {
+    margin: 0 1rem;
+}
+
 .experience-img-holder {
-    width: 40rem;
-    height: 40rem;
+    min-width: 40rem;
+    min-height: 40rem;
+    max-width: 40rem;
+    max-height: 40rem;
 }
 
 .experience-img-holder img {
@@ -26,6 +32,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 40rem;
+    max-width: 40rem;
 }
 
 .detail-experience-title {
@@ -84,7 +92,7 @@
     flex-direction: column;
     align-items: center;
     margin: 2rem;
-    max-width: 15rem;
+    max-width: 12rem;
 }
 
 .experience-users img {
@@ -115,12 +123,32 @@
     margin-bottom: 3rem;
 }
 
-.moment-img-holder {
-    width: 30rem;
-    height: 30rem;
+.experience-moments-holder {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.experience-moment-holder {
+    margin: 4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.moment-img-holder {
+    min-width: 30rem;
+    min-height: 30rem;
+    max-width: 30rem;
+    max-height: 30rem;
+    width: 30rem;
+    height: 30rem;
+}
+
+.moment-img-holder img {
+    width: 100%;
+    height: 100%;
 }
 
 .detail-moment-title {

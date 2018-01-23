@@ -75,7 +75,7 @@ class ExperienceDetail extends Component {
                             <div className="experience-users-holder">
                                 {experience.tagged_users.map((user, index) => (
                                     <Link key={index} to={`/u/${user.username}`} className="experience-users">
-                                        <img src={user.picture} alt="" />
+                                        <Media media={user.picture} />
                                         <p>
                                             {user.surname} {user.name}
                                         </p>
@@ -86,10 +86,12 @@ class ExperienceDetail extends Component {
                     </div>
                     <div className="experience-moments">
                         <p className="moments-detail-title upper">Moments</p>
-                        <div>
+                        <div className="experience-moments-holder">
                             {experience.moments.map((moment, index) => (
-                                <div key={index} className="experience-img-holder moment-img-holder">
-                                    <Media media={moment.media} />
+                                <div key={index} className="experience-moment-holder">
+                                    <div className="experience-img-holder moment-img-holder">
+                                        <Media media={moment.media} />
+                                    </div>
                                     <p className="detail-moment-title">{moment.title}</p>
                                     <p className="detail-moment-desc">{moment.description}</p>
                                 </div>

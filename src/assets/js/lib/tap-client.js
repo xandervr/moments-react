@@ -447,7 +447,7 @@ export const saveUserSettings = (user, form, cb) => {
         //         name: user.name,
         //         username: user.username,
         //         email: user.email,
-        //         picture: user.picture,
+        //         picture: user.picture.image,
         //         profile_type: user.settings.profile_type
         //     })
         // })

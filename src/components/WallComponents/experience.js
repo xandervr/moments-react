@@ -90,8 +90,8 @@ class Experience extends Component {
     render() {
         const {experience, updateWall, currentUser} = this.props;
         const ownerId = experience.user._id;
-        const adminPictures = experience.access.admin.filter(admin => admin._id !== ownerId).map(user => user.picture);
-        const writePictures = experience.access.write.map(user => user.picture);
+        const adminPictures = experience.access.admin.filter(admin => admin._id !== ownerId).map(user => user.picture.image);
+        const writePictures = experience.access.write.map(user => user.picture.image);
         const userPictures = [...adminPictures, ...writePictures];
 
         const usersShow = userPictures.map((userPicture, i) => {
@@ -105,7 +105,7 @@ class Experience extends Component {
                 <div className="profile">
                     <Link to={`/u/${experience.user.username}`}>
                         <div className="user-holder" onMouseOver={this.animateUsers} onMouseOut={this.endAnimateUsers}>
-                            <img className="main-user" src={experience.user.picture} alt="profile" />
+                            <img className="main-user" src={experience.user.picture.image} alt="profile" />
                             {usersShow.length > 0 ? (
                                 <div className="side-users">
                                     <img className="side-user more" src={addWhite} alt="" /> {usersShow}

@@ -1,7 +1,7 @@
 import React from 'react';
 import france from '../../../../assets/img/france.jpg';
-import Media from '../../../Media';
-import Location from '../../../Location';
+import Media from '../../../../components/Media';
+import Location from '../../../../components/Location';
 
 const ExperienceCard = ({experience}) => {
     return (

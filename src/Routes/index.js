@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import App from '../components/App';
+import App from '../App';
 import {API_URL} from '../assets/js/consts';
-import SigninPage from '../components/SigninPage';
+import SigninPage from '../Views/SigninPage';
 
 class Routing extends Component {
     constructor(props) {

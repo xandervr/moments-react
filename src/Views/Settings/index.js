@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Media from '../../components/Media';
 import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -145,7 +146,7 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <img className="image-preview" src={this.state.user.picture} alt="" />
+                                            <Media className="image-preview" media={this.state.user.picture} />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>

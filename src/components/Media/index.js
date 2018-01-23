@@ -94,7 +94,8 @@ class Media extends Component {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
-                    }}>
+                    }}
+                >
                     <video width="320" height="240" onTimeUpdate={this.updateSlider} {...this.props}>
                         <source src={media.video} type={media.mime} />
                         Your browser does not support the video tag.

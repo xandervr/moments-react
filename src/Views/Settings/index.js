@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Media from '../../components/Media';
 import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
 import './index.css';
 
@@ -10,7 +11,14 @@ class Settings extends Component {
         this.state = {
             isChanged: false,
             saved: false,
-            usernameChanged: false
+            usernameChanged: false,
+            crop: {
+                x: 20,
+                y: 20,
+                width: 30,
+                height: 40,
+                aspect: 1 / 1
+            }
         };
     }
 
@@ -107,6 +115,22 @@ class Settings extends Component {
         );
     };
 
+    cropImage = (croppedImage, pixels) => {
+        console.log(pixels);
+        this.setState(prevState => ({
+            user: {
+                ...prevState.user,
+                crop: {
+                    top: pixels.y,
+                    left: pixels.x,
+                    width: pixels.width,
+                    height: pixels.height
+                }
+            },
+            crop: croppedImage
+        }));
+    };
+
     saveSettings = e => {
         saveUserSettings(this.state.user, e.target, saved => {
             if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
@@ -115,11 +139,12 @@ class Settings extends Component {
     };
 
     previewUpload = ev => {
+        ev.persist();
         if (ev.target.files && ev.target.files[0]) {
             var reader = new FileReader();
             reader.onload = e => {
                 document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-                this.setState({pictureUpdated: true, cropSource: e.target.result}, this.isChanged);
+                this.setState({pictureUpdated: ev.target.files[0], cropSource: e.target.result}, this.isChanged);
             };
             reader.readAsDataURL(ev.target.files[0]);
         }
@@ -131,7 +156,14 @@ class Settings extends Component {
             <div className="overlay">
                 <div className="settings-content">
                     <section className="settings-section">
-                        <ReactCrop className="image-crop" src={this.state.cropSource} />
+                        <ReactCrop
+                            className="image-crop"
+                            src={this.state.cropSource}
+                            crop={this.state.crop}
+                            onChange={this.cropImage}
+                            keepSelection={true}
+                        />
+
                         <h2>Profile</h2>
                         <div className="settings-profile">
                             <form className="profile-form" onSubmit={this.saveSettings}>

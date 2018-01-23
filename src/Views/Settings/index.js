@@ -112,6 +112,27 @@ class Settings extends Component {
         e.preventDefault();
     };
 
+    previewUpload = ev => {
+        if (ev.target.files && ev.target.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = e => {
+                // if (this.isVideo(e.target.result)) {
+                //   document.querySelector(`.video-preview`).classList.toggle(`hide`);
+                //   document.querySelector(`.video-preview`).setAttribute(`src`, e.target.result);
+                // } else {
+                //   document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
+                //   document.querySelector(`.image-preview`).classList.add(`preview-image-full`);
+                // }
+
+                document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
+                // }
+            };
+
+            reader.readAsDataURL(ev.target.files[0]);
+        }
+    };
+
     render() {
         const {user} = this.props;
         return (
@@ -124,7 +145,7 @@ class Settings extends Component {
                                 <div className="profile">
                                     <div>
                                         <div className="profile-image-holder">
-                                            <img src={this.state.user.picture} alt="" />
+                                            <img className="image-preview" src={this.state.user.picture} alt="" />
                                             <p className="username">
                                                 {this.state.saved ? this.state.user.username : user.username}
                                             </p>
@@ -133,7 +154,14 @@ class Settings extends Component {
                                             <label htmlFor="image-picker" className="pointer">
                                                 Edit photo
                                             </label>
-                                            <input id="image-picker" className="hide" type="file" accept="image/*" name="" />
+                                            <input
+                                                id="image-picker"
+                                                className="hide"
+                                                type="file"
+                                                accept="image/*"
+                                                name=""
+                                                onChange={this.previewUpload}
+                                            />
                                         </div>
                                     </div>
                                     <div>

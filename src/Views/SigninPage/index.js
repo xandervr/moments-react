@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {login, register} from '../../assets/js/lib/tap-client';
-import Signin from '../Signin';
-import Signup from '../Signup';
+import Signin from './Signin';
+import Signup from './Signup';
 import france from '../../assets/img/france.jpg';
 import './index.css';
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {search} from '../../assets/js/lib/tap-client';
-import Add from '../Buttons/add.js';
-import Settings from '../Buttons/settings';
+import settingsIcon from '../../assets/svg/settings.svg';
+import addIcon from '../../assets/svg/add.svg';
 import Search from '../Search/index';
 import SearchResults from '../SearchResults/index';
 import logout from '../../assets/svg/logout.svg';
@@ -107,7 +107,8 @@ class Navbar extends Component {
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
                             onChangeSearchValue={this.onChangeSearchValue}
-                            onKeyDown={this.handleKeyDown}>
+                            onKeyDown={this.handleKeyDown}
+                        >
                             Search
                         </Search>
                         {this.state.showResults ? (
@@ -121,13 +122,13 @@ class Navbar extends Component {
                     <div className="profile-actions flex-item">
                         <div className="action add pointer">
                             <Link to="/create-experience">
-                                <Add className="icon">add</Add>
+                                <img src={addIcon} alt="" />
                             </Link>
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
                             <Link to="/settings">
-                                <Settings className="icon" />
+                                <img className="settings-svg" src={settingsIcon} alt="" />
                             </Link>
                             <div className="action-detail">Settings</div>
                         </div>

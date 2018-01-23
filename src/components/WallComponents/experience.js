@@ -2,11 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 //Assets
-import profile from '../../assets/img/profile.jpg';
 import addWhite from '../../assets/svg/add-white.svg';
-import chat from '../../assets/svg/chat.svg';
-import like from '../../assets/svg/like.svg';
-import share from '../../assets/svg/share.svg';
 import france from '../../assets/img/france.jpg';
 
 //Styling
@@ -82,9 +78,7 @@ class Experience extends Component {
 
     componentWillMount() {
         const {experience, currentUser} = this.props;
-        experience.boosters.includes(currentUser._id)
-            ? this.setState({boosted: true})
-            : this.setState({boosted: false});
+        experience.boosters.includes(currentUser._id) ? this.setState({boosted: true}) : this.setState({boosted: false});
     }
 
     showAddComment = e => {

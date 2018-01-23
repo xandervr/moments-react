@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Experience} from '../WallComponents';
 import InfiniteScroll from '../InfiniteScroll';
-import {fetchWall, fetchWallOffset} from '../../assets/js/lib/tap-client';
+import {fetchWallOffset} from '../../assets/js/lib/tap-client';
 import './index.css';
 
 class Wall extends Component {

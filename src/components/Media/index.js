@@ -61,7 +61,7 @@ class Media extends Component {
     };
 
     updateSlider = e => {
-        const $slider = e.target.parentNode.querySelector(`input[type="range"]`);
+        // const $slider = e.target.parentNode.querySelector(`input[type="range"]`);
         const value = 100 / e.target.duration * e.target.currentTime;
         this.setState({sliderValue: value});
     };
@@ -80,10 +80,8 @@ class Media extends Component {
                 switch (media.metadata.orientation) {
                     case 6:
                         return <img src={media.image} className="rotated" alt={media.name} {...this.props} />;
-                        break;
                     default:
                         return <img src={media.image} alt={media.name} {...this.props} />;
-                        break;
                 }
             } else return <img src={media.image} alt={media.name} {...this.props} />;
         } else if (media.video) {
@@ -96,8 +94,7 @@ class Media extends Component {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
-                    }}
-                >
+                    }}>
                     <video width="320" height="240" onTimeUpdate={this.updateSlider} {...this.props}>
                         <source src={media.video} type={media.mime} />
                         Your browser does not support the video tag.

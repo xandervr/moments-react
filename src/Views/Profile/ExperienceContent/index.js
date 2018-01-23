@@ -60,7 +60,7 @@ class ExperienceContent extends Component {
     loadMoreTimeline = cb => {};
 
     render() {
-        const {profile, user} = this.props;
+        const {profile} = this.props;
         const {data} = this.state;
         let experienceList = null;
         let timelineList = null;

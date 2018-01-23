@@ -74,17 +74,17 @@ class Media extends Component {
     };
 
     render() {
-        const {media, className, contain} = this.props;
-        const classNames = className + (contain ? ' contain' : '');
+        const {media, className, contain, ...rest} = this.props;
+        const classNames = (className ? className : '') + (contain ? ' contain' : '');
         if (media && media.image) {
             if (media.metadata) {
                 switch (media.metadata.orientation) {
                     case 6:
-                        return <img src={media.image} className={`${classNames} rotated`} alt={media.name} />;
+                        return <img src={media.image} className={`${classNames} rotated`} alt={media.name} {...rest} />;
                     default:
-                        return <img src={media.image} className={classNames} alt={media.name} />;
+                        return <img src={media.image} className={classNames} alt={media.name} {...rest} />;
                 }
-            } else return <img src={media.image} className={classNames} alt={media.name} />;
+            } else return <img src={media.image} className={classNames} alt={media.name} {...rest} />;
         } else if (media && media.video) {
             return (
                 <div
@@ -97,7 +97,7 @@ class Media extends Component {
                         justifyContent: 'center'
                     }}
                 >
-                    <video width="320" height="240" onTimeUpdate={this.updateSlider} {...this.props}>
+                    <video width="320" height="240" onTimeUpdate={this.updateSlider} {...rest}>
                         <source src={media.video} type={media.mime} />
                         Your browser does not support the video tag.
                     </video>

@@ -440,6 +440,7 @@ export const saveUserSettings = (user, form, cb) => {
         formData.set('username', user.username);
         formData.set('email', user.email);
         formData.set('profile_type', user.settings.profile_type);
+        if (user.crop) formData.set('crop', JSON.stringify(user.crop));
         fetch(`${API_URL}/users/${user._id}`, {
             method: `PUT`,
             headers: {

@@ -131,6 +131,7 @@ class Settings extends Component {
             <div className="overlay">
                 <div className="settings-content">
                     <section className="settings-section">
+                        <ReactCrop className="image-crop" src={this.state.cropSource} />
                         <h2>Profile</h2>
                         <div className="settings-profile">
                             <form className="profile-form" onSubmit={this.saveSettings}>

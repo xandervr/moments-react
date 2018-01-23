@@ -1,5 +1,4 @@
 import React from 'react';
-import france from '../../../../assets/img/france.jpg';
 import Media from '../../../../components/Media';
 import Location from '../../../../components/Location';
 

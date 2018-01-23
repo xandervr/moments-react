@@ -1,5 +1,4 @@
 import React from 'react';
-import france from '../../../../assets/img/france.jpg';
 import Media from '../../../../components/Media';
 import {formatDate} from '../../../../assets/js/lib/helpers';
 
@@ -10,14 +9,12 @@ const TimelineExperience = ({experience}) => {
                 style={{
                     display: 'flex',
                     flexDirection: 'row'
-                }}
-            >
+                }}>
                 <div
                     style={{
                         display: 'flex',
                         flexDirection: 'column'
-                    }}
-                >
+                    }}>
                     <p className="title">Paris</p>
                     <p>
                         {experience.moments.length}

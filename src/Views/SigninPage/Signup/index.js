@@ -21,7 +21,7 @@ const Signup = ({
             ? true
             : false;
     };
-    
+
     return (
         <form
             className="signup-form"

@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import './index.css';
-import Navbar from '../Navbar';
-import Wall from '../Wall';
-import Profile from '../Profile';
-import Settings from '../Settings';
-import {ExperienceCreate, ExperienceDetail} from '../Experience';
+import Navbar from '../components/Navbar';
+import Wall from '../components/Wall';
+import Profile from '../Views/Profile';
+import Settings from '../Views/Settings';
+import {ExperienceCreate, ExperienceDetail} from '../Views/Experience';
 
 class App extends Component {
     constructor(props) {
@@ -40,7 +40,8 @@ class App extends Component {
                     <p
                         style={{
                             fontSize: '5rem'
-                        }}>
+                        }}
+                    >
                         Page not Found
                     </p>
                 );

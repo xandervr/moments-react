@@ -92,7 +92,7 @@ class ExperienceContent extends Component {
             <Fragment>
                 <div className="timeline-map-holder">
                     <section className="map-section">
-                        <MapContainer />
+                        <MapContainer experiences={data} />
                     </section>
                 </div>
                 <section className="experiences-section">

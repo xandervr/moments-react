@@ -26,7 +26,7 @@ const SearchResultUser = ({result, hideResults, ...props}) => {
             <Link onClick={hideResults} to={`/u/${result.username}`}>
                 <div className="result-holder">
                     <div>
-                        <img width="20" alt="" src={result.picture} />
+                        <Media width="20" alt="" media={result.picture} />
                     </div>
                     <div className="result-container">
                         <span className="result-text">{result.username}</span>

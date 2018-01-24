@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Media from '../../components/Media';
-import ReactCrop from 'react-image-crop';
+import ReactCrop, {makeAspectCrop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import {checkUsernameAvailable, saveUserSettings} from '../../assets/js/lib/tap-client';
+import EXIF from 'exif-js';
+import {checkUsernameAvailable, saveUserSettings, preparseImage} from '../../assets/js/lib/tap-client';
 import './index.css';
 
 class Settings extends Component {
@@ -15,8 +16,8 @@ class Settings extends Component {
             crop: {
                 x: 20,
                 y: 20,
-                width: 30,
-                height: 40,
+                width: 60,
+                height: 60,
                 aspect: 1 / 1
             }
         };
@@ -40,6 +41,15 @@ class Settings extends Component {
         }
         if (user.settings.profile_type !== other.settings.profile_type || this.state.pictureUpdated) result = true;
         this.setState({isChanged: result});
+    };
+
+    onImageLoaded = image => {
+        EXIF.getData(image, () => {
+            this.setState({
+                crop: makeAspectCrop({x: 20, y: 20, aspect: 1 / 1, width: 60}, image.width / image.height),
+                exif: image.exifdata
+            });
+        });
     };
 
     onChangeName = e => {
@@ -132,8 +142,13 @@ class Settings extends Component {
     };
 
     saveSettings = e => {
+        const {rerender} = this.props;
         saveUserSettings(this.state.user, e.target, saved => {
-            if (saved) this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
+            if (saved) {
+                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
+                document.location.reload();
+            }
+            rerender();
         });
         e.preventDefault();
     };
@@ -143,8 +158,12 @@ class Settings extends Component {
         if (ev.target.files && ev.target.files[0]) {
             var reader = new FileReader();
             reader.onload = e => {
-                document.querySelector(`.image-preview`).setAttribute(`src`, e.target.result);
-                this.setState({pictureUpdated: ev.target.files[0], cropSource: e.target.result}, this.isChanged);
+                preparseImage(ev.target.files[0], url => {
+                    if (url) {
+                        document.querySelector(`.image-preview`).setAttribute(`src`, url);
+                        this.setState({pictureUpdated: url, cropSource: url}, this.isChanged);
+                    }
+                });
             };
             reader.readAsDataURL(ev.target.files[0]);
         }
@@ -161,6 +180,9 @@ class Settings extends Component {
                             src={this.state.cropSource}
                             crop={this.state.crop}
                             onChange={this.cropImage}
+                            minWidth={10}
+                            minHeight={10}
+                            onImageLoaded={this.onImageLoaded}
                             keepSelection={true}
                         />
 

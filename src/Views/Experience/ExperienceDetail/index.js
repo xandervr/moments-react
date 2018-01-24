@@ -11,7 +11,7 @@ class ExperienceDetail extends Component {
         this.state = {
             experience: null,
             experienceNotFound: false,
-            writeAcces: false
+            writeAccess: false
         };
     }
 
@@ -53,29 +53,34 @@ class ExperienceDetail extends Component {
         console.clear();
         console.log(`userID: ${user._id}`);
 
+        const checkOwner = () => {
+            return experience.user._id === user._id;
+        };
+
         const checkAdmin = () => {
-            experience.access.admin.forEach(adminUser => {
-                if (user._id === adminUser._id) {
-                    return true;
-                } else {
-                    return false;
+            let result = false;
+            for (const i in experience.access.admin) {
+                if (experience.access.admin[i]._id === user._id) {
+                    result = true;
+                    break;
                 }
-            });
+            }
+            return result;
         };
 
         const checkWrite = () => {
-            experience.access.write.forEach(writeUser => {
-                if (user._id === writeUser._id) {
-                    return true;
-                } else {
-                    return false;
+            let result = false;
+            for (const i in experience.access.write) {
+                if (experience.access.write[i]._id === user._id) {
+                    result = true;
+                    break;
                 }
-            });
+            }
+            return result;
         };
 
-        if (checkAdmin || checkWrite) {
-            this.setState({writeAcces: true});
-            console.log(true);
+        if (checkOwner() || checkAdmin() || checkWrite()) {
+            this.setState({writeAccess: true});
         }
     };
 
@@ -135,12 +140,12 @@ class ExperienceDetail extends Component {
     };
 
     render() {
-        const {experience, experienceNotFound, writeAcces, momentsChosen} = this.state;
+        const {experience, experienceNotFound, writeAccess, momentsChosen} = this.state;
 
         if (experience) {
-            const editBtn = writeAcces ? <button className="">edit</button> : null;
+            const editBtn = writeAccess ? <button className="">edit</button> : null;
 
-            const addMoment = writeAcces ? (
+            const addMoment = writeAccess ? (
                 <form action="" className="add-moment-form" onSubmit={this.handleMomentSubmit}>
                     <div className="add-moments">
                         {momentsChosen ? this.filesArr.map(file => file) : null}

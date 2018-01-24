@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import {fetchExperienceById} from '../../../assets/js/lib/tap-client';
+import add from '../../../assets/svg/add-white.svg';
 import Media from '../../../components/Media';
 import './index.css';
 
@@ -39,46 +40,116 @@ class ExperienceDetail extends Component {
         const experience_id = this.props.match.params.experience_id;
         fetchExperienceById(experience_id, experience => {
             if (experience) {
-                this.setState({experience: experience, experienceNotFound: false});
+                this.setState({experience: experience, experienceNotFound: false}, () => this.checkWriteAccess());
             } else {
                 this.setState({experience: experience, experienceNotFound: true});
             }
         });
     };
 
-    checkWriteAcces = () => {
+    checkWriteAccess = () => {
         const {experience} = this.state;
         const {user} = this.props;
         console.clear();
         console.log(`userID: ${user._id}`);
 
-        //DIT IS LELIJK
+        const checkAdmin = () => {
+            experience.access.admin.forEach(adminUser => {
+                if (user._id === adminUser._id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        };
 
-        // experience.access.admin.forEach(adminUser => {
-        //     if (user._id === adminUser._id) {
-        //         console.log(true);
-        //         this.setState({writeAcces: true});
-        //     } else {
-        //         this.setState({writeAcces: false});
-        //         console.log(false);
-        //     }
-        // });
-        // experience.access.write.forEach(writeUser => {
-        //     if (user._id === writeUser._id) {
-        //         this.setState({writeAcces: true});
-        //         console.log(true);
-        //     } else {
-        //         this.setState({writeAcces: false});
-        //         console.log(false);
-        //     }
-        // });
+        const checkWrite = () => {
+            experience.access.write.forEach(writeUser => {
+                if (user._id === writeUser._id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        };
+
+        if (checkAdmin || checkWrite) {
+            this.setState({writeAcces: true});
+            console.log(true);
+        }
+    };
+
+    filesArr = [];
+    fileIndex = 0;
+
+    setupReader = file => {
+        const name = file.name;
+        const reader = new FileReader();
+        reader.onload = e => {
+            // get file content
+            const image = e.target.result;
+            const element = (
+                <div key={this.fileIndex} className="add-moment-file-holder">
+                    <div className="file-selector add-moment-file pointer">
+                        <img className="preview-image image-preview preview-image-full" src={image} alt="" />
+                    </div>
+                    <div className="moment-input-info">
+                        <input placeholder="Moment title" />
+                        <input placeholder="Moment description" />
+                    </div>
+                </div>
+            );
+            this.filesArr.push(element);
+            this.fileIndex++;
+            this.setState({momentsChosen: true});
+        };
+        reader.readAsDataURL(file);
+    };
+
+    previewUpload = ev => {
+        const files = [...ev.target.files];
+
+        if (ev.target.files && ev.target.files[0]) {
+            for (let i = 0; i < files.length; i++) {
+                this.setupReader(files[i]);
+            }
+        }
     };
 
     render() {
-        const {experience, experienceNotFound} = this.state;
-        console.log(experienceNotFound);
+        const {experience, experienceNotFound, writeAcces, momentsChosen} = this.state;
+
         if (experience) {
-            this.checkWriteAcces();
+            const editBtn = writeAcces ? <button>edit</button> : null;
+
+            const addMoment = writeAcces ? (
+                <form action="" className="add-moment-form">
+                    <div className="add-moments">
+                        {momentsChosen ? this.filesArr.map(file => file) : null}
+                        <div className="add-moment-file-holder">
+                            <input
+                                name="media"
+                                className="experience-photo-input"
+                                id="file"
+                                type="file"
+                                accept="image/*, video/*"
+                                onChange={this.previewUpload}
+                                multiple
+                            />
+                            <label className="pointer" htmlFor="file">
+                                <div className="file-selector add-moment-file">
+                                    <img className="preview-image image-preview" src={add} alt="" />
+                                </div>
+                                <p className="file-label">Choose one or more moments</p>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" className="action upper pointer signup-btn add-moments-btn">
+                        Add
+                    </button>
+                </form>
+            ) : null;
+
             return (
                 <div className="experience-wrapper">
                     <div className="experience-header">
@@ -113,9 +184,11 @@ class ExperienceDetail extends Component {
                                 ))}
                             </div>
                         </div>
+                        {editBtn}
                     </div>
                     <div className="experience-moments">
                         <p className="moments-detail-title upper">Moments</p>
+                        {addMoment}
                         <div className="experience-moments-holder">
                             {experience.moments.map((moment, index) => (
                                 <div key={index} className="experience-moment-holder">
@@ -134,6 +207,8 @@ class ExperienceDetail extends Component {
                     <button type="submit">submit</button>
                 </div>
             );
+        } else if (experienceNotFound) {
+            return console.log('not found');
         } else return null;
     }
 }

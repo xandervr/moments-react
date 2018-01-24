@@ -126,7 +126,6 @@ class Settings extends Component {
     };
 
     cropImage = (croppedImage, pixels) => {
-        console.log(pixels);
         this.setState(prevState => ({
             user: {
                 ...prevState.user,

@@ -16,8 +16,6 @@ class Settings extends Component {
             crop: {
                 x: 20,
                 y: 20,
-                width: 60,
-                height: 60,
                 aspect: 1 / 1
             }
         };
@@ -44,11 +42,8 @@ class Settings extends Component {
     };
 
     onImageLoaded = image => {
-        EXIF.getData(image, () => {
-            this.setState({
-                crop: makeAspectCrop({x: 20, y: 20, aspect: 1 / 1, width: 60}, image.width / image.height),
-                exif: image.exifdata
-            });
+        this.setState({
+            crop: makeAspectCrop({x: 20, y: 20, aspect: 1 / 1, width: 60}, image.width / image.height)
         });
     };
 

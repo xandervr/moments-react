@@ -98,6 +98,7 @@ class Experience extends Component {
             while (i < 3) {
                 return <Media className="side-user" key={i} media={userPicture} alt="profile" />;
             }
+            return null;
         });
 
         return (

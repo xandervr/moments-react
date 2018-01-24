@@ -175,3 +175,7 @@
 }
 
 /* END SETTINGS MODAL */
+
+img {
+    image-orientation: from-image;
+}

@@ -10,9 +10,14 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null
+            data: null,
+            render: false
         };
     }
+
+    rerender = () => {
+        this.setState({render: !this.state.render});
+    };
 
     render() {
         const {path} = this.props;
@@ -30,7 +35,7 @@ class App extends Component {
                 show = <ExperienceDetail user={user} authentication={authentication} />;
                 break;
             case `/settings`:
-                show = <Settings user={user} />;
+                show = <Settings user={user} rerender={this.rerender} />;
                 break;
             case `/`:
                 show = <Wall user={user} />;

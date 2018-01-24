@@ -9,7 +9,8 @@ class ExperienceDetail extends Component {
         super(props);
         this.state = {
             experience: null,
-            experienceNotFound: false
+            experienceNotFound: false,
+            writeAcces: false
         };
     }
 
@@ -45,10 +46,39 @@ class ExperienceDetail extends Component {
         });
     };
 
+    checkWriteAcces = () => {
+        const {experience} = this.state;
+        const {user} = this.props;
+        console.clear();
+        console.log(`userID: ${user._id}`);
+
+        //DIT IS LELIJK
+
+        // experience.access.admin.forEach(adminUser => {
+        //     if (user._id === adminUser._id) {
+        //         console.log(true);
+        //         this.setState({writeAcces: true});
+        //     } else {
+        //         this.setState({writeAcces: false});
+        //         console.log(false);
+        //     }
+        // });
+        // experience.access.write.forEach(writeUser => {
+        //     if (user._id === writeUser._id) {
+        //         this.setState({writeAcces: true});
+        //         console.log(true);
+        //     } else {
+        //         this.setState({writeAcces: false});
+        //         console.log(false);
+        //     }
+        // });
+    };
+
     render() {
         const {experience, experienceNotFound} = this.state;
         console.log(experienceNotFound);
         if (experience) {
+            this.checkWriteAcces();
             return (
                 <div className="experience-wrapper">
                     <div className="experience-header">
@@ -86,10 +116,12 @@ class ExperienceDetail extends Component {
                     </div>
                     <div className="experience-moments">
                         <p className="moments-detail-title upper">Moments</p>
-                        <div>
+                        <div className="experience-moments-holder">
                             {experience.moments.map((moment, index) => (
-                                <div key={index} className="experience-img-holder moment-img-holder">
-                                    <Media media={moment.media} />
+                                <div key={index} className="experience-moment-holder">
+                                    <div className="experience-img-holder moment-img-holder">
+                                        <Media media={moment.media} />
+                                    </div>
                                     <p className="detail-moment-title">{moment.title}</p>
                                     <p className="detail-moment-desc">{moment.description}</p>
                                 </div>

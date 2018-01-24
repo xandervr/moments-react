@@ -165,3 +165,51 @@
     font-size: 1.7rem;
     max-width: 85%;
 }
+
+.add-moment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-moments {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.add-moment-file-holder {
+    margin: 1rem;
+}
+
+.add-moment-file {
+    width: 25rem !important;
+    height: 25rem !important;
+}
+
+.moment-input-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.moment-input-info input {
+    font-size: 1.7rem;
+    width: 90%;
+}
+
+.moment-input-info input:first-of-type {
+    font-family: Roboto;
+}
+
+.moment-input-info input:last-of-type {
+    margin-top: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.add-moments-btn {
+    width: 10rem !important;
+    padding: 1rem 2rem !important;
+}

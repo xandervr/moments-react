@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
-import {fetchExperienceById} from '../../../assets/js/lib/tap-client';
+import {fetchExperienceById, addMoment} from '../../../assets/js/lib/tap-client';
 import add from '../../../assets/svg/add-white.svg';
 import Media from '../../../components/Media';
 import './index.css';
@@ -50,8 +50,6 @@ class ExperienceDetail extends Component {
     checkWriteAccess = () => {
         const {experience} = this.state;
         const {user} = this.props;
-        console.clear();
-        console.log(`userID: ${user._id}`);
 
         const checkOwner = () => {
             return experience.user._id === user._id;
@@ -126,17 +124,22 @@ class ExperienceDetail extends Component {
         const $moments = $form.querySelectorAll('.form-moment');
         const moments = [];
         for (let i = 0; i < $moments.length; i++) {
-            console.log($moments[i]);
             const moment = {
                 title: $moments[i].querySelector('[name="moment-title"]').value,
-                desc: $moments[i].querySelector('[name="moment-desc"]').value,
+                desc:
+                    $moments[i].querySelector('[name="moment-desc"]').value === ``
+                        ? null
+                        : $moments[i].querySelector('[name="moment-desc"]').value,
                 file: $form.querySelector('[name="file"]').files[i]
             };
             moments.push(moment);
         }
 
-        console.log(moments);
-        console.log($form.querySelector('[name="file"]').files);
+        const {experience} = this.state;
+
+        moments.forEach(moment => {
+            addMoment(experience._id, moment);
+        });
     };
 
     render() {
@@ -226,9 +229,6 @@ class ExperienceDetail extends Component {
                         </div>
                     </div>
                     <div className="experience-extra">frfr</div>
-
-                    <input type="file" />
-                    <button type="submit">submit</button>
                 </div>
             );
         } else if (experienceNotFound) {

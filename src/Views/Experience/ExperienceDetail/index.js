@@ -91,16 +91,15 @@ class ExperienceDetail extends Component {
         const name = file.name;
         const reader = new FileReader();
         reader.onload = e => {
-            // get file content
             const image = e.target.result;
             const element = (
-                <div key={this.fileIndex} className="add-moment-file-holder">
+                <div key={this.fileIndex} className="add-moment-file-holder form-moment">
                     <div className="file-selector add-moment-file pointer">
                         <img className="preview-image image-preview preview-image-full" src={image} alt="" />
                     </div>
                     <div className="moment-input-info">
-                        <input placeholder="Moment title" />
-                        <input placeholder="Moment description" />
+                        <input placeholder="Moment title" name="moment-title" />
+                        <input placeholder="Moment description" name="moment-desc" />
                     </div>
                 </div>
             );
@@ -121,14 +120,33 @@ class ExperienceDetail extends Component {
         }
     };
 
+    handleMomentSubmit = e => {
+        e.preventDefault();
+        const $form = e.currentTarget;
+        const $moments = $form.querySelectorAll('.form-moment');
+        const moments = [];
+        for (let i = 0; i < $moments.length; i++) {
+            console.log($moments[i]);
+            const moment = {
+                title: $moments[i].querySelector('[name="moment-title"]').value,
+                desc: $moments[i].querySelector('[name="moment-desc"]').value,
+                file: $form.querySelector('[name="file"]').files[i]
+            };
+            moments.push(moment);
+        }
+
+        console.log(moments);
+        console.log($form.querySelector('[name="file"]').files);
+    };
+
     render() {
         const {experience, experienceNotFound, writeAccess, momentsChosen} = this.state;
 
         if (experience) {
-            const editBtn = writeAccess ? <button>edit</button> : null;
+            const editBtn = writeAccess ? <button className="">edit</button> : null;
 
             const addMoment = writeAccess ? (
-                <form action="" className="add-moment-form">
+                <form action="" className="add-moment-form" onSubmit={this.handleMomentSubmit}>
                     <div className="add-moments">
                         {momentsChosen ? this.filesArr.map(file => file) : null}
                         <div className="add-moment-file-holder">
@@ -137,6 +155,7 @@ class ExperienceDetail extends Component {
                                 className="experience-photo-input"
                                 id="file"
                                 type="file"
+                                name="file"
                                 accept="image/*, video/*"
                                 onChange={this.previewUpload}
                                 multiple

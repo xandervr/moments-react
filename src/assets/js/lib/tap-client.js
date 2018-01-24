@@ -626,10 +626,10 @@ export const preparseImage = (file, cb) => {
 
 export const addMoment = (experience_id, moment, cb) => {
     let account = fetchAccount();
-    if (experience_id && moment) {
+    if (experience_id && moment && moment.file && moment.title) {
         const formData = new FormData();
         formData.append('title', moment.title);
-        formData.append('description', moment.desc);
+        if (moment.desc) formData.append('description', moment.desc);
         formData.append('media', moment.file);
         if (account)
             fetch(`${API_URL}/experiences/${experience_id}/moments`, {

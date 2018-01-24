@@ -576,3 +576,41 @@ export const fetchExperienceById = (experience_id, cb) => {
         cb(false);
     }
 };
+
+/**
+ * @function preparseImage Preparse media.
+ * @param file File of media to preparse.
+ * @param cb Callback function returning a boolean
+ * @returns {uri}
+ * @private
+ */
+
+export const preparseImage = (file, cb) => {
+    let account = fetchAccount();
+    if (file) {
+        const formData = new FormData();
+        formData.append('media', file);
+        if (account)
+            fetch(`${API_URL}/preparser`, {
+                method: `POST`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    Authorization: `Bearer ${account.access_token}`
+                },
+                body: formData
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.message === 'Success') cb(data.url);
+                    else cb(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                    cb(false);
+                });
+        else console.log('Authorization error');
+    } else {
+        console.log('No experience_form provided');
+        cb(false);
+    }
+};

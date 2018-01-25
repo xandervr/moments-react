@@ -1,6 +1,6 @@
 import React from 'react';
-import search from '../../assets/svg/search.svg';
-import '../Navbar/index.css';
+import search from '../../../assets/svg/search.svg';
+import '../index.css';
 
 const Search = ({onChangeSearchValue, searchValue, children, onKeyDown, ...rest}) => {
     return (

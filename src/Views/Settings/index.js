@@ -257,7 +257,8 @@ class Settings extends Component {
                                                 }
                                                 value={this.state.user.settings.profile_type}
                                                 name=""
-                                                onChange={this.onChangePrivacy}>
+                                                onChange={this.onChangePrivacy}
+                                            >
                                                 <option value="Private">Private</option>
                                                 <option value="Public">Public</option>
                                             </select>
@@ -269,7 +270,8 @@ class Settings extends Component {
                                                 }
                                                 type="submit"
                                                 name="button"
-                                                disabled={!this.state.isChanged}>
+                                                disabled={!this.state.isChanged}
+                                            >
                                                 Save
                                             </button>
                                         </div>

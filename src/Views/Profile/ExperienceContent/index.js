@@ -33,6 +33,7 @@ class ExperienceContent extends Component {
 
     updateWall = () => {
         const { profile } = this.props;
+        console.log(profile);
         fetchUserExperiencesOffset(
             profile._id,
             0,
@@ -73,6 +74,9 @@ class ExperienceContent extends Component {
     render() {
         const { profile } = this.props;
 
+        const { data } = this.state;
+
+        const { profile } = this.props;
         const { data } = this.state;
         let experienceList = null;
         let timelineList = null;

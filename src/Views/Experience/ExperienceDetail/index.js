@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
-import {fetchExperienceById} from '../../../assets/js/lib/tap-client';
+import {fetchExperienceById, addMoment} from '../../../assets/js/lib/tap-client';
 import add from '../../../assets/svg/add-white.svg';
 import Media from '../../../components/Media';
 import './index.css';
@@ -11,7 +11,7 @@ class ExperienceDetail extends Component {
         this.state = {
             experience: null,
             experienceNotFound: false,
-            writeAcces: false
+            writeAccess: false
         };
     }
 
@@ -50,32 +50,35 @@ class ExperienceDetail extends Component {
     checkWriteAccess = () => {
         const {experience} = this.state;
         const {user} = this.props;
-        console.clear();
-        console.log(`userID: ${user._id}`);
+
+        const checkOwner = () => {
+            return experience.user._id === user._id;
+        };
 
         const checkAdmin = () => {
-            experience.access.admin.forEach(adminUser => {
-                if (user._id === adminUser._id) {
-                    return true;
-                } else {
-                    return false;
+            let result = false;
+            for (const i in experience.access.admin) {
+                if (experience.access.admin[i]._id === user._id) {
+                    result = true;
+                    break;
                 }
-            });
+            }
+            return result;
         };
 
         const checkWrite = () => {
-            experience.access.write.forEach(writeUser => {
-                if (user._id === writeUser._id) {
-                    return true;
-                } else {
-                    return false;
+            let result = false;
+            for (const i in experience.access.write) {
+                if (experience.access.write[i]._id === user._id) {
+                    result = true;
+                    break;
                 }
-            });
+            }
+            return result;
         };
 
-        if (checkAdmin || checkWrite) {
-            this.setState({writeAcces: true});
-            console.log(true);
+        if (checkOwner() || checkAdmin() || checkWrite()) {
+            this.setState({writeAccess: true});
         }
     };
 
@@ -86,16 +89,15 @@ class ExperienceDetail extends Component {
         const name = file.name;
         const reader = new FileReader();
         reader.onload = e => {
-            // get file content
             const image = e.target.result;
             const element = (
-                <div key={this.fileIndex} className="add-moment-file-holder">
+                <div key={this.fileIndex} className="add-moment-file-holder form-moment">
                     <div className="file-selector add-moment-file pointer">
                         <img className="preview-image image-preview preview-image-full" src={image} alt="" />
                     </div>
                     <div className="moment-input-info">
-                        <input placeholder="Moment title" />
-                        <input placeholder="Moment description" />
+                        <input placeholder="Moment title" name="moment-title" />
+                        <input placeholder="Moment description" name="moment-desc" />
                     </div>
                 </div>
             );
@@ -116,14 +118,38 @@ class ExperienceDetail extends Component {
         }
     };
 
+    handleMomentSubmit = e => {
+        e.preventDefault();
+        const $form = e.currentTarget;
+        const $moments = $form.querySelectorAll('.form-moment');
+        const moments = [];
+        for (let i = 0; i < $moments.length; i++) {
+            const moment = {
+                title: $moments[i].querySelector('[name="moment-title"]').value,
+                desc:
+                    $moments[i].querySelector('[name="moment-desc"]').value === ``
+                        ? null
+                        : $moments[i].querySelector('[name="moment-desc"]').value,
+                file: $form.querySelector('[name="file"]').files[i]
+            };
+            moments.push(moment);
+        }
+
+        const {experience} = this.state;
+
+        moments.forEach(moment => {
+            addMoment(experience._id, moment);
+        });
+    };
+
     render() {
-        const {experience, experienceNotFound, writeAcces, momentsChosen} = this.state;
+        const {experience, experienceNotFound, writeAccess, momentsChosen} = this.state;
 
         if (experience) {
-            const editBtn = writeAcces ? <button>edit</button> : null;
+            const editBtn = writeAccess ? <button className="">edit</button> : null;
 
-            const addMoment = writeAcces ? (
-                <form action="" className="add-moment-form">
+            const addMoment = writeAccess ? (
+                <form action="" className="add-moment-form" onSubmit={this.handleMomentSubmit}>
                     <div className="add-moments">
                         {momentsChosen ? this.filesArr.map(file => file) : null}
                         <div className="add-moment-file-holder">
@@ -132,6 +158,7 @@ class ExperienceDetail extends Component {
                                 className="experience-photo-input"
                                 id="file"
                                 type="file"
+                                name="file"
                                 accept="image/*, video/*"
                                 onChange={this.previewUpload}
                                 multiple
@@ -202,9 +229,6 @@ class ExperienceDetail extends Component {
                         </div>
                     </div>
                     <div className="experience-extra">frfr</div>
-
-                    <input type="file" />
-                    <button type="submit">submit</button>
                 </div>
             );
         } else if (experienceNotFound) {

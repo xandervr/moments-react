@@ -614,3 +614,40 @@ export const preparseImage = (file, cb) => {
         cb(false);
     }
 };
+
+/**
+ * @function addMoment Add a moment to an experience.
+ * @param experience_id Experience id to add moment to.
+ * @param moment Moment object to add {title, desc, file}.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const addMoment = (experience_id, moment, cb) => {
+    let account = fetchAccount();
+    if (experience_id && moment && moment.file && moment.title) {
+        const formData = new FormData();
+        formData.append('title', moment.title);
+        if (moment.desc) formData.append('description', moment.desc);
+        formData.append('media', moment.file);
+        if (account)
+            fetch(`${API_URL}/experiences/${experience_id}/moments`, {
+                method: `POST`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    Authorization: `Bearer ${account.access_token}`
+                },
+                body: formData
+            })
+                .then(r => r.json())
+                .then(data => {
+                    cb(data.message === 'Success');
+                })
+                .catch(err => console.log(err));
+        else console.log('Authorization error');
+    } else {
+        console.log('No experience_id or moment provided');
+        cb(false);
+    }
+};

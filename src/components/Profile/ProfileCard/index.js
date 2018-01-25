@@ -29,7 +29,7 @@ class ProfileCard extends Component {
             >
                 <img
                     className="profile-card-img"
-                    src={profile.picture}
+                    src={profile.picture && profile.picture.image}
                     alt=""
                 />
                 <div

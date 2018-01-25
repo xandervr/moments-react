@@ -1,12 +1,16 @@
-import React, {Component} from 'react';
-import './index.css';
-import {fetchUserByUsername, unfollowUser, followUser} from '../../assets/js/lib/tap-client';
-import {withRouter} from 'react-router-dom';
-import ProfileHeader from './ProfileHeader';
-import ExperienceContent from './ExperienceContent';
-import FollowingContent from './FollowingContent';
-import {AuthenticatedRoute} from '../../Routes';
-import FollowersContent from './FollowersContent';
+import React, { Component } from "react";
+import "./index.css";
+import {
+    fetchUserByUsername,
+    unfollowUser,
+    followUser
+} from "../../assets/js/lib/tap-client";
+import { withRouter } from "react-router-dom";
+import ProfileHeader from "./ProfileHeader";
+import ExperienceContent from "./ExperienceContent";
+import FollowingContent from "./FollowingContent";
+import { AuthenticatedRoute } from "../../Routes";
+import FollowersContent from "./FollowersContent";
 
 class Profile extends Component {
     constructor(props) {
@@ -37,19 +41,21 @@ class Profile extends Component {
     }
 
     fetchProfile = path => {
-        const username = path ? path.split('/')[2] : this.props.match.params.username;
+        const username = path
+            ? path.split("/")[2]
+            : this.props.match.params.username;
         fetchUserByUsername(username, profile => {
             if (profile) {
-                this.setState({profile: profile, profileNotFound: false});
+                this.setState({ profile: profile, profileNotFound: false });
             } else {
-                this.setState({profile: profile, profileNotFound: true});
+                this.setState({ profile: profile, profileNotFound: true });
             }
         });
     };
 
     onFollow = () => {
-        const {user} = this.props;
-        const {profile} = this.state;
+        const { user } = this.props;
+        const { profile } = this.state;
         const followList = profile.followers.map(follower => follower._id);
         followUser(profile._id, followed => {
             if (!followList.includes(user._id) && followed) {
@@ -60,38 +66,39 @@ class Profile extends Component {
                     }
                 }));
             } else {
-                alert('you are allready following this person!');
+                alert("you are allready following this person!");
                 return;
             }
         });
     };
 
     onUnfollow = () => {
-        const {user} = this.props;
-        const {profile} = this.state;
+        const { user } = this.props;
+        const { profile } = this.state;
         const followList = profile.followers.map(follower => follower._id);
         unfollowUser(profile._id, unfollowed => {
             if (followList.includes(user._id) && unfollowed) {
                 this.setState((prevState, props) => ({
                     profile: {
                         ...prevState.profile,
-                        followers: prevState.profile.followers.filter(follower => follower._id !== user._id)
+                        followers: prevState.profile.followers.filter(
+                            follower => follower._id !== user._id
+                        )
                     }
                 }));
             } else {
-                alert('you are not allready following this person!');
+                alert("you are not allready following this person!");
                 return;
             }
         });
     };
 
     render() {
-        const {authentication, user, match} = this.props;
-        const {profile, profileNotFound} = this.state;
+        const { authentication, user, match, location, history } = this.props;
+        const { profile, profileNotFound } = this.state;
 
         // let profileContent = null;
         if (profile) {
-            console.log('header: ' + profile.username);
             return (
                 <div className="profile-holder">
                     <ProfileHeader

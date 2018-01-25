@@ -67,7 +67,6 @@ class Media extends Component {
     };
 
     volumeSliderVideo = e => {
-        console.log(this.state.volumeValue);
         const $video = e.target.parentNode.parentNode.querySelector(`video`);
         this.setState({volumeValue: e.target.value});
         $video.volume = e.target.value;
@@ -95,8 +94,7 @@ class Media extends Component {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
-                    }}
-                >
+                    }}>
                     <video width="320" height="240" onTimeUpdate={this.updateSlider} {...rest}>
                         <source src={media.video} type={media.mime} />
                         Your browser does not support the video tag.

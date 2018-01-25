@@ -138,7 +138,7 @@ class ExperienceDetail extends Component {
         const {experience} = this.state;
 
         moments.forEach(moment => {
-            addMoment(experience._id, moment);
+            addMoment(experience._id, moment, this.fetchExperience);
         });
     };
 

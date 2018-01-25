@@ -88,6 +88,11 @@
     border: none;
 }
 
+.experience-particle {
+    width: 8rem;
+    height: 8rem;
+}
+
 .moment .profile img {
     height: 8rem;
     width: 8rem;

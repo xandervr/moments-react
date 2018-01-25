@@ -601,7 +601,8 @@ export const preparseImage = (file, cb) => {
             })
                 .then(r => r.json())
                 .then(data => {
-                    if (data.message === 'Success') cb(data.url);
+                    console.log(data);
+                    if (data.message === 'Success') cb(data);
                     else cb(false);
                 })
                 .catch(err => {
@@ -642,7 +643,7 @@ export const addMoment = (experience_id, moment, cb) => {
             })
                 .then(r => r.json())
                 .then(data => {
-                    cb(data.message === 'Success');
+                    data.message === 'Success' ? cb(data) : cb(false);
                 })
                 .catch(err => console.log(err));
         else console.log('Authorization error');

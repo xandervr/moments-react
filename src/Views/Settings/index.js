@@ -152,10 +152,11 @@ class Settings extends Component {
         if (ev.target.files && ev.target.files[0]) {
             var reader = new FileReader();
             reader.onload = e => {
-                preparseImage(ev.target.files[0], url => {
-                    if (url) {
-                        document.querySelector(`.image-preview`).setAttribute(`src`, url);
-                        this.setState({pictureUpdated: url, cropSource: url}, this.isChanged);
+                preparseImage(ev.target.files[0], data => {
+                    console.log(data);
+                    if (data.url) {
+                        document.querySelector(`.image-preview`).setAttribute(`src`, data.url);
+                        this.setState({pictureUpdated: data.url, cropSource: data.url}, this.isChanged);
                     }
                 });
             };

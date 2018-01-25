@@ -8,6 +8,7 @@ import Media from '../Media';
 import SearchResults from './SearchResults/index';
 import logout from '../../assets/svg/logout.svg';
 import {Link} from 'react-router-dom';
+import ParticleHolder from '../ParticleHolder';
 
 import './index.css';
 
@@ -110,7 +111,8 @@ class Navbar extends Component {
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
                             onChangeSearchValue={this.onChangeSearchValue}
-                            onKeyDown={this.handleKeyDown}>
+                            onKeyDown={this.handleKeyDown}
+                        >
                             Search
                         </Search>
                         {this.state.showResults ? (
@@ -140,7 +142,11 @@ class Navbar extends Component {
                         </div>
                         <div className="action profile pointer">
                             <Link to={`/u/${user.username}`}>
-                                <Media media={user.picture} alt="profile" contain />
+                                {user.picture ? (
+                                    <Media media={user.picture} alt="profile" contain />
+                                ) : (
+                                    <ParticleHolder className="navbar-particle" />
+                                )}
                             </Link>
                             <div className="action-detail profile-action-detail">Profile</div>
                         </div>

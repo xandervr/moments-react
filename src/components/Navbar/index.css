@@ -128,6 +128,13 @@ input[type='search']::-webkit-search-results-button {
     border: dotted 0.2rem var(--blue);
 }
 
+.navbar-particle {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    border: dotted 0.2rem var(--blue);
+}
+
 .logout {
     position: relative;
 }

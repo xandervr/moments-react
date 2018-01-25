@@ -140,12 +140,12 @@ class ExperienceDetail extends Component {
 
         moments.forEach(moment => {
             console.log(moment);
-            addMoment(experience._id, moment, () =>
+            addMoment(experience._id, moment, data =>
                 this.setState(prevState => ({
                     ...prevState,
                     experience: {
                         ...prevState.experience,
-                        moments: [...prevState.experience.moments, moment]
+                        moments: [...prevState.experience.moments, data.moment]
                     }
                 }))
             );

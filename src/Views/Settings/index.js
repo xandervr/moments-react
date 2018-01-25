@@ -3,7 +3,7 @@ import Media from '../../components/Media';
 import ReactCrop, {makeAspectCrop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import EXIF from 'exif-js';
-import {checkUsernameAvailable, saveUserSettings, preparseImage} from '../../assets/js/lib/tap-client';
+import {checkUsernameAvailable, saveUserSettings, preparseImage, fetchUserByUsername} from '../../assets/js/lib/tap-client';
 import './index.css';
 
 class Settings extends Component {
@@ -136,13 +136,20 @@ class Settings extends Component {
     };
 
     saveSettings = e => {
-        const {rerender} = this.props;
+        const {rerender, user} = this.props;
         saveUserSettings(this.state.user, e.target, saved => {
             if (saved) {
-                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true}, this.render);
-                document.location.reload();
+                this.setState(
+                    {old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true, showModal: false},
+                    () => {
+                        fetchUserByUsername(user.username, data => {
+                            document.querySelector('.image-preview').setAttribute(`src`, data.picture.image);
+                            document.querySelector('.profile-img-nav').setAttribute(`src`, data.picture.image);
+                        });
+                        document.querySelector('body').classList.remove(`no-scroll`);
+                    }
+                );
             }
-            rerender();
         });
         e.preventDefault();
     };
@@ -156,7 +163,9 @@ class Settings extends Component {
                     console.log(data);
                     if (data.url) {
                         document.querySelector('body').classList.add(`no-scroll`);
-                        this.setState({pictureUpdated: data.url, cropSource: data.url, showModal: true}, this.isChanged);
+                        this.setState({pictureUpdated: data.url, cropSource: data.url, showModal: true}, () => {
+                            this.isChanged();
+                        });
                     }
                 });
             };
@@ -165,9 +174,9 @@ class Settings extends Component {
     };
 
     closeModal = e => {
-        console.log(e.target);
         if (e.target === this.cropModal) {
             this.setState({showModal: false});
+            document.querySelector('body').classList.remove(`no-scroll`);
         }
     };
 
@@ -188,7 +197,7 @@ class Settings extends Component {
                         onImageLoaded={this.onImageLoaded}
                         keepSelection={true}
                     />
-                    <button className="pointer btn-save" type="submit" name="button">
+                    <button className="pointer btn-save" type="submit" name="button" ref={node => (this.saveButton = node)}>
                         Save
                     </button>
                 </div>
@@ -204,7 +213,6 @@ class Settings extends Component {
                             <div className="settings-profile">
                                 <form className="profile-form" onSubmit={this.saveSettings}>
                                     {cropModal}
-
                                     <div className="profile">
                                         <div>
                                             <div className="profile-image-holder">

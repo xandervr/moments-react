@@ -111,8 +111,7 @@ class Navbar extends Component {
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
                             onChangeSearchValue={this.onChangeSearchValue}
-                            onKeyDown={this.handleKeyDown}
-                        >
+                            onKeyDown={this.handleKeyDown}>
                             Search
                         </Search>
                         {this.state.showResults ? (
@@ -143,7 +142,7 @@ class Navbar extends Component {
                         <div className="action profile pointer">
                             <Link to={`/u/${user.username}`}>
                                 {user.picture ? (
-                                    <Media media={user.picture} alt="profile" contain />
+                                    <Media media={user.picture} className="profile-img-nav" alt="profile" contain />
                                 ) : (
                                     <ParticleHolder className="navbar-particle" />
                                 )}

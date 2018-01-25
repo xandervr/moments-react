@@ -146,9 +146,9 @@ class ExperienceDetail extends Component {
         const {experience, experienceNotFound, writeAccess, momentsChosen} = this.state;
 
         if (experience) {
-            const editBtn = writeAccess ? <button className="">edit</button> : null;
+            const editBtn = writeAccess && <button className="">edit</button>;
 
-            const addMoment = writeAccess ? (
+            const addMoment = writeAccess && (
                 <form action="" className="add-moment-form" onSubmit={this.handleMomentSubmit}>
                     <div className="add-moments">
                         {momentsChosen ? this.filesArr.map(file => file) : null}
@@ -175,7 +175,7 @@ class ExperienceDetail extends Component {
                         Add
                     </button>
                 </form>
-            ) : null;
+            );
 
             return (
                 <div className="experience-wrapper">
@@ -199,7 +199,7 @@ class ExperienceDetail extends Component {
                             </div>
                         </div>
                         <div className="experience-collabs">
-                            <p className="experience-users-title">with</p>
+                            {experience.tagged_users.length > 0 && <p className="experience-users-title">with</p>}
                             <div className="experience-users-holder">
                                 {experience.tagged_users.map((user, index) => (
                                     <Link key={index} to={`/u/${user.username}`} className="experience-users">
@@ -221,6 +221,11 @@ class ExperienceDetail extends Component {
                                 <div key={index} className="experience-moment-holder">
                                     <div className="experience-img-holder moment-img-holder">
                                         <Media media={moment.media} />
+                                        {writeAccess && (
+                                            <div className="moment-overlay">
+                                                <img className="pointer" src={add} alt="" />
+                                            </div>
+                                        )}
                                     </div>
                                     <p className="detail-moment-title">{moment.title}</p>
                                     <p className="detail-moment-desc">{moment.description}</p>

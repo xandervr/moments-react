@@ -33,7 +33,6 @@ class ExperienceContent extends Component {
 
     updateWall = () => {
         const { profile } = this.props;
-        console.log(profile);
         fetchUserExperiencesOffset(
             profile._id,
             0,
@@ -72,6 +71,7 @@ class ExperienceContent extends Component {
     loadMoreTimeline = cb => {};
 
     render() {
+        console.log(this.props);
         const { profile } = this.props;
         const { data } = this.state;
         let experienceList = null;

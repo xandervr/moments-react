@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Media from '../../../components/Media';
+import ParticleHolder from '../../../components/ParticleHolder';
 
 const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) => {
     let followButton = null;
@@ -27,7 +28,11 @@ const ProfileHeader = ({profile, profileNotFound, user, onFollow, onUnfollow}) =
             <div className="sticky-profile-header">
                 <section className="profile-info-section">
                     <div className="profile-left">
-                        <Media className="profile-header-picture" media={profile.picture} alt="" contain />
+                        {profile.picture ? (
+                            <Media className="profile-header-picture" media={profile.picture} alt="" contain />
+                        ) : (
+                            <ParticleHolder className="profile-particle" />
+                        )}
                         <div className="username-actions">
                             <h2 className="username">
                                 <span>{profile.surname}</span>

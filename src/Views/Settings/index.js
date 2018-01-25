@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Media from '../../components/Media';
 import ReactCrop, {makeAspectCrop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -147,6 +147,10 @@ class Settings extends Component {
         e.preventDefault();
     };
 
+    saveProfileImage = () => {
+        //TODO
+    };
+
     previewUpload = ev => {
         ev.persist();
         if (ev.target.files && ev.target.files[0]) {
@@ -155,7 +159,7 @@ class Settings extends Component {
                 preparseImage(ev.target.files[0], data => {
                     console.log(data);
                     if (data.url) {
-                        document.querySelector(`.image-preview`).setAttribute(`src`, data.url);
+                        document.querySelector('body').classList.add(`no-scroll`);
                         this.setState({pictureUpdated: data.url, cropSource: data.url}, this.isChanged);
                     }
                 });
@@ -164,104 +168,124 @@ class Settings extends Component {
         }
     };
 
+    closeModal = e => {
+        if (e.target === this.cropModal) {
+            this.setState({showModal: false});
+        }
+    };
+
     render() {
         const {user} = this.props;
-        return (
-            <div className="overlay">
-                <div className="settings-content">
-                    <section className="settings-section">
-                        <ReactCrop
-                            className="image-crop"
-                            src={this.state.cropSource}
-                            crop={this.state.crop}
-                            onChange={this.cropImage}
-                            minWidth={10}
-                            minHeight={10}
-                            onImageLoaded={this.onImageLoaded}
-                            keepSelection={true}
-                        />
+        const {showModal} = this.state;
 
-                        <h2>Profile</h2>
-                        <div className="settings-profile">
-                            <form className="profile-form" onSubmit={this.saveSettings}>
-                                <div className="profile">
-                                    <div>
-                                        <div className="profile-image-holder">
-                                            <Media className="image-preview" media={this.state.user.picture} contain />
-                                            <p className="username">
-                                                {this.state.saved ? this.state.user.username : user.username}
-                                            </p>
-                                        </div>
-                                        <div className="img-editor">
-                                            <label htmlFor="image-picker" className="pointer">
-                                                Edit photo
-                                            </label>
-                                            <input
-                                                id="image-picker"
-                                                className="hide"
-                                                type="file"
-                                                accept="image/*"
-                                                name="media"
-                                                onChange={this.previewUpload}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="">Name</label>
-                                        <input value={this.state.user.fullname} onChange={this.onChangeName} />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="">Username</label>
-                                        <input
-                                            className={
-                                                this.state.usernameChanged
-                                                    ? this.state.usernameAvailable ? 'available' : 'taken'
-                                                    : ''
-                                            }
-                                            value={this.state.user.username}
-                                            onChange={this.onChangeUsername}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="">Email</label>
-                                        <input type="email" value={this.state.user.email} onChange={this.onChangeEmail} />
-                                    </div>
-                                    <div className="privacy-input">
-                                        <label htmlFor="">Account privacy</label>
-                                        <select
-                                            className={
-                                                this.state.user.settings.profile_type === 'Public'
-                                                    ? 'privacy-select privacy-public pointer'
-                                                    : 'privacy-select privacy-private pointer'
-                                            }
-                                            value={this.state.user.settings.profile_type}
-                                            name=""
-                                            onChange={this.onChangePrivacy}
-                                        >
-                                            <option value="Private">Private</option>
-                                            <option value="Public">Public</option>
-                                        </select>
-                                    </div>
-                                    <div className="submit-holder">
-                                        <button
-                                            className={this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'}
-                                            type="submit"
-                                            name="button"
-                                            disabled={!this.state.isChanged}
-                                        >
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-                    <section className="settings-section">
-                        <h2>Notifications</h2>
-                        <div className="settings-profile" />
-                    </section>
+        const cropModal = showModal && (
+            <div className="crop-modal" onClick={this.closeModal}>
+                <div className="crop-holder">
+                    <ReactCrop
+                        className="image-crop"
+                        src={this.state.cropSource}
+                        crop={this.state.crop}
+                        onChange={this.cropImage}
+                        minWidth={10}
+                        minHeight={10}
+                        onImageLoaded={this.onImageLoaded}
+                        keepSelection={true}
+                    />
+                    <button className="pointer btn-save" type="submit" name="button" onClick={this.saveProfileImage}>
+                        Save
+                    </button>
                 </div>
             </div>
+        );
+
+        return (
+            <Fragment>
+                <div className="overlay" ref={node => (this.settings = node)}>
+                    {cropModal}
+                    <div className="settings-content">
+                        <section className="settings-section">
+                            <h2>Profile</h2>
+                            <div className="settings-profile">
+                                <form className="profile-form" onSubmit={this.saveSettings}>
+                                    <div className="profile">
+                                        <div>
+                                            <div className="profile-image-holder">
+                                                <Media className="image-preview" media={this.state.user.picture} contain />
+                                                <p className="username">
+                                                    {this.state.saved ? this.state.user.username : user.username}
+                                                </p>
+                                            </div>
+                                            <div className="img-editor">
+                                                <label htmlFor="image-picker" className="pointer">
+                                                    Edit photo
+                                                </label>
+                                                <input
+                                                    id="image-picker"
+                                                    className="hide"
+                                                    type="file"
+                                                    accept="image/*"
+                                                    name="media"
+                                                    onChange={this.previewUpload}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="">Name</label>
+                                            <input value={this.state.user.fullname} onChange={this.onChangeName} />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="">Username</label>
+                                            <input
+                                                className={
+                                                    this.state.usernameChanged
+                                                        ? this.state.usernameAvailable ? 'available' : 'taken'
+                                                        : ''
+                                                }
+                                                value={this.state.user.username}
+                                                onChange={this.onChangeUsername}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="">Email</label>
+                                            <input type="email" value={this.state.user.email} onChange={this.onChangeEmail} />
+                                        </div>
+                                        <div className="privacy-input">
+                                            <label htmlFor="">Account privacy</label>
+                                            <select
+                                                className={
+                                                    this.state.user.settings.profile_type === 'Public'
+                                                        ? 'privacy-select privacy-public pointer'
+                                                        : 'privacy-select privacy-private pointer'
+                                                }
+                                                value={this.state.user.settings.profile_type}
+                                                name=""
+                                                onChange={this.onChangePrivacy}>
+                                                <option value="Private">Private</option>
+                                                <option value="Public">Public</option>
+                                            </select>
+                                        </div>
+                                        <div className="submit-holder">
+                                            <button
+                                                className={
+                                                    this.state.isChanged ? 'pointer btn-save' : 'pointer btn-save disabled'
+                                                }
+                                                type="submit"
+                                                name="button"
+                                                disabled={!this.state.isChanged}>
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                        <section className="settings-section">
+                            <h2>Notifications</h2>
+                            <div className="settings-profile" />
+                        </section>
+                    </div>
+                </div>
+            </Fragment>
         );
     }
 }

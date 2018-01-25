@@ -1,0 +1,18 @@
+.particle-canvas {
+    border: 0.07rem solid rgba(0, 0, 0, 0.3);
+}
+
+.particle {
+    width: 100%;
+    height: 100%;
+
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.particle-full {
+    border-radius: 1.1rem;
+}
+
+.particle-round {
+    border-radius: 50%;
+}

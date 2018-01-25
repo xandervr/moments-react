@@ -12,7 +12,7 @@
     position: sticky;
     top: 7.5rem;
     padding: 2rem 0;
-    z-index: 9999;
+    z-index: 1;
     background-color: #fff;
 }
 
@@ -33,6 +33,11 @@
     height: 10rem;
     width: 10rem;
     border-radius: 50%;
+}
+
+.profile-particle {
+    height: 10rem;
+    width: 10rem;
 }
 
 .profile-header-picture {

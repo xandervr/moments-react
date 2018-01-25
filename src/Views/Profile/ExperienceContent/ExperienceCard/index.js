@@ -1,17 +1,23 @@
-import React from 'react';
-import Media from '../../../../components/Media';
-import Location from '../../../../components/Location';
+import React from "react";
+import { Link } from "react-router-dom";
+import Media from "../../../../components/Media";
+import Location from "../../../../components/Location";
 
-const ExperienceCard = ({experience}) => {
+const ExperienceCard = ({ experience }) => {
     return (
-        <div className="experience">
-            <Media media={experience.media} />
-            <div className="experience-overlay">
-                <p className="overlay-title">{experience.title}</p>
-                <div className="divide-titles" />
-                <Location className="overlay-location" experience={experience} />
+        <Link to={`/e/${experience._id}`}>
+            <div className="experience">
+                <Media media={experience.media} />
+                <div className="experience-overlay">
+                    <p className="overlay-title">{experience.title}</p>
+                    <div className="divide-titles" />
+                    <Location
+                        className="overlay-location"
+                        experience={experience}
+                    />
+                </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

@@ -73,10 +73,6 @@ class ExperienceContent extends Component {
 
     render() {
         const { profile } = this.props;
-
-        const { data } = this.state;
-
-        const { profile } = this.props;
         const { data } = this.state;
         let experienceList = null;
         let timelineList = null;

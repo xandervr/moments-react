@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Media from '../../Media';
+import Media from '../../../Media';
 import './index.css';
 
 const SearchResultExperience = ({result, hideResults, ...props}) => {

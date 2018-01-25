@@ -131,7 +131,8 @@ class ExperienceCreate extends Component {
                                             : 'privacy-select privacy-private pointer'
                                     }
                                     value={privacy}
-                                    onChange={this.onChangePrivacy}>
+                                    onChange={this.onChangePrivacy}
+                                >
                                     <option value="Public">Public</option>
                                     <option value="Private">Private</option>
                                 </select>

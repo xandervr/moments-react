@@ -93,6 +93,29 @@ input[type='search']::-webkit-search-results-button {
     transition: transform 0.2s;
 }
 
+.notifications-svg:hover {
+    animation-name: notification-wiggle;
+    animation-duration: 0.4s;
+}
+
+@keyframes notification-wiggle {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(20deg);
+    }
+    50% {
+        transform: rotate(0);
+    }
+    75% {
+        transform: rotate(-20deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
+
 .settings:hover .settings-svg {
     transform: rotate(25deg);
 }

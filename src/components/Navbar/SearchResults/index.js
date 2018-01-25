@@ -28,11 +28,11 @@ class SearchResults extends Component {
                 </ul> */}
                 <ul className="user-results">
                     {userResults.length > 0 ? (
-                        <li className="search-result-title">User {userResults.length > 1 ? `s` : ``}</li>
+                        <li className="search-result-title">User{userResults.length > 1 ? `s` : ``}</li>
                     ) : null}
                     {userResultList}
                     {experienceResults.length > 0 ? (
-                        <li className="search-result-title">Experience {experienceResults.length > 1 ? `s` : ``}</li>
+                        <li className="search-result-title">Experience{experienceResults.length > 1 ? `s` : ``}</li>
                     ) : null}
                     {experienceResultList}
                 </ul>

@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {search} from '../../assets/js/lib/tap-client';
 import settingsIcon from '../../assets/svg/settings.svg';
 import addIcon from '../../assets/svg/add.svg';
-import Search from '../Search/index';
+import Search from './Search/index';
 import Media from '../Media';
-import SearchResults from '../SearchResults/index';
+import SearchResults from './SearchResults/index';
 import logout from '../../assets/svg/logout.svg';
 import {Link} from 'react-router-dom';
 

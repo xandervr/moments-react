@@ -156,10 +156,11 @@ class Settings extends Component {
         if (ev.target.files && ev.target.files[0]) {
             var reader = new FileReader();
             reader.onload = e => {
-                preparseImage(ev.target.files[0], url => {
-                    if (url) {
+                preparseImage(ev.target.files[0], data => {
+                    console.log(data);
+                    if (data.url) {
                         document.querySelector('body').classList.add(`no-scroll`);
-                        this.setState({pictureUpdated: url, cropSource: url, showModal: true}, this.isChanged);
+                        this.setState({pictureUpdated: data.url, cropSource: data.url}, this.isChanged);
                     }
                 });
             };

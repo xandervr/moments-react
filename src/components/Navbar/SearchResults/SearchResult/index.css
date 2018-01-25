@@ -26,3 +26,8 @@
     border-bottom-left-radius: 1.1rem;
     border-bottom-right-radius: 1.1rem;
 }
+
+.search-particle {
+    height: 6rem;
+    width: 6rem;
+}

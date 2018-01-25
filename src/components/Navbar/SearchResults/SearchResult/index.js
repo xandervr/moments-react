@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import Media from '../../../Media';
 import './index.css';
 
+import ParticleHolder from '../../../ParticleHolder';
+
 const SearchResultExperience = ({result, hideResults, ...props}) => {
     return (
         <li className="result-list-item">
@@ -26,7 +28,11 @@ const SearchResultUser = ({result, hideResults, ...props}) => {
             <Link onClick={hideResults} to={`/u/${result.username}`}>
                 <div className="result-holder">
                     <div>
-                        <Media width="20" alt="" media={result.picture} />
+                        {result.picture ? (
+                            <Media width="20" alt="" media={result.picture} />
+                        ) : (
+                            <ParticleHolder className="search-particle" />
+                        )}
                     </div>
                     <div className="result-container">
                         <span className="result-text">{result.username}</span>

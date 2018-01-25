@@ -139,16 +139,12 @@ class Settings extends Component {
         const {rerender} = this.props;
         saveUserSettings(this.state.user, e.target, saved => {
             if (saved) {
-                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
+                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true}, this.render);
                 document.location.reload();
             }
             rerender();
         });
         e.preventDefault();
-    };
-
-    saveProfileImage = () => {
-        //TODO
     };
 
     previewUpload = ev => {
@@ -160,7 +156,7 @@ class Settings extends Component {
                     console.log(data);
                     if (data.url) {
                         document.querySelector('body').classList.add(`no-scroll`);
-                        this.setState({pictureUpdated: data.url, cropSource: data.url}, this.isChanged);
+                        this.setState({pictureUpdated: data.url, cropSource: data.url, showModal: true}, this.isChanged);
                     }
                 });
             };
@@ -169,6 +165,7 @@ class Settings extends Component {
     };
 
     closeModal = e => {
+        console.log(e.target);
         if (e.target === this.cropModal) {
             this.setState({showModal: false});
         }
@@ -179,7 +176,7 @@ class Settings extends Component {
         const {showModal} = this.state;
 
         const cropModal = showModal && (
-            <div className="crop-modal" onClick={this.closeModal}>
+            <div className="crop-modal" onClick={this.closeModal} ref={node => (this.cropModal = node)}>
                 <div className="crop-holder">
                     <ReactCrop
                         className="image-crop"
@@ -191,7 +188,7 @@ class Settings extends Component {
                         onImageLoaded={this.onImageLoaded}
                         keepSelection={true}
                     />
-                    <button className="pointer btn-save" type="submit" name="button" onClick={this.saveProfileImage}>
+                    <button className="pointer btn-save" type="submit" name="button">
                         Save
                     </button>
                 </div>
@@ -201,12 +198,13 @@ class Settings extends Component {
         return (
             <Fragment>
                 <div className="overlay" ref={node => (this.settings = node)}>
-                    {cropModal}
                     <div className="settings-content">
                         <section className="settings-section">
                             <h2>Profile</h2>
                             <div className="settings-profile">
                                 <form className="profile-form" onSubmit={this.saveSettings}>
+                                    {cropModal}
+
                                     <div className="profile">
                                         <div>
                                             <div className="profile-image-holder">

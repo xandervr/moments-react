@@ -3,7 +3,7 @@ import Media from '../../components/Media';
 import ReactCrop, {makeAspectCrop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import EXIF from 'exif-js';
-import {checkUsernameAvailable, saveUserSettings, preparseImage} from '../../assets/js/lib/tap-client';
+import {checkUsernameAvailable, saveUserSettings, preparseImage, fetchUserByUsername} from '../../assets/js/lib/tap-client';
 import './index.css';
 
 class Settings extends Component {
@@ -136,19 +136,22 @@ class Settings extends Component {
     };
 
     saveSettings = e => {
-        const {rerender} = this.props;
+        const {rerender, user} = this.props;
         saveUserSettings(this.state.user, e.target, saved => {
             if (saved) {
-                this.setState({old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true});
-                document.location.reload();
+                this.setState(
+                    {old_user: this.state.user, isChanged: false, usernameChanged: false, saved: true, showModal: false},
+                    () => {
+                        fetchUserByUsername(user.username, data => {
+                            document.querySelector('.image-preview').setAttribute(`src`, data.picture.image);
+                            document.querySelector('.profile-img-nav').setAttribute(`src`, data.picture.image);
+                        });
+                        document.querySelector('body').classList.remove(`no-scroll`);
+                    }
+                );
             }
-            rerender();
         });
         e.preventDefault();
-    };
-
-    saveProfileImage = () => {
-        //TODO
     };
 
     previewUpload = ev => {
@@ -160,7 +163,9 @@ class Settings extends Component {
                     console.log(data);
                     if (data.url) {
                         document.querySelector('body').classList.add(`no-scroll`);
-                        this.setState({pictureUpdated: data.url, cropSource: data.url}, this.isChanged);
+                        this.setState({pictureUpdated: data.url, cropSource: data.url, showModal: true}, () => {
+                            this.isChanged();
+                        });
                     }
                 });
             };
@@ -171,6 +176,7 @@ class Settings extends Component {
     closeModal = e => {
         if (e.target === this.cropModal) {
             this.setState({showModal: false});
+            document.querySelector('body').classList.remove(`no-scroll`);
         }
     };
 
@@ -179,7 +185,7 @@ class Settings extends Component {
         const {showModal} = this.state;
 
         const cropModal = showModal && (
-            <div className="crop-modal" onClick={this.closeModal}>
+            <div className="crop-modal" onClick={this.closeModal} ref={node => (this.cropModal = node)}>
                 <div className="crop-holder">
                     <ReactCrop
                         className="image-crop"
@@ -191,7 +197,7 @@ class Settings extends Component {
                         onImageLoaded={this.onImageLoaded}
                         keepSelection={true}
                     />
-                    <button className="pointer btn-save" type="submit" name="button" onClick={this.saveProfileImage}>
+                    <button className="pointer btn-save" type="submit" name="button" ref={node => (this.saveButton = node)}>
                         Save
                     </button>
                 </div>
@@ -201,12 +207,12 @@ class Settings extends Component {
         return (
             <Fragment>
                 <div className="overlay" ref={node => (this.settings = node)}>
-                    {cropModal}
                     <div className="settings-content">
                         <section className="settings-section">
                             <h2>Profile</h2>
                             <div className="settings-profile">
                                 <form className="profile-form" onSubmit={this.saveSettings}>
+                                    {cropModal}
                                     <div className="profile">
                                         <div>
                                             <div className="profile-image-holder">
@@ -259,7 +265,8 @@ class Settings extends Component {
                                                 }
                                                 value={this.state.user.settings.profile_type}
                                                 name=""
-                                                onChange={this.onChangePrivacy}>
+                                                onChange={this.onChangePrivacy}
+                                            >
                                                 <option value="Private">Private</option>
                                                 <option value="Public">Public</option>
                                             </select>
@@ -271,7 +278,8 @@ class Settings extends Component {
                                                 }
                                                 type="submit"
                                                 name="button"
-                                                disabled={!this.state.isChanged}>
+                                                disabled={!this.state.isChanged}
+                                            >
                                                 Save
                                             </button>
                                         </div>

@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component, Fragment} from 'react';
 import world from '../../../assets/svg/world.svg';
 import map from '../../../assets/svg/map-localization.svg';
 import TimelineExperience from './TimelineExperience';
 import ExperienceCard from './ExperienceCard';
 import InfiniteScroll from '../../../components/InfiniteScroll';
 import MapContainer from '../../../components/Map';
-import { fetchUserExperiencesOffset } from '../../../assets/js/lib/tap-client';
+import {fetchUserExperiencesOffset} from '../../../assets/js/lib/tap-client';
 
 class ExperienceContent extends Component {
     constructor(props) {
@@ -14,16 +14,22 @@ class ExperienceContent extends Component {
             data: [],
             hasMore: true,
             offset: 0,
-            limit: 6
+            limit: 6,
+            profile: null
         };
     }
 
     componentDidMount() {
         this.loadWall();
+        this.setState({profile: this.props.profile});
         this.mounted = true;
         this.wallUpdater = setInterval(() => {
             if (this.mounted) this.updateWall();
         }, 5000);
+    }
+
+    componentWillReceiveProps(props) {
+        if (props.profile.username !== this.props.profile.username) this.setState({profile: props.profile, data: []});
     }
 
     componentWillUnmount() {
@@ -32,26 +38,28 @@ class ExperienceContent extends Component {
     }
 
     updateWall = () => {
-        const { profile } = this.props;
-        fetchUserExperiencesOffset(profile._id, 0, this.state.offset + this.state.limit, wall => {
-            if (wall) this.setState({ data: wall });
-        });
+        const {profile} = this.state;
+        if (profile)
+            fetchUserExperiencesOffset(profile._id, 0, this.state.offset + this.state.limit, wall => {
+                if (wall) this.setState({data: wall});
+            });
     };
 
     loadWall = (advance, cb) => {
-        const { profile } = this.props;
-        fetchUserExperiencesOffset(profile._id, this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
-            if (wall && wall.length > 0)
-                this.setState(
-                    {
-                        data: this.state.data.concat(wall),
-                        offset: this.state.offset + (advance ? advance : 0),
-                        hasMore: true
-                    },
-                    cb
-                );
-            else this.setState({ hasMore: false }, cb);
-        });
+        const {profile} = this.state;
+        if (profile)
+            fetchUserExperiencesOffset(profile._id, this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
+                if (wall && wall.length > 0)
+                    this.setState(
+                        {
+                            data: this.state.data.concat(wall),
+                            offset: this.state.offset + (advance ? advance : 0),
+                            hasMore: true
+                        },
+                        cb
+                    );
+                else this.setState({hasMore: false}, cb);
+            });
     };
 
     loadMore = cb => {
@@ -61,9 +69,8 @@ class ExperienceContent extends Component {
     loadMoreTimeline = cb => {};
 
     render() {
-        console.log(this.props);
-        const { profile } = this.props;
-        const { data } = this.state;
+        const {profile} = this.state;
+        const {data} = this.state;
         let experienceList = null;
         let timelineList = null;
         if (profile) {

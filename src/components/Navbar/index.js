@@ -109,8 +109,7 @@ class Navbar extends Component {
                             searchResultsUsers={this.state.searchResults.users}
                             searchValue={this.state.searchValue}
                             onChangeSearchValue={this.onChangeSearchValue}
-                            onKeyDown={this.handleKeyDown}
-                        >
+                            onKeyDown={this.handleKeyDown}>
                             Search
                         </Search>
                         {this.state.showResults ? (

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {withRouter, Link} from 'react-router-dom';
-import {fetchExperienceById, addMoment} from '../../../assets/js/lib/tap-client';
+import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
+import { fetchExperienceById, addMoment } from '../../../assets/js/lib/tap-client';
 import add from '../../../assets/svg/add-white.svg';
 import Media from '../../../components/Media';
 import './index.css';
@@ -40,16 +40,16 @@ class ExperienceDetail extends Component {
         const experience_id = this.props.match.params.experience_id;
         fetchExperienceById(experience_id, experience => {
             if (experience) {
-                this.setState({experience: experience, experienceNotFound: false}, () => this.checkWriteAccess());
+                this.setState({ experience: experience, experienceNotFound: false }, () => this.checkWriteAccess());
             } else {
-                this.setState({experience: experience, experienceNotFound: true});
+                this.setState({ experience: experience, experienceNotFound: true });
             }
         });
     };
 
     checkWriteAccess = () => {
-        const {experience} = this.state;
-        const {user} = this.props;
+        const { experience } = this.state;
+        const { user } = this.props;
 
         const checkOwner = () => {
             return experience.user._id === user._id;
@@ -78,7 +78,7 @@ class ExperienceDetail extends Component {
         };
 
         if (checkOwner() || checkAdmin() || checkWrite()) {
-            this.setState({writeAccess: true});
+            this.setState({ writeAccess: true });
         }
     };
 
@@ -103,7 +103,7 @@ class ExperienceDetail extends Component {
             );
             this.filesArr.push(element);
             this.fileIndex++;
-            this.setState({momentsChosen: true});
+            this.setState({ momentsChosen: true });
         };
         reader.readAsDataURL(file);
     };
@@ -135,15 +135,25 @@ class ExperienceDetail extends Component {
             moments.push(moment);
         }
 
-        const {experience} = this.state;
+        const { experience } = this.state;
+        console.log(this.state);
 
         moments.forEach(moment => {
-            addMoment(experience._id, moment);
+            console.log(moment);
+            addMoment(experience._id, moment, () =>
+                this.setState(prevState => ({
+                    ...prevState,
+                    experience: {
+                        ...prevState.experience,
+                        moments: [...prevState.experience.moments, moment]
+                    }
+                }))
+            );
         });
     };
 
     render() {
-        const {experience, experienceNotFound, writeAccess, momentsChosen} = this.state;
+        const { experience, experienceNotFound, writeAccess, momentsChosen } = this.state;
 
         if (experience) {
             const editBtn = writeAccess ? <button className="">edit</button> : null;
@@ -215,8 +225,9 @@ class ExperienceDetail extends Component {
                     </div>
                     <div className="experience-moments">
                         <p className="moments-detail-title upper">Moments</p>
-                        {addMoment}
+
                         <div className="experience-moments-holder">
+                            {addMoment}
                             {experience.moments.map((moment, index) => (
                                 <div key={index} className="experience-moment-holder">
                                     <div className="experience-img-holder moment-img-holder">

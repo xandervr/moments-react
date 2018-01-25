@@ -36,7 +36,7 @@ class Comments extends Component {
     };
 
     toggleComments = e => {
-        const $comments = e.currentTarget.previousElementSibling.previousElementSibling,
+        const $comments = e.currentTarget.parentNode.querySelector('.more-comments'),
             openHtml = `View less comments`,
             closedHtml = `View ${this.props.experience.comments.length - 1} other comments`;
 
@@ -91,6 +91,11 @@ class Comments extends Component {
                         </li>
                     ) : null}
                 </ul>
+                <p className="pointer" onClick={this.toggleComments}>
+                    {comments.length - 1 > 0
+                        ? !this.state.commentsOpen ? `View ${otherComments.length} other comments` : 'View less comments'
+                        : ''}
+                </p>
                 <div className="comment-form-holder">
                     <form action="index.html" onSubmit={this.onSubmitComment} className="comment-form">
                         <div className="comment-holder">
@@ -113,11 +118,6 @@ class Comments extends Component {
                         <Emoji addToComment={this.addToComment} />
                     </span>
                 </div>
-                <p className="pointer" onClick={this.toggleComments}>
-                    {comments.length - 1 > 0
-                        ? !this.state.commentsOpen ? `View ${otherComments.length} other comments` : 'View less comments'
-                        : ''}
-                </p>
             </div>
         );
     }

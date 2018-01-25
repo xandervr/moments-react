@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {search} from '../../assets/js/lib/tap-client';
 import settingsIcon from '../../assets/svg/settings.svg';
 import addIcon from '../../assets/svg/add.svg';
+import notifications from '../../assets/svg/notification.svg';
 import Search from './Search/index';
 import Media from '../Media';
 import SearchResults from './SearchResults/index';
@@ -123,6 +124,10 @@ class Navbar extends Component {
                         ) : null}
                     </div>
                     <div className="profile-actions flex-item">
+                        <div className="action notification pointer">
+                            <img className="notifications-svg" src={notifications} alt="" />
+                            <div className="action-detail">Notifications</div>
+                        </div>
                         <div className="action add pointer">
                             <Link to="/create-experience">
                                 <img src={addIcon} alt="" />

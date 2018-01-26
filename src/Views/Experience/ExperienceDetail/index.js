@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import { fetchExperienceById, addMoment } from '../../../assets/js/lib/tap-client';
+import React, {Component} from 'react';
+import {withRouter, Link} from 'react-router-dom';
+import {fetchExperienceById, addMoment, deleteMoment} from '../../../assets/js/lib/tap-client';
 import add from '../../../assets/svg/add-white.svg';
 import Media from '../../../components/Media';
 import './index.css';
@@ -25,60 +25,56 @@ class ExperienceDetail extends Component {
                 });
             }
         });
-        // this.updateExperience = setInterval(() => {
-        //     if (this.mounted) this.fetchExperience();
-        // }, 5000);
     }
 
     componentWillUnmount() {
         this.mounted = false;
         this.unlisten();
-        //clearInterval(this.updateExperience);
     }
 
     fetchExperience = () => {
         const experience_id = this.props.match.params.experience_id;
         fetchExperienceById(experience_id, experience => {
             if (experience) {
-                this.setState({ experience: experience, experienceNotFound: false }, () => this.checkWriteAccess());
+                this.setState({experience: experience, experienceNotFound: false}, () => this.checkWriteAccess());
             } else {
-                this.setState({ experience: experience, experienceNotFound: true });
+                this.setState({experience: experience, experienceNotFound: true});
             }
         });
     };
 
+    checkOwner = (experience, user) => {
+        return experience.user._id === user._id;
+    };
+
+    checkAdmin = (experience, user) => {
+        let result = false;
+        for (const i in experience.access.admin) {
+            if (experience.access.admin[i]._id === user._id) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    };
+
+    checkWrite = (experience, user) => {
+        let result = false;
+        for (const i in experience.access.write) {
+            if (experience.access.write[i]._id === user._id) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    };
+
     checkWriteAccess = () => {
-        const { experience } = this.state;
-        const { user } = this.props;
+        const {experience} = this.state;
+        const {user} = this.props;
 
-        const checkOwner = () => {
-            return experience.user._id === user._id;
-        };
-
-        const checkAdmin = () => {
-            let result = false;
-            for (const i in experience.access.admin) {
-                if (experience.access.admin[i]._id === user._id) {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        };
-
-        const checkWrite = () => {
-            let result = false;
-            for (const i in experience.access.write) {
-                if (experience.access.write[i]._id === user._id) {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        };
-
-        if (checkOwner() || checkAdmin() || checkWrite()) {
-            this.setState({ writeAccess: true });
+        if (this.checkOwner(experience, user) || this.checkAdmin(experience, user) || this.checkWrite(experience, user)) {
+            this.setState({writeAccess: true});
         }
     };
 
@@ -103,7 +99,7 @@ class ExperienceDetail extends Component {
             );
             this.filesArr.push(element);
             this.fileIndex++;
-            this.setState({ momentsChosen: true });
+            this.setState({momentsChosen: true});
         };
         reader.readAsDataURL(file);
     };
@@ -135,11 +131,10 @@ class ExperienceDetail extends Component {
             moments.push(moment);
         }
 
-        const { experience } = this.state;
-        console.log(this.state);
+        const {experience} = this.state;
 
-        moments.forEach(moment => {
-            addMoment(experience._id, moment, data =>
+        for (let i = 0; i < moments.length; i++) {
+            addMoment(experience._id, moments[i], data =>
                 this.setState(prevState => ({
                     ...prevState,
                     experience: {
@@ -148,14 +143,28 @@ class ExperienceDetail extends Component {
                     }
                 }))
             );
-        });
+        }
+
+        this.filesArr = [];
+        this.setState({momentsChosen: false});
+    };
+
+    handleRemoveMoment = e => {
+        const {experience} = this.state;
+        const {user} = this.props;
+        const id = e.currentTarget.parentNode.parentNode.parentNode.id;
+        if (this.checkAdmin(experience, user) || this.checkOwner(experience, user)) {
+            deleteMoment(id);
+        }
     };
 
     render() {
-        const { experience, experienceNotFound, writeAccess, momentsChosen } = this.state;
+        const {experience, experienceNotFound, writeAccess, momentsChosen} = this.state;
 
         if (experience) {
             const editBtn = writeAccess && <button className="">edit</button>;
+
+            console.log(experience.moments);
 
             const addMoment = writeAccess && (
                 <form action="" className="add-moment-form" onSubmit={this.handleMomentSubmit}>
@@ -228,12 +237,12 @@ class ExperienceDetail extends Component {
                         <div className="experience-moments-holder">
                             {addMoment}
                             {experience.moments.map((moment, index) => (
-                                <div key={index} className="experience-moment-holder">
+                                <div key={moment._id} id={moment._id} className="experience-moment-holder">
                                     <div className="experience-img-holder moment-img-holder">
                                         <Media media={moment.media} />
                                         {writeAccess && (
                                             <div className="moment-overlay">
-                                                <img className="pointer" src={add} alt="" />
+                                                <img onClick={this.handleRemoveMoment} className="pointer" src={add} alt="" />
                                             </div>
                                         )}
                                     </div>

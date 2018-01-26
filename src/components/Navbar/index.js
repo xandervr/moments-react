@@ -4,6 +4,7 @@ import settingsIcon from '../../assets/svg/settings.svg';
 import addIcon from '../../assets/svg/add.svg';
 import notifications from '../../assets/svg/notification.svg';
 import Search from './Search/index';
+import Notifications from './Notifications/index';
 import Media from '../Media';
 import SearchResults from './SearchResults/index';
 import logout from '../../assets/svg/logout.svg';
@@ -124,25 +125,26 @@ class Navbar extends Component {
                     </div>
                     <div className="profile-actions flex-item">
                         <div className="action notification pointer">
-                            <img className="notifications-svg" src={notifications} alt="" />
+                            <img className="notifications-svg action-img" src={notifications} alt="" />
                             <div className="action-detail">Notifications</div>
+                            <Notifications />
                         </div>
                         <div className="action add pointer">
                             <Link to="/create-experience">
-                                <img src={addIcon} alt="" />
+                                <img className="action-img" src={addIcon} alt="" />
                             </Link>
                             <div className="action-detail">Add</div>
                         </div>
                         <div className="action settings pointer">
                             <Link to="/settings">
-                                <img className="settings-svg" src={settingsIcon} alt="" />
+                                <img className="settings-svg action-img" src={settingsIcon} alt="" />
                             </Link>
                             <div className="action-detail">Settings</div>
                         </div>
                         <div className="action profile pointer">
                             <Link to={`/u/${user.username}`}>
                                 {user.picture ? (
-                                    <Media media={user.picture} className="profile-img-nav" alt="profile" contain />
+                                    <Media media={user.picture} className="profile-img-nav action-img" alt="profile" contain />
                                 ) : (
                                     <ParticleHolder className="navbar-particle" />
                                 )}
@@ -150,7 +152,7 @@ class Navbar extends Component {
                             <div className="action-detail profile-action-detail">Profile</div>
                         </div>
                         <div className="action logout pointer">
-                            <img className="logout-svg" src={logout} onClick={this.logout} alt="logout" />
+                            <img className="logout-svg action-img" src={logout} onClick={this.logout} alt="logout" />
                             <div className="action-detail">Logout</div>
                         </div>
                     </div>

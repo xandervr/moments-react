@@ -6,9 +6,7 @@
  * @desc [description]
  */
 
-import {
-    API_URL
-} from '../consts';
+import {API_URL} from '../consts';
 
 /**
  * @function deleteComment Delete a comment.
@@ -30,11 +28,11 @@ export const deleteComment = (experience_id, comment_id, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -61,11 +59,11 @@ export const comment = (experience_id, text, cb) => {
                 text: text
             })
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -88,11 +86,11 @@ export const search = (query, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data);
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data);
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -107,16 +105,16 @@ export const search = (query, cb) => {
 
 export const login = (username, password, cb) => {
     fetch(`${API_URL}/users/login`, {
-            method: `POST`,
-            headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
+        method: `POST`,
+        headers: {
+            'User-Agent': 'TapAuth Client/1.0',
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
         })
+    })
         .then(r => r.json())
         .then(data => {
             if (data.message === 'Success')
@@ -147,18 +145,18 @@ export const login = (username, password, cb) => {
 
 export const register = (surname, name, email, password, cb) => {
     fetch(`${API_URL}/users`, {
-            method: `POST`,
-            headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify({
-                surname: surname,
-                name: name,
-                email: email,
-                password: password
-            })
+        method: `POST`,
+        headers: {
+            'User-Agent': 'TapAuth Client/1.0',
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            surname: surname,
+            name: name,
+            email: email,
+            password: password
         })
+    })
         .then(r => r.json())
         .then(data => {
             if (data.message === 'Success')
@@ -191,32 +189,32 @@ const fetchAccount = () => JSON.parse(localStorage.getItem('moments_account'));
 
 const authenticate = (client_id, client_secret, device_name, device_os, cb) => {
     fetch(`${API_URL}/token`, {
-            method: `POST`,
-            headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify({
-                client_id: client_id,
-                client_secret: client_secret
-            })
+        method: `POST`,
+        headers: {
+            'User-Agent': 'TapAuth Client/1.0',
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+            client_id: client_id,
+            client_secret: client_secret
         })
+    })
         .then(r => r.json())
         .then(data => {
             fetch(`${API_URL}/authenticate`, {
-                    method: `POST`,
-                    headers: {
-                        'User-Agent': 'TapAuth Client/1.0',
-                        'Content-Type': 'application/json; charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        client_id: client_id,
-                        client_secret: client_secret,
-                        code: data.code,
-                        device_name: device_name,
-                        device_os: device_os
-                    })
+                method: `POST`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify({
+                    client_id: client_id,
+                    client_secret: client_secret,
+                    code: data.code,
+                    device_name: device_name,
+                    device_os: device_os
                 })
+            })
                 .then(r => r.json())
                 .then(data => {
                     cb(data);
@@ -248,12 +246,12 @@ export const fetchWall = cb => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            if (data.message === 'Success') cb(data.wall);
-            else cb(false);
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success') cb(data.wall);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
     else {
         console.log('Authorization error');
         cb(false);
@@ -280,12 +278,12 @@ export const fetchWallOffset = (offset, limit, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            if (data.message === 'Success' && data.wall.length > 0) cb(data.wall);
-            else cb(false);
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success' && data.wall.length > 0) cb(data.wall);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
     else {
         console.log('Authorization error');
         cb(false);
@@ -313,12 +311,12 @@ export const fetchUserExperiencesOffset = (user_id, offset, limit, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            if (data.message === 'Success' && data.experiences.length > 0) cb(data.experiences);
-            else cb(false);
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success' && data.experiences.length > 0) cb(data.experiences);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
     else {
         console.log('Authorization error');
         cb(false);
@@ -344,12 +342,12 @@ export const fetchUserByUsername = (username, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            if (data.message === 'Success') cb(data.user);
-            else cb(false);
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                if (data.message === 'Success') cb(data.user);
+                else cb(false);
+            })
+            .catch(err => console.log(err));
     else {
         console.log('Authorization error');
         cb(false);
@@ -375,11 +373,11 @@ export const boostExperience = (experience_id, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -402,11 +400,11 @@ export const unboostExperience = (experience_id, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -429,11 +427,11 @@ export const checkUsernameAvailable = (username, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -457,13 +455,13 @@ export const saveUserSettings = (user, form, cb) => {
         formData.set('profile_type', user.settings.profile_type);
         if (user.crop) formData.set('crop', JSON.stringify(user.crop));
         fetch(`${API_URL}/users/${user._id}`, {
-                method: `PUT`,
-                headers: {
-                    'User-Agent': 'TapAuth Client/1.0',
-                    Authorization: `Bearer ${account.access_token}`
-                },
-                body: formData
-            })
+            method: `PUT`,
+            headers: {
+                'User-Agent': 'TapAuth Client/1.0',
+                Authorization: `Bearer ${account.access_token}`
+            },
+            body: formData
+        })
             .then(r => r.json())
             .then(data => {
                 cb(data.message === 'Success');
@@ -491,11 +489,11 @@ export const followUser = (user_id, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -518,11 +516,11 @@ export const unfollowUser = (user_id, cb) => {
                 Authorization: `Bearer ${account.access_token}`
             }
         })
-        .then(r => r.json())
-        .then(data => {
-            cb(data.message === 'Success');
-        })
-        .catch(err => console.log(err));
+            .then(r => r.json())
+            .then(data => {
+                cb(data.message === 'Success');
+            })
+            .catch(err => console.log(err));
     else console.log('Authorization error');
 };
 
@@ -549,11 +547,11 @@ export const createExperience = (experience_form, cb) => {
                 },
                 body: formData
             })
-            .then(r => r.json())
-            .then(data => {
-                cb(data.message === 'Success');
-            })
-            .catch(err => console.log(err));
+                .then(r => r.json())
+                .then(data => {
+                    cb(data.message === 'Success');
+                })
+                .catch(err => console.log(err));
         else console.log('Authorization error');
     } else {
         console.log('No experience_form provided');
@@ -580,11 +578,11 @@ export const fetchExperienceById = (experience_id, cb) => {
                     Authorization: `Bearer ${account.access_token}`
                 }
             })
-            .then(r => r.json())
-            .then(data => {
-                cb(data.message === 'Success' ? data.experience : false);
-            })
-            .catch(err => console.log(err));
+                .then(r => r.json())
+                .then(data => {
+                    cb(data.message === 'Success' ? data.experience : false);
+                })
+                .catch(err => console.log(err));
         else console.log('Authorization error');
     } else {
         console.log('No experience_id provided');
@@ -614,16 +612,16 @@ export const preparseImage = (file, cb) => {
                 },
                 body: formData
             })
-            .then(r => r.json())
-            .then(data => {
-                console.log(data);
-                if (data.message === 'Success') cb(data);
-                else cb(false);
-            })
-            .catch(err => {
-                console.log(err);
-                cb(false);
-            });
+                .then(r => r.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.message === 'Success') cb(data);
+                    else cb(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                    cb(false);
+                });
         else console.log('Authorization error');
     } else {
         console.log('No experience_form provided');
@@ -656,11 +654,11 @@ export const addMoment = (experience_id, moment, cb) => {
                 },
                 body: formData
             })
-            .then(r => r.json())
-            .then(data => {
-                data.message === 'Success' ? cb(data) : cb(false);
-            })
-            .catch(err => console.log(err));
+                .then(r => r.json())
+                .then(data => {
+                    data.message === 'Success' ? cb(data) : cb(false);
+                })
+                .catch(err => console.log(err));
         else console.log('Authorization error');
     } else {
         console.log('No experience_id or moment provided');
@@ -687,11 +685,11 @@ export const deleteMoment = (moment_id, cb) => {
                     Authorization: `Bearer ${account.access_token}`
                 }
             })
-            .then(r => r.json())
-            .then(data => {
-                cb(data.message === 'Success');
-            })
-            .catch(err => console.log(err));
+                .then(r => r.json())
+                .then(data => {
+                    cb(data.message === 'Success');
+                })
+                .catch(err => console.log(err));
         else console.log('Authorization error');
     } else {
         console.log('No moment_id provided');
@@ -701,33 +699,39 @@ export const deleteMoment = (moment_id, cb) => {
 
 /**
  * @function fetchNotifications Fetch a user's notifications.
+ * @param offset Offset to show.
+ * @param limit Number of notifications to show.
  * @param cb Callback function returning an experience object.
  * @returns {Object}
  * @private
  */
 
-export const fetchNotifications = cb => {
+export const fetchNotifications = (offset, limit, cb) => {
     let account = fetchAccount();
-    if (account)
-        fetch(`${API_URL}/notifications`, {
-            method: `GET`,
-            headers: {
-                'User-Agent': 'TapAuth Client/1.0',
-                Authorization: `Bearer ${account.access_token}`
-            }
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.message === 'Success') cb(data.notifications);
-            else cb(false);
-        })
-        .catch(err => {
-            console.log(err);
+    if (offset && limit) {
+        if (account)
+            fetch(`${API_URL}/notifications/${offset}/${limit}`, {
+                method: `GET`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    Authorization: `Bearer ${account.access_token}`
+                }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.message === 'Success') cb(data.notifications);
+                    else cb(false);
+                })
+                .catch(err => {
+                    console.log(err);
+                    cb(false);
+                });
+        else {
+            console.log('Authorization error');
             cb(false);
-        });
-    else {
-        console.log('Authorization error');
+        }
+    } else {
+        console.log('No offset or limit provided.');
         cb(false);
-    };
-
+    }
 };

@@ -18,7 +18,7 @@ class Wall extends Component {
 
     updateWall = () => {
         fetchWallOffset(0, this.state.offset + this.state.limit, wall => {
-            if (wall) this.setState({data: wall});
+            if (wall && this.mounted) this.setState({data: wall});
         });
     };
 
@@ -37,7 +37,7 @@ class Wall extends Component {
 
     loadWall = (advance, cb) => {
         fetchWallOffset(this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
-            if (wall && wall.length > 0)
+            if (wall && wall.length > 0 && this.mounted)
                 this.setState(
                     {
                         data: this.state.data.concat(wall),
@@ -46,7 +46,7 @@ class Wall extends Component {
                     },
                     cb
                 );
-            else this.setState({hasMore: false}, cb);
+            else if (this.mounted) this.setState({hasMore: false}, cb);
         });
     };
 

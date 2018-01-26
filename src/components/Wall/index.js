@@ -11,7 +11,7 @@ class Wall extends Component {
             data: [],
             hasMore: true,
             offset: 0,
-            limit: 4
+            limit: 5
         };
         this.mounted = false;
     }
@@ -51,7 +51,7 @@ class Wall extends Component {
     };
 
     loadMore = cb => {
-        this.loadWall(4, cb);
+        this.loadWall(5, cb);
     };
 
     loadingInProgress = () => {
@@ -67,7 +67,7 @@ class Wall extends Component {
 
         return (
             <main>
-                <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={600}>
+                <InfiniteScroll loadMore={this.loadMore} loadMoreOffset={800}>
                     {experiencesList}
                 </InfiniteScroll>
             </main>

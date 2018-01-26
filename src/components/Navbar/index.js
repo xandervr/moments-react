@@ -52,7 +52,7 @@ class Navbar extends Component {
                 if ($nav) $nav.classList.add(`nav-shadow`);
             }
         };
-        fetchNotifications(data => this.setState({notifications: data}));
+        fetchNotifications(0, 5, data => data !== false && this.setState({notifications: data}));
     }
 
     logout = () => {

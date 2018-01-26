@@ -708,7 +708,7 @@ export const deleteMoment = (moment_id, cb) => {
 
 export const fetchNotifications = (offset, limit, cb) => {
     let account = fetchAccount();
-    if (offset && limit) {
+    if (offset >= 0 && limit >= 0) {
         if (account)
             fetch(`${API_URL}/notifications/${offset}/${limit}`, {
                 method: `GET`,

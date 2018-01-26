@@ -652,3 +652,34 @@ export const addMoment = (experience_id, moment, cb) => {
         cb(false);
     }
 };
+
+/**
+ * @function deleteMoment Delete a moment of an experience.
+ * @param moment_id Moment id to remove.
+ * @param cb Callback function returning a boolean
+ * @returns {boolean}
+ * @private
+ */
+
+export const deleteMoment = (moment_id, cb) => {
+    let account = fetchAccount();
+    if (moment_id) {
+        if (account)
+            fetch(`${API_URL}/moments/${moment_id}`, {
+                method: `DELETE`,
+                headers: {
+                    'User-Agent': 'TapAuth Client/1.0',
+                    Authorization: `Bearer ${account.access_token}`
+                }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    cb(data.message === 'Success');
+                })
+                .catch(err => console.log(err));
+        else console.log('Authorization error');
+    } else {
+        console.log('No moment_id provided');
+        cb(false);
+    }
+};

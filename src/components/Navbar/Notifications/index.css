@@ -1,13 +1,25 @@
 .notifications-holder {
     position: absolute;
-    top: 6rem;
-    left: 0;
+    top: 8rem;
+    right: 12rem;
     font-size: 1.5rem;
     background-color: white;
-    min-width: 40rem;
+    min-width: 48rem;
+    max-width: 48rem;
     border-radius: 1.1rem;
-    box-shadow: 0 0.5rem 2rem var(--boxshadow);
+    box-shadow: 0 0.5rem 2rem rgba(47, 64, 82, 0.2);
+    max-height: 50rem;
+    overflow: auto;
 }
+
+/* .notifications-holder header {
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    border-bottom: solid 0.1rem var(--blue);
+    background-color: #fff;
+    z-index: 1;
+} */
 
 .notifications-divider {
     height: 0.2rem;
@@ -23,6 +35,26 @@
     align-items: center;
 }
 
+.notification-content a {
+    font-weight: 450;
+    color: var(--blue);
+    letter-spacing: 0.1rem;
+    transition: font-weight 0.1s;
+}
+
+.notification-content i {
+    color: var(--red);
+    margin: 0 0.2rem;
+}
+
+.notification-content a:hover {
+    font-weight: bold;
+}
+
+.notification-content {
+    color: var(--grey);
+}
+
 .notifier img {
     min-width: 6rem;
     min-height: 6rem;
@@ -32,10 +64,22 @@
     border: dotted var(--blue) 0.2rem;
 }
 
-.notifications-holder .notification:first-of-type {
+.notification-dest {
+    min-width: 7rem;
+    min-height: 7rem;
+    max-width: 7rem;
+    max-height: 7rem;
+    border-radius: 1.1rem;
+}
+
+.notification-content {
+    margin: 0 2rem;
+}
+
+/* .notifications-holder .notification:first-of-type {
     border-top-right-radius: 1.1rem;
     border-top-left-radius: 1.1rem;
-}
+} */
 
 .notifications-holder .notification:last-of-type {
     border-bottom-right-radius: 1.1rem;

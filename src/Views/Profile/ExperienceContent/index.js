@@ -20,8 +20,7 @@ class ExperienceContent extends Component {
     }
 
     componentDidMount() {
-        this.loadWall();
-        this.setState({profile: this.props.profile});
+        this.setState({profile: this.props.profile}, this.loadWall);
         this.mounted = true;
         this.wallUpdater = setInterval(() => {
             if (this.mounted) this.updateWall();
@@ -29,7 +28,8 @@ class ExperienceContent extends Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.profile.username !== this.props.profile.username) this.setState({profile: props.profile, data: []});
+        if (props.profile.username !== this.props.profile.username || this.state.profile === null)
+            this.setState({profile: props.profile, data: []}, this.loadWall);
     }
 
     componentWillUnmount() {
@@ -47,7 +47,8 @@ class ExperienceContent extends Component {
 
     loadWall = (advance, cb) => {
         const {profile} = this.state;
-        if (profile)
+
+        if (profile) {
             fetchUserExperiencesOffset(profile._id, this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
                 if (wall && wall.length > 0)
                     this.setState(
@@ -60,6 +61,7 @@ class ExperienceContent extends Component {
                     );
                 else this.setState({hasMore: false}, cb);
             });
+        }
     };
 
     loadMore = cb => {

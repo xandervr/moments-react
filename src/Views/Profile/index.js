@@ -61,7 +61,7 @@ class Profile extends Component {
                     }
                 }));
             } else {
-                alert('you are allready following this person!');
+                alert('you are already following this person!');
                 return;
             }
         });
@@ -80,7 +80,7 @@ class Profile extends Component {
                     }
                 }));
             } else {
-                alert('you are not allready following this person!');
+                alert('you are not yet following this person!');
                 return;
             }
         });
@@ -93,7 +93,6 @@ class Profile extends Component {
         // let profileContent = null;
 
         if (profile) {
-            console.log(`USERNAME: ${profile.username}`);
             return (
                 <div className="profile-holder">
                     <ProfileHeader

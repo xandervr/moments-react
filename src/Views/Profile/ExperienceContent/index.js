@@ -49,7 +49,6 @@ class ExperienceContent extends Component {
         const {profile} = this.state;
 
         if (profile) {
-            console.log('FETCHING');
             fetchUserExperiencesOffset(profile._id, this.state.offset + (advance ? advance : 0), this.state.limit, wall => {
                 if (wall && wall.length > 0)
                     this.setState(

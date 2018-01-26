@@ -97,6 +97,22 @@ input[type='search']::-webkit-search-results-button {
     position: relative;
 }
 
+.notifications-badge {
+    position: absolute;
+    top: -0.8rem;
+    right: -0.3rem;
+    background-color: var(--red);
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-weight: 500; */
+    font-size: 1.3rem;
+}
+
 .notifications-svg:hover {
     animation-name: notification-wiggle;
     animation-duration: 0.4s;

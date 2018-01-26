@@ -6,10 +6,18 @@ export const formatDate = date => {
 
     let yyyy = inputDate.getFullYear();
     if (dd < 10) {
-        dd = "0" + dd;
+        dd = '0' + dd;
     }
     if (mm < 10) {
-        mm = "0" + mm;
+        mm = '0' + mm;
     }
     return `${dd}-${mm}-${yyyy}`;
+};
+
+export const disableScroll = () => {
+    document.querySelector(`body`).classList.add(`no-scroll`);
+};
+
+export const enableScroll = () => {
+    document.querySelector(`body`).classList.remove(`no-scroll`);
 };

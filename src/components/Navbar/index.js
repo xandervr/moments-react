@@ -25,7 +25,8 @@ class Navbar extends Component {
                 users: []
             },
             showResults: false,
-            notifications: []
+            notifications: [],
+            showNotifications: false
         };
     }
 
@@ -53,6 +54,15 @@ class Navbar extends Component {
             }
         };
         fetchNotifications(0, 5, data => data !== false && this.setState({notifications: data}));
+        this.mounted = true;
+        this.notificationsUpdater = setInterval(() => {
+            if (this.mounted) fetchNotifications(0, 5, data => data !== false && this.setState({notifications: data}));
+        }, 5000);
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
+        clearInterval(this.notificationsUpdater);
     }
 
     logout = () => {
@@ -100,9 +110,17 @@ class Navbar extends Component {
         );
     };
 
+    handleShowNotifications = () => {
+        if (this.state.showNotifications) {
+            this.setState({showNotifications: false});
+        } else {
+            this.setState({showNotifications: true});
+        }
+    };
+
     render() {
         const {user} = this.props;
-        const {notifications} = this.state;
+        const {notifications, showNotifications} = this.state;
         console.log(notifications);
         return (
             <nav>
@@ -129,10 +147,16 @@ class Navbar extends Component {
                     </div>
                     <div className="profile-actions flex-item">
                         <div className="action notification pointer">
-                            <img className="notifications-svg action-img" src={notificationsIcon} alt="" />
+                            <img
+                                className="notifications-svg action-img"
+                                onClick={this.handleShowNotifications}
+                                src={notificationsIcon}
+                                alt=""
+                            />
+                            <div className="notifications-badge">{notifications.length}</div>
                             <div className="action-detail">Notifications</div>
-                            <Notifications notifications={notifications} />
                         </div>
+                        {showNotifications && <Notifications notifications={notifications} />}
                         <div className="action add pointer">
                             <Link to="/create-experience">
                                 <img className="action-img" src={addIcon} alt="" />

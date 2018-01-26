@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {search} from '../../assets/js/lib/tap-client';
+import {search, fetchNotifications} from '../../assets/js/lib/tap-client';
 import settingsIcon from '../../assets/svg/settings.svg';
 import addIcon from '../../assets/svg/add.svg';
-import notifications from '../../assets/svg/notification.svg';
+import notificationsIcon from '../../assets/svg/notification.svg';
 import Search from './Search/index';
 import Notifications from './Notifications/index';
 import Media from '../Media';
@@ -24,7 +24,8 @@ class Navbar extends Component {
                 experiences: [],
                 users: []
             },
-            showResults: false
+            showResults: false,
+            notifications: []
         };
     }
 
@@ -51,6 +52,7 @@ class Navbar extends Component {
                 if ($nav) $nav.classList.add(`nav-shadow`);
             }
         };
+        fetchNotifications(data => this.setState({notifications: data}));
     }
 
     logout = () => {
@@ -100,6 +102,8 @@ class Navbar extends Component {
 
     render() {
         const {user} = this.props;
+        const {notifications} = this.state;
+        console.log(notifications);
         return (
             <nav>
                 <div className="nav-content">
@@ -125,9 +129,9 @@ class Navbar extends Component {
                     </div>
                     <div className="profile-actions flex-item">
                         <div className="action notification pointer">
-                            <img className="notifications-svg action-img" src={notifications} alt="" />
+                            <img className="notifications-svg action-img" src={notificationsIcon} alt="" />
                             <div className="action-detail">Notifications</div>
-                            <Notifications />
+                            <Notifications notifications={notifications} />
                         </div>
                         <div className="action add pointer">
                             <Link to="/create-experience">

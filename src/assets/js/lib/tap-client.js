@@ -665,7 +665,7 @@ export const deleteMoment = (moment_id, cb) => {
     let account = fetchAccount();
     if (moment_id) {
         if (account)
-            fetch(`${API_URL}/moments/${moment_id}`, {
+            fetch(`${API_URL}/experiences/moments/${moment_id}`, {
                 method: `DELETE`,
                 headers: {
                     'User-Agent': 'TapAuth Client/1.0',

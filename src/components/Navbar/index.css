@@ -93,6 +93,10 @@ input[type='search']::-webkit-search-results-button {
     transition: transform 0.2s;
 }
 
+.notification {
+    position: relative;
+}
+
 .notifications-svg:hover {
     animation-name: notification-wiggle;
     animation-duration: 0.4s;

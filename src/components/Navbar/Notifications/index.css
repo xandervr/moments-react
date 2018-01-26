@@ -1,4 +1,47 @@
 .notifications-holder {
     position: absolute;
     top: 6rem;
+    left: 0;
+    font-size: 1.5rem;
+    background-color: white;
+    min-width: 40rem;
+    border-radius: 1.1rem;
+    box-shadow: 0 0.5rem 2rem var(--boxshadow);
+}
+
+.notifications-divider {
+    height: 0.2rem;
+    width: 90%;
+    margin-left: 10%;
+    background-color: var(--boxshadow);
+    display: flex;
+}
+
+.notifications-holder .notification {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.notifier img {
+    min-width: 6rem;
+    min-height: 6rem;
+    max-width: 6rem;
+    max-height: 6rem;
+    border-radius: 50%;
+    border: dotted var(--blue) 0.2rem;
+}
+
+.notifications-holder .notification:first-of-type {
+    border-top-right-radius: 1.1rem;
+    border-top-left-radius: 1.1rem;
+}
+
+.notifications-holder .notification:last-of-type {
+    border-bottom-right-radius: 1.1rem;
+    border-bottom-left-radius: 1.1rem;
+}
+
+.notifications-holder .notification:hover {
+    background-color: var(--boxshadow);
 }
